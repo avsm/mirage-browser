@@ -131,4 +131,8 @@ body {
 
 .ui-selecting { background: #FECA40; }
 .ui-selected { background: #F39814; color: white; }
-
+.sig-header { font-size: 20px; }
+.sig-fun { padding: 5px; }
+.sig-fun-name { background: #EEFFEE; }
+.sig-fun-descr { background: #FFFFEE; }
+.sig-fun-type { background: #FFFFEE; }
