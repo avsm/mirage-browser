@@ -1,0 +1,225 @@
+{ "module": 
+  { "name": "Lwt_list",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|0" },
+    "info": 
+      { "description": "List helpers" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "Note: this module use the same naming convention as <a href=\"{module|Lwt_stream}\" ><span class=\"code\" >Lwt_stream</span></a>." }, 
+      { "comment": "<h6>List iterators</h6>" }, 
+      { "value": 
+          { "name": "Lwt_list.iter_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1073" },
+            "info": "",
+            "type": "('a -> unit Lwt.t) -> 'a list -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.iter_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1130" },
+            "info": "",
+            "type": "('a -> unit Lwt.t) -> 'a list -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.map_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1188" },
+            "info": "",
+            "type": "('a -> 'b Lwt.t) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.map_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1245" },
+            "info": "",
+            "type": "('a -> 'b Lwt.t) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.rev_map_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1303" },
+            "info": "",
+            "type": "('a -> 'b Lwt.t) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.rev_map_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1364" },
+            "info": "",
+            "type": "('a -> 'b Lwt.t) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.fold_left_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1426" },
+            "info": "",
+            "type": "('a -> 'b -> 'a Lwt.t) -> 'a -> 'b list -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.fold_right_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1497" },
+            "info": "",
+            "type": "('a -> 'b -> 'b Lwt.t) -> 'a list -> 'b -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "comment": "<h6>List scanning</h6>" }, 
+      { "value": 
+          { "name": "Lwt_list.for_all_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1595" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> bool Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.for_all_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1655" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> bool Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.exists_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1716" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> bool Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.exists_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1775" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> bool Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "comment": "<h6>List searching</h6>" }, 
+      { "value": 
+          { "name": "Lwt_list.find_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1862" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.filter_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1918" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.filter_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|1980" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.partition_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|2043" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> ('a list * 'a list) Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_list.partition_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_list.mli|2120" },
+            "info": "",
+            "type": "('a -> bool Lwt.t) -> 'a list -> ('a list * 'a list) Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Lwt" ],
+        "used_by": [  ] } } }

@@ -1,0 +1,48 @@
+{ "module": 
+  { "name": "Map",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli|0" },
+    "info": 
+      { "description": "Association tables over ordered types.<br></br> This module implements applicative association tables, also known as finite maps or dictionaries, given a total ordering function over the keys. All operations over maps are purely applicative (no side-effects). The implementation uses balanced binary trees, and therefore searching and insertion take time logarithmic in the size of the map." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "module_type": 
+          { "name": "Map.OrderedType",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli|1356" },
+            "info": 
+              { "description": "Input signature of the functor <a href=\"{module|Map.Make}\" ><span class=\"code\" >Map.Make</span></a>." },
+            "type": "sig  end",
+            "kind": "" } }, 
+      { "module_type": 
+          { "name": "Map.S",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli|1976" },
+            "info": 
+              { "description": "Output signature of the functor <a href=\"{module|Map.Make}\" ><span class=\"code\" >Map.Make</span></a>." },
+            "type": "sig  end",
+            "kind": "" } }, 
+      { "module": 
+          { "name": "Map.Make",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/map.mli|7523" },
+            "info": 
+              { "description": "Functor building an implementation of the map structure given a totally ordered type." },
+            "type": "functor (Ord : OrderedType) -> sig  end",
+            "module_functor": 
+              { "parameter": 
+                  { "name": "Ord" },
+                "module_with": "unavailable" },
+            "dependencies": 
+              { "uses": [  ] } } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

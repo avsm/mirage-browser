@@ -1,0 +1,34 @@
+{ "module": 
+  { "name": "Base64",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/base64.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/base64.mli|0" },
+    "info": 
+      { "description": "decode a string encoded in base64. Will leave trailing NULLs on the string padding it out to a multiple of 3 characters" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Base64.decode",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/base64.mli|715" },
+            "info": "",
+            "type": "string -> string",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Base64.encode",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/base64.mli|780" },
+            "info": 
+              { "description": "encode a string into base64" },
+            "type": "string -> string",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

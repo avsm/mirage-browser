@@ -1,0 +1,52 @@
+{ "module": 
+  { "name": "Bitstring_config",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml",
+    "location": 
+      { "implementation": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml|0",
+        "interface": "unknown" },
+    "info": "",
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Bitstring_config.nativeendian",
+            "location": 
+              { "implementation": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml|1133",
+                "interface": "unknown" },
+            "info": "",
+            "type": "Bitstring_types.endian",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring_config.package",
+            "location": 
+              { "implementation": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml|1182",
+                "interface": "unknown" },
+            "info": "",
+            "type": "string",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring_config.version",
+            "location": 
+              { "implementation": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml|1214",
+                "interface": "unknown" },
+            "info": "",
+            "type": "string",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring_config.ocamllibdir",
+            "location": 
+              { "implementation": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml|1236",
+                "interface": "unknown" },
+            "info": "",
+            "type": "string",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring_config.diff",
+            "location": 
+              { "implementation": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring_config.ml|1272",
+                "interface": "unknown" },
+            "info": "",
+            "type": "string",
+            "params": [  ] } } ],
+    "dependencies": 
+      { "uses": [ "Bitstring_types" ],
+        "used_by": [  ] } } }

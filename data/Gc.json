@@ -1,0 +1,306 @@
+{ "module": 
+  { "name": "Gc",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|0" },
+    "info": 
+      { "description": "Memory management control and statistics; finalised values." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "Gc.stat",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|1018" },
+            "info": 
+              { "description": "The memory management counters are returned in a <span class=\"code\" >stat</span> record.<br></br> The total amount of memory allocated by the program since it was started is (in words) <span class=\"code\" >minor_words + major_words - promoted_words</span>.  Multiply by the word size (4 on a 32-bit machine, 8 on a 64-bit machine) to get the number of bytes." },
+            "params": [  ],
+            "kind": 
+              { "type": "record",
+                "private": "false",
+                "fields": [ 
+                  { "name": "minor_words",
+                    "mutable": false,
+                    "description": "Number of words allocated in the minor heap since the program was started.  This number is accurate in byte-code programs, but only an approximation in programs compiled to native code.",
+                    "type": "float" }, 
+                  { "name": "promoted_words",
+                    "mutable": false,
+                    "description": "Number of words allocated in the minor heap that survived a minor collection and were moved to the major heap since the program was started.",
+                    "type": "float" }, 
+                  { "name": "major_words",
+                    "mutable": false,
+                    "description": "Number of words allocated in the major heap, including the promoted words, since the program was started.",
+                    "type": "float" }, 
+                  { "name": "minor_collections",
+                    "mutable": false,
+                    "description": "Number of minor collections since the program was started.",
+                    "type": "int" }, 
+                  { "name": "major_collections",
+                    "mutable": false,
+                    "description": "Number of major collection cycles completed since the program was started.",
+                    "type": "int" }, 
+                  { "name": "heap_words",
+                    "mutable": false,
+                    "description": "Total size of the major heap, in words.",
+                    "type": "int" }, 
+                  { "name": "heap_chunks",
+                    "mutable": false,
+                    "description": "Number of contiguous pieces of memory that make up the major heap.",
+                    "type": "int" }, 
+                  { "name": "live_words",
+                    "mutable": false,
+                    "description": "Number of words of live data in the major heap, including the header words.",
+                    "type": "int" }, 
+                  { "name": "live_blocks",
+                    "mutable": false,
+                    "description": "Number of live blocks in the major heap.",
+                    "type": "int" }, 
+                  { "name": "free_words",
+                    "mutable": false,
+                    "description": "Number of words in the free list.",
+                    "type": "int" }, 
+                  { "name": "free_blocks",
+                    "mutable": false,
+                    "description": "Number of blocks in the free list.",
+                    "type": "int" }, 
+                  { "name": "largest_free",
+                    "mutable": false,
+                    "description": "Size (in words) of the largest block in the free list.",
+                    "type": "int" }, 
+                  { "name": "fragments",
+                    "mutable": false,
+                    "description": "Number of wasted words due to fragmentation.  These are 1-words free blocks placed between two live blocks.  They are not available for allocation.",
+                    "type": "int" }, 
+                  { "name": "compactions",
+                    "mutable": false,
+                    "description": "Number of heap compactions since the program was started.",
+                    "type": "int" }, 
+                  { "name": "top_heap_words",
+                    "mutable": false,
+                    "description": "Maximum size reached by the major heap, in words.",
+                    "type": "int" }, 
+                  { "name": "stack_size",
+                    "mutable": false,
+                    "description": "Current size of the stack, in words.",
+                    "type": "int" } ] } } }, 
+      { "type": 
+          { "name": "Gc.control",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|3222" },
+            "info": 
+              { "description": "The GC parameters are given as a <span class=\"code\" >control</span> record.  Note that these parameters can also be initialised by setting the OCAMLRUNPARAM environment variable.  See the documentation of ocamlrun." },
+            "params": [  ],
+            "kind": 
+              { "type": "record",
+                "private": "false",
+                "fields": [ 
+                  { "name": "minor_heap_size",
+                    "mutable": true,
+                    "description": "The size (in words) of the minor heap.  Changing this parameter will trigger a minor collection.  Default: 32k.",
+                    "type": "int" }, 
+                  { "name": "major_heap_increment",
+                    "mutable": true,
+                    "description": "The minimum number of words to add to the major heap when increasing it.  Default: 124k.",
+                    "type": "int" }, 
+                  { "name": "space_overhead",
+                    "mutable": true,
+                    "description": "The major GC speed is computed from this parameter. This is the memory that will be \"wasted\" because the GC does not immediatly collect unreachable blocks.  It is expressed as a percentage of the memory used for live data. The GC will work more (use more CPU time and collect blocks more eagerly) if <span class=\"code\" >space_overhead</span> is smaller. Default: 80.",
+                    "type": "int" }, 
+                  { "name": "verbose",
+                    "mutable": true,
+                    "description": "This value controls the GC messages on standard error output. It is a sum of some of the following flags, to print messages on the corresponding events:<ul><li><span class=\"code\" >0x001</span> Start of major GC cycle.</li><li><span class=\"code\" >0x002</span> Minor collection and major GC slice.</li><li><span class=\"code\" >0x004</span> Growing and shrinking of the heap.</li><li><span class=\"code\" >0x008</span> Resizing of stacks and memory manager tables.</li><li><span class=\"code\" >0x010</span> Heap compaction.</li><li><span class=\"code\" >0x020</span> Change of GC parameters.</li><li><span class=\"code\" >0x040</span> Computation of major GC slice size.</li><li><span class=\"code\" >0x080</span> Calling of finalisation functions.</li><li><span class=\"code\" >0x100</span> Bytecode executable search at start-up.</li><li><span class=\"code\" >0x200</span> Computation of compaction triggering condition. Default: 0.</li></ul>",
+                    "type": "int" }, 
+                  { "name": "max_overhead",
+                    "mutable": true,
+                    "description": "Heap compaction is triggered when the estimated amount of \"wasted\" memory is more than <span class=\"code\" >max_overhead</span> percent of the amount of live data.  If <span class=\"code\" >max_overhead</span> is set to 0, heap compaction is triggered at the end of each major GC cycle (this setting is intended for testing purposes only). If <span class=\"code\" >max_overhead &gt;= 1000000</span>, compaction is never triggered. Default: 500.",
+                    "type": "int" }, 
+                  { "name": "stack_limit",
+                    "mutable": true,
+                    "description": "The maximum size of the stack (in words).  This is only relevant to the byte-code runtime, as the native code runtime uses the operating system's stack.  Default: 256k.",
+                    "type": "int" }, 
+                  { "name": "allocation_policy",
+                    "mutable": true,
+                    "description": "The policy used for allocating in the heap.  Possible values are 0 and 1.  0 is the next-fit policy, which is quite fast but can result in fragmentation.  1 is the first-fit policy, which can be slower in some cases but can be better for programs with fragmentation problems. Default: 0.",
+                    "type": "int" } ] } } }, 
+      { "value": 
+          { "name": "Gc.stat",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|5991" },
+            "info": 
+              { "description": "Return the current values of the memory management counters in a <span class=\"code\" >stat</span> record.  This function examines every heap block to get the statistics." },
+            "type": "unit -> Gc.stat",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.quick_stat",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|6195" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >stat</span> except that <span class=\"code\" >live_words</span>, <span class=\"code\" >live_blocks</span>, <span class=\"code\" >free_words</span>, <span class=\"code\" >free_blocks</span>, <span class=\"code\" >largest_free</span>, and <span class=\"code\" >fragments</span> are set to 0.  This function is much faster than <span class=\"code\" >stat</span> because it does not need to go through the heap." },
+            "type": "unit -> Gc.stat",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.counters",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|6495" },
+            "info": 
+              { "description": "Return <span class=\"code\" >(minor_words, promoted_words, major_words)</span>.  This function is as fast at <span class=\"code\" >quick_stat</span>." },
+            "type": "unit -> float * float * float",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.get",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|6674" },
+            "info": 
+              { "description": "Return the current values of the GC parameters in a <span class=\"code\" >control</span> record." },
+            "type": "unit -> Gc.control",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.set",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|6799" },
+            "info": 
+              { "description": "<span class=\"code\" >set r</span> changes the GC parameters according to the <span class=\"code\" >control</span> record <span class=\"code\" >r</span>. The normal usage is: <span class=\"code\" >Gc.set { (Gc.get()) with Gc.verbose = 0x00d }</span>" },
+            "type": "Gc.control -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Gc.control" } ] } }, 
+      { "value": 
+          { "name": "Gc.minor",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|6999" },
+            "info": 
+              { "description": "Trigger a minor collection." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.major_slice",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|7083" },
+            "info": 
+              { "description": "Do a minor collection and a slice of major collection.  The argument is the size of the slice, 0 to use the automatically-computed slice size.  In all cases, the result is the computed slice size." },
+            "type": "int -> int",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Gc.major",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|7356" },
+            "info": 
+              { "description": "Do a minor collection and finish the current major collection cycle." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.full_major",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|7481" },
+            "info": 
+              { "description": "Do a minor collection, finish the current major collection cycle, and perform a complete new cycle.  This will collect all currently unreachable blocks." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.compact",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|7706" },
+            "info": 
+              { "description": "Perform a full major collection and compact the heap.  Note that heap compaction is a lengthy operation." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.allocated_bytes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|7877" },
+            "info": 
+              { "description": "Return the total number of bytes allocated since the program was started.  It is returned as a <span class=\"code\" >float</span> to avoid overflow problems with <span class=\"code\" >int</span> on 32-bit machines." },
+            "type": "unit -> float",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.finalise",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|8088" },
+            "info": 
+              { "description": "<span class=\"code\" >finalise f v</span> registers <span class=\"code\" >f</span> as a finalisation function for <span class=\"code\" >v</span>. <span class=\"code\" >v</span> must be heap-allocated.  <span class=\"code\" >f</span> will be called with <span class=\"code\" >v</span> as argument at some point between the first time <span class=\"code\" >v</span> becomes unreachable and the time <span class=\"code\" >v</span> is collected by the GC.  Several functions can be registered for the same value, or even several instances of the same function.  Each instance will be called once (or never, if the program terminates before <span class=\"code\" >v</span> becomes unreachable).<br></br> The GC will call the finalisation functions in the order of deallocation.  When several values become unreachable at the same time (i.e. during the same GC cycle), the finalisation functions will be called in the reverse order of the corresponding calls to <span class=\"code\" >finalise</span>.  If <span class=\"code\" >finalise</span> is called in the same order as the values are allocated, that means each value is finalised before the values it depends upon.  Of course, this becomes false if additional dependencies are introduced by assignments.<br></br> Anything reachable from the closure of finalisation functions is considered reachable, so the following code will not work as expected:<ul><li><span class=\"code\" > let v = ... in Gc.finalise (fun x -&gt; ...) v </span></li></ul> Instead you should write:<ul><li><span class=\"code\" > let f = fun x -&gt; ... ;; let v = ... in Gc.finalise f v </span></li></ul> The <span class=\"code\" >f</span> function can use all features of O'Caml, including assignments that make the value reachable again.  It can also loop forever (in this case, the other finalisation functions will not be called during the execution of f, unless it calls <span class=\"code\" >finalise_release</span>). It can call <span class=\"code\" >finalise</span> on <span class=\"code\" >v</span> or other values to register other functions or even itself.  It can raise an exception; in this case the exception will interrupt whatever the program was doing when the function was called.<br></br> <span class=\"code\" >finalise</span> will raise <span class=\"code\" >Invalid_argument</span> if <span class=\"code\" >v</span> is not heap-allocated.  Some examples of values that are not heap-allocated are integers, constant constructors, booleans, the empty array, the empty list, the unit value.  The exact list of what is heap-allocated or not is implementation-dependent. Some constant values can be heap-allocated but never deallocated during the lifetime of the program, for example a list of integer constants; this is also implementation-dependent. You should also be aware that compiler optimisations may duplicate some immutable values, for example floating-point numbers when stored into arrays, so they can be finalised and collected while another copy is still in use by the program.<br></br> The results of calling <a href=\"{value|String.make}\" ><span class=\"code\" >String.make</span></a>, <a href=\"{value|String.create}\" ><span class=\"code\" >String.create</span></a>, <a href=\"{value|Array.make}\" ><span class=\"code\" >Array.make</span></a>, and <a href=\"{value|Pervasives.ref}\" ><span class=\"code\" >Pervasives.ref</span></a> are guaranteed to be heap-allocated and non-constant except when the length argument is <span class=\"code\" >0</span>." },
+            "type": "('a -> unit) -> 'a -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Gc.finalise_release",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|10890" },
+            "info": 
+              { "description": "A finalisation function may call <span class=\"code\" >finalise_release</span> to tell the GC that it can launch the next finalisation function without waiting for the current one to return." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "type": 
+          { "name": "Gc.alarm",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|11113" },
+            "info": 
+              { "description": "An alarm is a piece of data that calls a user function at the end of each major GC cycle.  The following functions are provided to create and delete alarms." },
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Gc.create_alarm",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|11290" },
+            "info": 
+              { "description": "<span class=\"code\" >create_alarm f</span> will arrange for <span class=\"code\" >f</span> to be called at the end of each major GC cycle, starting with the current cycle or the next one. A value of type <span class=\"code\" >alarm</span> is returned that you can use to call <span class=\"code\" >delete_alarm</span>." },
+            "type": "(unit -> unit) -> Gc.alarm",
+            "params": [ 
+              { "name": "",
+                "type": "unit -> unit" } ] } }, 
+      { "value": 
+          { "name": "Gc.delete_alarm",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/gc.mli|11562" },
+            "info": 
+              { "description": "<span class=\"code\" >delete_alarm a</span> will stop the calls to the function associated to <span class=\"code\" >a</span>.  Calling <span class=\"code\" >delete_alarm a</span> again has no effect." },
+            "type": "Gc.alarm -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Gc.alarm" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

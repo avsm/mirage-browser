@@ -1,0 +1,483 @@
+{ "module": 
+  { "name": "Bitstring",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|0" },
+    "info": 
+      { "description": "Bitstring library." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "<a href=\"#reference\" >Jump straight to the reference section for documentation on types and functions</a>.<br></br> <h2>Introduction</h2><br></br> Bitstring adds Erlang-style bitstrings and matching over bitstrings as a syntax extension and library for OCaml.  You can use this module to both parse and generate binary formats, for example, communications protocols, disk formats and binary files.<br></br> <a href=\"http://code.google.com/p/bitstring/\" >OCaml bitstring website</a><br></br> This library used to be called \"bitmatch\".<br></br> <h2>Examples</h2><br></br> A function which can parse IPv4 packets:<br></br> <span class=\"codepre\" > let display pkt = bitmatch pkt with (* IPv4 packet header 0                   1                   2                   3    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |   4   |  IHL  |Type of Service|          Total Length         | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |         Identification        |Flags|      Fragment Offset    | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |  Time to Live |    Protocol   |         Header Checksum       | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |                       Source Address                          | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |                    Destination Address                        | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |                    Options                    |    Padding    | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ) | { 4 : 4; hdrlen : 4; tos : 8;   length : 16; identification : 16;          flags : 3; fragoffset : 13; ttl : 8; protocol : 8;        checksum : 16; source : 32; dest : 32; options : (hdrlen-5)*32 : bitstring; payload : -1 : bitstring } -&gt; printf \"IPv4:\\n\"; printf \"  header length: %d * 32 bit words\\n\" hdrlen; printf \"  type of service: %d\\n\" tos; printf \"  packet length: %d bytes\\n\" length; printf \"  identification: %d\\n\" identification; printf \"  flags: %d\\n\" flags; printf \"  fragment offset: %d\\n\" fragoffset; printf \"  ttl: %d\\n\" ttl; printf \"  protocol: %d\\n\" protocol; printf \"  checksum: %d\\n\" checksum; printf \"  source: %lx  dest: %lx\\n\" source dest; printf \"  header options + padding:\\n\"; Bitstring.hexdump_bitstring stdout options; printf \"  packet payload:\\n\"; Bitstring.hexdump_bitstring stdout payload | { version : 4 } -&gt; eprintf \"unknown IP version %d\\n\" version; exit 1 | { _ } as pkt -&gt; eprintf \"data is smaller than one nibble:\\n\"; Bitstring.hexdump_bitstring stderr pkt; exit 1 </span><br></br> A program which can parse <a href=\"http://lxr.linux.no/linux/include/linux/ext3_fs.h\" >Linux EXT3 filesystem superblocks</a>:<br></br> <span class=\"codepre\" > let bits = Bitstring.bitstring_of_file \"tests/ext3_sb\" let () = bitmatch bits with | { s_inodes_count : 32 : littleendian;       (* Inodes count *) s_blocks_count : 32 : littleendian;       (* Blocks count *) s_r_blocks_count : 32 : littleendian;     (* Reserved blocks count *) s_free_blocks_count : 32 : littleendian;  (* Free blocks count *) s_free_inodes_count : 32 : littleendian;  (* Free inodes count *) s_first_data_block : 32 : littleendian;   (* First Data Block *) s_log_block_size : 32 : littleendian;     (* Block size *) s_log_frag_size : 32 : littleendian;      (* Fragment size *) s_blocks_per_group : 32 : littleendian;   (* # Blocks per group *) s_frags_per_group : 32 : littleendian;    (* # Fragments per group *) s_inodes_per_group : 32 : littleendian;   (* # Inodes per group *) s_mtime : 32 : littleendian;              (* Mount time *) s_wtime : 32 : littleendian;              (* Write time *) s_mnt_count : 16 : littleendian;          (* Mount count *) s_max_mnt_count : 16 : littleendian;      (* Maximal mount count *) 0xef53 : 16 : littleendian } -&gt;           (* Magic signature *) printf \"ext3 superblock:\\n\"; printf \"  s_inodes_count = %ld\\n\" s_inodes_count; printf \"  s_blocks_count = %ld\\n\" s_blocks_count; printf \"  s_free_inodes_count = %ld\\n\" s_free_inodes_count; printf \"  s_free_blocks_count = %ld\\n\" s_free_blocks_count | { _ } -&gt; eprintf \"not an ext3 superblock!\\n%!\"; exit 2 </span><br></br> Constructing packets for a simple binary message protocol:<br></br> <span class=\"codepre\" > (* +---------------+---------------+--------------------------+ | type          | subtype       | parameter                | +---------------+---------------+--------------------------+ &lt;-- 16 bits --&gt; &lt;-- 16 bits --&gt; &lt;------- 32 bits --------&gt; All fields are in network byte order. ) let make_message typ subtype param = (BITSTRING { typ : 16; subtype : 16; param : 32 }) ;; </span><br></br> <h2>Loading, creating bitstrings</h2><br></br> The basic data type is the <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a>, a string of bits of arbitrary length.  Bitstrings can be any length in bits and operations do not need to be byte-aligned (although they will generally be more efficient if they are byte-aligned).<br></br> Internally a bitstring is stored as a normal OCaml <span class=\"code\" >string</span> together with an offset and length, where the offset and length are measured in bits.  Thus one can efficiently form substrings of bitstrings, overlay a bitstring on existing data, and load and save bitstrings from files or other external sources.<br></br> To load a bitstring from a file use <a href=\"{none|bitstring_of_file}\" ><span class=\"code\" >bitstring_of_file</span></a> or <a href=\"{value|Bitstring.bitstring_of_chan}\" ><span class=\"code\" >Bitstring.bitstring_of_chan</span></a>.<br></br> There are also functions to create bitstrings from arbitrary data. See the <a href=\"#reference\" >reference</a> below.<br></br> <h2>Matching bitstrings with patterns</h2><br></br> Use the <span class=\"code\" >bitmatch</span> operator (part of the syntax extension) to break apart a bitstring into its fields.  <span class=\"code\" >bitmatch</span> works a lot like the OCaml <span class=\"code\" >match</span> operator.<br></br> The general form of <span class=\"code\" >bitmatch</span> is:<br></br> <span class=\"code\" >bitmatch</span> <i>bitstring-expression</i> <span class=\"code\" >with</span><br></br> <span class=\"code\" >| {</span> <i>pattern</i> <span class=\"code\" >} -&gt;</span> <i>code</i><br></br> <span class=\"code\" >| {</span> <i>pattern</i> <span class=\"code\" >} -&gt;</span> <i>code</i><br></br> <span class=\"code\" >|</span> ...<br></br> As with normal match, the statement attempts to match the bitstring against each pattern in turn.  If none of the patterns match then the standard library <span class=\"code\" >Match_failure</span> exception is thrown.<br></br> Patterns look a bit different from normal match patterns.  They consist of a list of bitfields separated by <span class=\"code\" >;</span> where each bitfield contains a bind variable, the width (in bits) of the field, and other information.  Some example patterns:<br></br> <span class=\"codepre\" > bitmatch bits with | { version : 8; name : 8; param : 8 } -&gt; ... (* Bitstring of at least 3 bytes.  First byte is the version number, second byte is a field called name, third byte is a field called parameter. *) | { flag : 1 } -&gt; printf \"flag is %b\\n\" flag (* A single flag bit (mapped into an OCaml boolean). *) | { len : 4; data : 1+len } -&gt; printf \"len = %d, data = 0x%Lx\\n\" len data (* A 4-bit length, followed by 1-16 bits of data, where the length of the data is computed from len. *) | { ipv6_source : 128 : bitstring; ipv6_dest : 128 : bitstring } -&gt; ... (* IPv6 source and destination addresses.  Each is 128 bits and is mapped into a bitstring type which will be a substring of the main bitstring expression. *) </span><br></br> You can also add conditional when-clauses:<br></br> <span class=\"codepre\" > | { version : 4 } when version = 4 || version = 6 -&gt; ... (* Only match and run the code when version is 4 or 6.  If it isn't we will drop through to the next case. *) </span><br></br> Note that the pattern is only compared against the first part of the bitstring (there may be more data in the bitstring following the pattern, which is not matched).  In terms of regular expressions you might say that the pattern matches <span class=\"code\" >^pattern</span>, not <span class=\"code\" >^pattern$</span>.  To ensure that the bitstring contains only the pattern, add a length -1 bitstring to the end and test that its length is zero in the when-clause:<br></br> <span class=\"codepre\" > | { n : 4; rest : -1 : bitstring } when Bitstring.bitstring_length rest = 0 -&gt; ... (* Only matches exactly 4 bits. *) </span><br></br> Normally the first part of each field is a binding variable, but you can also match a constant, as in:<br></br> <span class=\"codepre\" > | { (4|6) : 4 } -&gt; ... (* Only matches if the first 4 bits contain either the integer 4 or the integer 6. *) </span><br></br> One may also match on strings:<br></br> <span class=\"codepre\" > | { \"MAGIC\" : 5*8 : string } -&gt; ... (* Only matches if the string \"MAGIC\" appears at the start of the input. *) </span><br></br> <h3>Pattern field reference</h3><br></br> The exact format of each pattern field is:<br></br> <span class=\"code\" >pattern : length [: qualifier [,qualifier ...]]</span><br></br> <span class=\"code\" >pattern</span> is the pattern, binding variable name, or constant to match.  <span class=\"code\" >length</span> is the length in bits which may be either a constant or an expression.  The length expression is just an OCaml expression and can use any values defined in the program, and refer back to earlier fields (but not to later fields).<br></br> Integers can only have lengths in the range [1..64] bits.  See the <a href=\"#integertypes\" >integer types</a> section below for how these are mapped to the OCaml int/int32/int64 types.  This is checked at compile time if the length expression is constant, otherwise it is checked at runtime and you will get a runtime exception eg. in the case of a computed length expression.<br></br> A bitstring field of length -1 matches all the rest of the bitstring (thus this is only useful as the last field in a pattern).<br></br> A bitstring field of length 0 matches an empty bitstring (occasionally useful when matching optional subfields).<br></br> Qualifiers are a list of identifiers/expressions which control the type, signedness and endianness of the field.  Permissible qualifiers are:<br></br><ul><li><span class=\"code\" >int</span>: field has an integer type</li><li><span class=\"code\" >string</span>: field is a string type</li><li><span class=\"code\" >bitstring</span>: field is a bitstring type</li><li><span class=\"code\" >signed</span>: field is signed</li><li><span class=\"code\" >unsigned</span>: field is unsigned</li><li><span class=\"code\" >bigendian</span>: field is big endian - a.k.a network byte order</li><li><span class=\"code\" >littleendian</span>: field is little endian - a.k.a Intel byte order</li><li><span class=\"code\" >nativeendian</span>: field is same endianness as the machine</li><li><span class=\"code\" >endian (expr)</span>: <span class=\"code\" >expr</span> should be an expression which evaluates to a <a href=\"{type|Bitstring.endian}\" ><span class=\"code\" >Bitstring.endian</span></a> type, ie. <span class=\"code\" >LittleEndian</span>, <span class=\"code\" >BigEndian</span> or <span class=\"code\" >NativeEndian</span>. The expression is an arbitrary OCaml expression and can use the value of earlier fields in the bitmatch.</li><li><span class=\"code\" >offset (expr)</span>: see <a href=\"#computedoffsets\" >computed offsets</a> below.</li></ul> The default settings are <span class=\"code\" >int</span>, <span class=\"code\" >unsigned</span>, <span class=\"code\" >bigendian</span>, no offset.<br></br> Note that many of these qualifiers cannot be used together, eg. bitstrings do not have endianness.  The syntax extension should give you a compile-time error if you use incompatible qualifiers.<br></br> <h3>Other cases in bitmatch</h3><br></br> As well as a list of fields, it is possible to name the bitstring and/or have a default match case:<br></br> <span class=\"codepre\" > | { _ } -&gt; ... (* Default match case. *) | { _ } as pkt -&gt; ... (* Default match case, with 'pkt' bound to the whole bitstring. *) </span><br></br> <h2>Constructing bitstrings</h2><br></br> Bitstrings may be constructed using the <span class=\"code\" >BITSTRING</span> operator (as an expression).  The <span class=\"code\" >BITSTRING</span> operator takes a list of fields, similar to the list of fields for matching:<br></br> <span class=\"codepre\" > let version = 1 ;; let data = 10 ;; let bits = BITSTRING { version : 4; data : 12 } ;; (* Constructs a 16-bit bitstring with the first four bits containing the integer 1, and the following 12 bits containing the integer 10, arranged in network byte order. *) Bitstring.hexdump_bitstring stdout bits ;; (* Prints: 00000000  10 0a         |..              | ) </span><br></br> The format of each field is the same as for pattern fields (see <a href=\"#patternfieldreference\" >Pattern field reference section</a>), and things like computed length fields, fixed value fields, insertion of bitstrings within bitstrings, etc. are all supported.<br></br> <h3>Construction exception</h3><br></br> The <span class=\"code\" >BITSTRING</span> operator may throw a <a href=\"{exception|Bitstring.Construct_failure}\" ><span class=\"code\" >Bitstring.Construct_failure</span></a> exception at runtime.<br></br> Runtime errors include:<br></br><ul><li>int field length not in the range [1..64]</li><li>a bitstring with a length declared which doesn't have the same length at runtime</li><li>trying to insert an out of range value into an int field (eg. an unsigned int field which is 2 bits wide can only take values in the range [0..3]).</li></ul> <h2>Integer types</h2><br></br> Integer types are mapped to OCaml types <span class=\"code\" >bool</span>, <span class=\"code\" >int</span>, <span class=\"code\" >int32</span> or <span class=\"code\" >int64</span> using a system which tries to ensure that (a) the types are reasonably predictable and (b) the most efficient type is preferred.<br></br> The rules are slightly different depending on whether the bit length expression in the field is a compile-time constant or a computed expression.<br></br> Detection of compile-time constants is quite simplistic so only simple integer literals and simple expressions (eg. <span class=\"code\" >5*8</span>) are recognized as constants.<br></br> In any case the bit size of an integer is limited to the range [1..64].  This is detected as a compile-time error if that is possible, otherwise a runtime check is added which can throw an <span class=\"code\" >Invalid_argument</span> exception.<br></br> The mapping is thus:<br></br> <span class=\"verbatim\" >   Bit size\t    ---- OCaml type ---- Constant\tComputed expression 1\t\tbool\t\tint64 2..31\tint\t\tint64 32\t\tint32\t\tint64 33..64\tint64\t\tint64 </span><br></br> A possible future extension may allow people with 64 bit computers to specify a more optimal <span class=\"code\" >int</span> type for bit sizes in the range <span class=\"code\" >32..63</span>.  If this was implemented then such code <i>could not even be compiled</i> on 32 bit platforms, so it would limit portability.<br></br> Another future extension may be to allow computed expressions to assert min/max range for the bit size, allowing a more efficient data type than int64 to be used.  (Of course under such circumstances there would still need to be a runtime check to enforce the size).<br></br> <h2>Advanced pattern-matching features</h2><br></br> <h3>Computed offsets</h3><br></br> You can add an <span class=\"code\" >offset(..)</span> qualifier to bitmatch patterns in order to move the current offset within the bitstring forwards.<br></br> For example:<br></br> <span class=\"codepre\" > bitmatch bits with | { field1 : 8; field2 : 8 : offset(160) } -&gt; ... </span><br></br> matches <span class=\"code\" >field1</span> at the start of the bitstring and <span class=\"code\" >field2</span> at 160 bits into the bitstring.  The middle 152 bits go unmatched (ie. can be anything).<br></br> The generated code is efficient.  If field lengths and offsets are known to be constant at compile time, then almost all runtime checks are avoided.  Non-constant field lengths and/or non-constant offsets can result in more runtime checks being added.<br></br> Note that moving the offset backwards, and moving the offset in <span class=\"code\" >BITSTRING</span> constructors, are both not supported at present.<br></br> <h3>Check expressions</h3><br></br> You can add a <span class=\"code\" >check(expr)</span> qualifier to bitmatch patterns. If the expression evaluates to false then the current match case fails to match (in other words, we fall through to the next match case - there is no error).<br></br> For example: <span class=\"codepre\" > bitmatch bits with | { field : 16 : check (field &gt; 100) } -&gt; ... </span><br></br> Note the difference between a check expression and a when-clause is that the when-clause is evaluated after all the fields have been matched.  On the other hand a check expression is evaluated after the individual field has been matched, which means it is potentially more efficient (if the check expression fails then we don't waste any time matching later fields).<br></br> We wanted to use the notation <span class=\"code\" >when(expr)</span> here, but because <span class=\"code\" >when</span> is a reserved word we could not do this.<br></br> <h3>Bind expressions</h3><br></br> A bind expression is used to change the value of a matched field.  For example: <span class=\"codepre\" > bitmatch bits with | { len : 16 : bind (len * 8); field : len : bitstring } -&gt; ... </span><br></br> In the example, after 'len' has been matched, its value would be multiplied by 8, so the width of 'field' is the matched value multiplied by 8.<br></br> In the general case: <span class=\"codepre\" > | { field : ... : bind (expr) } -&gt; ... </span> evaluates the following after the field has been matched: <span class=\"codepre\" > let field = expr in (* remaining fields *) </span><br></br> <h3>Order of evaluation of check() and bind()</h3><br></br> The choice is arbitrary, but we have chosen that check expressions are evaluated first, and bind expressions are evaluated after.<br></br> This means that the result of bind() is <i>not</i> available in the check expression.<br></br> Note that this rule applies regardless of the order of check() and bind() in the source code.<br></br> <h3>save_offset_to</h3><br></br> Use <span class=\"code\" >save_offset_to(variable)</span> to save the current bit offset within the match to a variable (strictly speaking, to a pattern). This variable is then made available in any <span class=\"code\" >check()</span> and <span class=\"code\" >bind()</span> clauses in the current field, <i>and</i> to any later fields, and to the code after the <span class=\"code\" >-&gt;</span>.<br></br> For example: <span class=\"codepre\" > bitmatch bits with | { len : 16; _ : len : bitstring; field : 16 : save_offset_to (field_offset) } -&gt; printf \"field is at bit offset %d in the match\\n\" field_offset </span><br></br> (In that example, <span class=\"code\" >field_offset</span> should always have the value <span class=\"code\" >len+16</span>).<br></br> <h2>Named patterns and persistent patterns</h2><br></br> Please see <a href=\"{none|Bitstring_persistent}\" ><span class=\"code\" >Bitstring_persistent</span></a> for documentation on this subject.<br></br> <h2>Compiling</h2><br></br> Using the compiler directly you can do:<br></br> <span class=\"verbatim\" >   ocamlc -I +bitstring \\ -pp \"camlp4of bitstring.cma bitstring_persistent.cma \\ `ocamlc -where`/bitstring/pa_bitstring.cmo\" \\ unix.cma bitstring.cma test.ml -o test </span><br></br> Simpler method using findlib:<br></br> <span class=\"verbatim\" >   ocamlfind ocamlc \\ -package bitstring,bitstring.syntax -syntax bitstring.syntax \\ -linkpkg test.ml -o test </span><br></br> <h2>Security and type safety</h2><br></br> <h3>Security on input</h3><br></br> The main concerns for input are buffer overflows and denial of service.<br></br> It is believed that this library is robust against attempted buffer overflows.  In addition to OCaml's normal bounds checks, we check that field lengths are &gt;= 0, and many additional checks.<br></br> Denial of service attacks are more problematic.  We only work forwards through the bitstring, thus computation will eventually terminate.  As for computed lengths, code such as this is thought to be secure:<br></br> <span class=\"codepre\" > bitmatch bits with | { len : 64; buffer : Int64.to_int len : bitstring } -&gt; </span><br></br> The <span class=\"code\" >len</span> field can be set arbitrarily large by an attacker, but when pattern-matching against the <span class=\"code\" >buffer</span> field this merely causes a test such as <span class=\"code\" >if len &lt;= remaining_size</span> to fail.  Even if the length is chosen so that <span class=\"code\" >buffer</span> bitstring is allocated, the allocation of sub-bitstrings is efficient and doesn't involve an arbitary-sized allocation or any copying.<br></br> However the above does not necessarily apply to strings used in matching, since they may cause the library to use the <a href=\"{value|Bitstring.string_of_bitstring}\" ><span class=\"code\" >Bitstring.string_of_bitstring</span></a> function, which allocates a string. So you should take care if you use the <span class=\"code\" >string</span> type particularly with a computed length that is derived from external input.<br></br> The main protection against attackers should be to ensure that the main program will only read input bitstrings up to a certain length, which is outside the scope of this library.<br></br> <h3>Security on output</h3><br></br> As with the input side, computed lengths are believed to be safe.  For example:<br></br> <span class=\"codepre\" > let len = read_untrusted_source () in let buffer = allocate_bitstring () in BITSTRING { buffer : len : bitstring } </span><br></br> This code merely causes a check that buffer's length is the same as <span class=\"code\" >len</span>.  However the program function <span class=\"code\" >allocate_bitstring</span> must refuse to allocate an oversized buffer (but that is outside the scope of this library).<br></br> <h3>Order of evaluation</h3><br></br> In <span class=\"code\" >bitmatch</span> statements, fields are evaluated left to right.<br></br> Note that the when-clause is evaluated <i>last</i>, so if you are relying on the when-clause to filter cases then your code may do a lot of extra and unncessary pattern-matching work on fields which may never be needed just to evaluate the when-clause.  Either rearrange the code to do only the first part of the match, followed by the when-clause, followed by a second inner bitmatch, or use a <span class=\"code\" >check()</span> qualifier within fields.<br></br> <h3>Safety</h3><br></br> The current implementation is believed to be fully type-safe, and makes compile and run-time checks where appropriate.  If you find a case where a check is missing please submit a bug report or a patch.<br></br> <h2>Limits</h2><br></br> These are thought to be the current limits:<br></br> Integers: [1..64] bits.<br></br> Bitstrings (32 bit platforms): maximum length is limited by the string size, ie. 16 MBytes.<br></br> Bitstrings (64 bit platforms): maximum length is thought to be limited by the string size, ie. effectively unlimited.<br></br> Bitstrings must be loaded into memory before we can match against them.  Thus available memory may be considered a limit for some applications.<br></br> <h2>Reference</h2> <h3>Types</h3>" }, 
+      { "type": 
+          { "name": "Bitstring.endian",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|22192" },
+            "info": "",
+            "params": [  ],
+            "kind": 
+              { "type": "variant",
+                "private": "false",
+                "constructors": [ 
+                  { "name": "BigEndian",
+                    "type": [  ] }, 
+                  { "name": "LittleEndian",
+                    "type": [  ] }, 
+                  { "name": "NativeEndian",
+                    "type": [  ] } ] } } }, 
+      { "value": 
+          { "name": "Bitstring.string_of_endian",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|22242" },
+            "info": 
+              { "description": "Endianness." },
+            "type": "Bitstring.endian -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.endian" } ] } }, 
+      { "type": 
+          { "name": "Bitstring.bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|22307" },
+            "info": 
+              { "description": "<span class=\"code\" >bitstring</span> is the basic type used to store bitstrings.<br></br> The type contains the underlying data (a string), the current bit offset within the string and the current bit length of the string (counting from the bit offset).  Note that the offset and length are in <b>bits</b>, not bytes.<br></br> Normally you don't need to use the bitstring type directly, since there are functions and syntax extensions which hide the details.<br></br> See also <a href=\"{value|Bitstring.bitstring_of_string}\" ><span class=\"code\" >Bitstring.bitstring_of_string</span></a>, <a href=\"{none|bitstring_of_file}\" ><span class=\"code\" >bitstring_of_file</span></a>, <a href=\"{value|Bitstring.hexdump_bitstring}\" ><span class=\"code\" >Bitstring.hexdump_bitstring</span></a>, <a href=\"{value|Bitstring.bitstring_length}\" ><span class=\"code\" >Bitstring.bitstring_length</span></a>." },
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" },
+            "manifest": "string * int * int" } }, 
+      { "type": 
+          { "name": "Bitstring.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|22905" },
+            "info": 
+              { "description": "<span class=\"code\" >t</span> is a synonym for the <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a> type.<br></br> This allows you to use this module with functors like <span class=\"code\" >Set</span> and <span class=\"code\" >Map</span> from the stdlib." },
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" },
+            "manifest": "Bitstring.bitstring" } }, 
+      { "comment": "<h3>Exceptions</h3>" }, 
+      { "exception": 
+          { "name": "Bitstring.Construct_failure",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|23090" },
+            "info": 
+              { "description": "<span class=\"code\" >Construct_failure (message, file, line, char)</span> may be raised by the <span class=\"code\" >BITSTRING</span> constructor.<br></br> Common reasons are that values are out of range of the fields that contain them, or that computed lengths are impossible (eg. negative length bitfields).<br></br> <span class=\"code\" >message</span> is the error message.<br></br> <span class=\"code\" >file</span>, <span class=\"code\" >line</span> and <span class=\"code\" >char</span> point to the original source location of the <span class=\"code\" >BITSTRING</span> constructor that failed." },
+            "exception_args": [ "string", "string", "int", "int" ] } }, 
+      { "comment": "<h3>Bitstring comparison</h3>" }, 
+      { "value": 
+          { "name": "Bitstring.compare",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|23609" },
+            "info": 
+              { "description": "<span class=\"code\" >compare bs1 bs2</span> compares two bitstrings and returns zero if they are equal, a negative number if <span class=\"code\" >bs1 &lt; bs2</span>, or a positive number if <span class=\"code\" >bs1 &gt; bs2</span>.<br></br> This tests \"semantic equality\" which is not affected by the offset or alignment of the underlying representation (see <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a>).<br></br> The ordering is total and lexicographic." },
+            "type": "Bitstring.bitstring -> Bitstring.bitstring -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.equals",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|24010" },
+            "info": 
+              { "description": "<span class=\"code\" >equals</span> returns true if and only if the two bitstrings are semantically equal.  It is the same as calling <span class=\"code\" >compare</span> and testing if the result is <span class=\"code\" >0</span>, but usually more efficient." },
+            "type": "Bitstring.bitstring -> Bitstring.bitstring -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "comment": "<h3>Bitstring manipulation</h3>" }, 
+      { "value": 
+          { "name": "Bitstring.bitstring_length",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|24284" },
+            "info": 
+              { "description": "<span class=\"code\" >bitstring_length bitstring</span> returns the length of the bitstring in bits.<br></br> Note this just returns the third field in the <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a> tuple." },
+            "type": "Bitstring.bitstring -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.subbitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|24481" },
+            "info": 
+              { "description": "<span class=\"code\" >subbitstring bits off len</span> returns a sub-bitstring of the bitstring, starting at offset <span class=\"code\" >off</span> bits and with length <span class=\"code\" >len</span> bits.<br></br> If the original bitstring is not long enough to do this then the function raises <span class=\"code\" >Invalid_argument \"subbitstring\"</span>.<br></br> Note that this function just changes the offset and length fields of the <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a> tuple, so is very efficient." },
+            "type": "Bitstring.bitstring -> int -> int -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.dropbits",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|24930" },
+            "info": 
+              { "description": "Drop the first n bits of the bitstring and return a new bitstring which is shorter by n bits.<br></br> If the length of the original bitstring is less than n bits, this raises <span class=\"code\" >Invalid_argument \"dropbits\"</span>.<br></br> Note that this function just changes the offset and length fields of the <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a> tuple, so is very efficient." },
+            "type": "int -> Bitstring.bitstring -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.takebits",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|25318" },
+            "info": 
+              { "description": "Take the first n bits of the bitstring and return a new bitstring which is exactly n bits long.<br></br> If the length of the original bitstring is less than n bits, this raises <span class=\"code\" >Invalid_argument \"takebits\"</span>.<br></br> Note that this function just changes the offset and length fields of the <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a> tuple, so is very efficient." },
+            "type": "int -> Bitstring.bitstring -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.concat",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|25708" },
+            "info": 
+              { "description": "Concatenate a list of bitstrings together into a single bitstring." },
+            "type": "Bitstring.bitstring list -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring list" } ] } }, 
+      { "comment": "<h3>Constructing bitstrings</h3>" }, 
+      { "value": 
+          { "name": "Bitstring.empty_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|25864" },
+            "info": 
+              { "description": "<span class=\"code\" >empty_bitstring</span> is the empty, zero-length bitstring." },
+            "type": "Bitstring.bitstring",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring.create_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|25959" },
+            "info": 
+              { "description": "<span class=\"code\" >create_bitstring n</span> creates an <span class=\"code\" >n</span> bit bitstring containing all zeroes." },
+            "type": "int -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.make_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|26084" },
+            "info": 
+              { "description": "<span class=\"code\" >make_bitstring n c</span> creates an <span class=\"code\" >n</span> bit bitstring containing the repeated 8 bit pattern in <span class=\"code\" >c</span>.<br></br> For example, <span class=\"code\" >make_bitstring 16 '\\x5a'</span> will create the bitstring <span class=\"code\" >0x5a5a</span> or in binary <span class=\"code\" >0101 1010 0101 1010</span>.<br></br> Note that the length is in bits, not bytes.  The length does NOT need to be a multiple of 8." },
+            "type": "int -> char -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.zeroes_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|26460" },
+            "info": 
+              { "description": "<span class=\"code\" >zeroes_bitstring</span> creates an <span class=\"code\" >n</span> bit bitstring of all 0's.<br></br> Actually this is the same as <a href=\"{value|Bitstring.create_bitstring}\" ><span class=\"code\" >Bitstring.create_bitstring</span></a>." },
+            "type": "int -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.ones_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|26623" },
+            "info": 
+              { "description": "<span class=\"code\" >ones_bitstring</span> creates an <span class=\"code\" >n</span> bit bitstring of all 1's." },
+            "type": "int -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.bitstring_of_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|26727" },
+            "info": 
+              { "description": "<span class=\"code\" >bitstring_of_string str</span> creates a bitstring of length <span class=\"code\" >String.length str * 8</span> (bits) containing the bits in <span class=\"code\" >str</span>.<br></br> Note that the bitstring uses <span class=\"code\" >str</span> as the underlying string (see the representation of <a href=\"{type|Bitstring.bitstring}\" ><span class=\"code\" >Bitstring.bitstring</span></a>) so you should not change <span class=\"code\" >str</span> after calling this." },
+            "type": "string -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.bitstring_of_chan",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|27071" },
+            "info": 
+              { "description": "<span class=\"code\" >bitstring_of_chan chan</span> loads the contents of the input channel <span class=\"code\" >chan</span> as a bitstring.<br></br> The length of the final bitstring is determined by the remaining input in <span class=\"code\" >chan</span>, but will always be a multiple of 8 bits.<br></br> See also <a href=\"{value|Bitstring.bitstring_of_chan_max}\" ><span class=\"code\" >Bitstring.bitstring_of_chan_max</span></a>." },
+            "type": "Pervasives.in_channel -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.in_channel" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.bitstring_of_chan_max",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|27395" },
+            "info": 
+              { "description": "<span class=\"code\" >bitstring_of_chan_max chan max</span> works like <a href=\"{value|Bitstring.bitstring_of_chan}\" ><span class=\"code\" >Bitstring.bitstring_of_chan</span></a> but will only read up to <span class=\"code\" >max</span> bytes from the channel (or fewer if the end of input occurs before that)." },
+            "type": "Pervasives.in_channel -> int -> Bitstring.bitstring",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.in_channel" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "comment": "<h3>Converting bitstrings</h3>" }, 
+      { "value": 
+          { "name": "Bitstring.string_of_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|27678" },
+            "info": 
+              { "description": "<span class=\"code\" >string_of_bitstring bitstring</span> converts a bitstring to a string (eg. to allow comparison).<br></br> This function is inefficient.  In the best case when the bitstring is nicely byte-aligned we do a <span class=\"code\" >String.sub</span> operation.  If the bitstring isn't aligned then this involves a lot of bit twiddling and is particularly inefficient.<br></br> If the bitstring is not a multiple of 8 bits wide then the final byte of the string contains the high bits set to the remaining bits and the low bits set to 0." },
+            "type": "Bitstring.bitstring -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.bitstring_to_chan",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|28247" },
+            "info": 
+              { "description": "<span class=\"code\" >bitstring_to_file bits filename</span> writes the bitstring <span class=\"code\" >bits</span> to the channel <span class=\"code\" >chan</span>.<br></br> Channels are made up of bytes, bitstrings can be any bit length including fractions of bytes.  So this function only works if the length of the bitstring is an exact multiple of 8 bits (otherwise it raises <span class=\"code\" >Invalid_argument \"bitstring_to_chan\"</span>).<br></br> Furthermore the function is efficient only in the case where the bitstring is stored fully aligned, otherwise it has to do inefficient bit twiddling like <a href=\"{value|Bitstring.string_of_bitstring}\" ><span class=\"code\" >Bitstring.string_of_bitstring</span></a>.<br></br> In the common case where the bitstring was generated by the <span class=\"code\" >BITSTRING</span> operator and is an exact multiple of 8 bits wide, then this function will always work efficiently." },
+            "type": "Bitstring.bitstring -> Pervasives.out_channel -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "Pervasives.out_channel" } ] } }, 
+      { "comment": "<h3>Printing bitstrings</h3>" }, 
+      { "value": 
+          { "name": "Bitstring.hexdump_bitstring",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29072" },
+            "info": 
+              { "description": "<span class=\"code\" >hexdump_bitstring chan bitstring</span> prints the bitstring to the output channel in a format similar to the Unix command <span class=\"code\" >hexdump -C</span>." },
+            "type": "Pervasives.out_channel -> Bitstring.bitstring -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.out_channel" }, 
+              { "name": "",
+                "type": "Bitstring.bitstring" } ] } }, 
+      { "comment": "<h3>Bitstring buffer</h3>" }, 
+      { "module": 
+          { "name": "Bitstring.Buffer",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29306" },
+            "info": 
+              { "description": "Buffers are mainly used by the <span class=\"code\" >BITSTRING</span> constructor, but may also be useful for end users.  They work much like the standard library <span class=\"code\" >Buffer</span> module." },
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Bitstring.Buffer.t",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29333" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" } } }, 
+              { "value": 
+                  { "name": "Bitstring.Buffer.create",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29337" },
+                    "info": "",
+                    "type": "unit -> Bitstring.Buffer.t",
+                    "params": [ 
+                      { "name": "",
+                        "type": "unit" } ] } }, 
+              { "value": 
+                  { "name": "Bitstring.Buffer.contents",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29362" },
+                    "info": "",
+                    "type": "Bitstring.Buffer.t -> Bitstring.bitstring",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Bitstring.Buffer.t" } ] } }, 
+              { "value": 
+                  { "name": "Bitstring.Buffer.add_bits",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29394" },
+                    "info": "",
+                    "type": "Bitstring.Buffer.t -> string -> int -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Bitstring.Buffer.t" }, 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Bitstring.Buffer.add_bit",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29438" },
+                    "info": "",
+                    "type": "Bitstring.Buffer.t -> bool -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Bitstring.Buffer.t" }, 
+                      { "name": "",
+                        "type": "bool" } ] } }, 
+              { "value": 
+                  { "name": "Bitstring.Buffer.add_byte",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|29472" },
+                    "info": "",
+                    "type": "Bitstring.Buffer.t -> int -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Bitstring.Buffer.t" }, 
+                      { "name": "",
+                        "type": "int" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "comment": "<h3>Get/set bits</h3><br></br> These functions let you manipulate individual bits in the bitstring.  However they are not particularly efficient and you should generally use the <span class=\"code\" >bitmatch</span> and <span class=\"code\" >BITSTRING</span> operators when building and parsing bitstrings.<br></br> These functions all raise <span class=\"code\" >Invalid_argument \"index out of bounds\"</span> if the index is out of range of the bitstring." }, 
+      { "value": 
+          { "name": "Bitstring.set",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30064" },
+            "info": 
+              { "description": "<span class=\"code\" >set bits n</span> sets the <span class=\"code\" >n</span>th bit in the bitstring to 1." },
+            "type": "Bitstring.bitstring -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.clear",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30164" },
+            "info": 
+              { "description": "<span class=\"code\" >clear bits n</span> sets the <span class=\"code\" >n</span>th bit in the bitstring to 0." },
+            "type": "Bitstring.bitstring -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.is_set",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30268" },
+            "info": 
+              { "description": "<span class=\"code\" >is_set bits n</span> is true if the <span class=\"code\" >n</span>th bit is set to 1." },
+            "type": "Bitstring.bitstring -> int -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.is_clear",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30370" },
+            "info": 
+              { "description": "<span class=\"code\" >is_clear bits n</span> is true if the <span class=\"code\" >n</span>th bit is set to 0." },
+            "type": "Bitstring.bitstring -> int -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.put",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30476" },
+            "info": 
+              { "description": "<span class=\"code\" >put bits n v</span> sets the <span class=\"code\" >n</span>th bit in the bitstring to 1 if <span class=\"code\" >v</span> is not zero, or to 0 if <span class=\"code\" >v</span> is zero." },
+            "type": "Bitstring.bitstring -> int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Bitstring.get",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30634" },
+            "info": 
+              { "description": "<span class=\"code\" >get bits n</span> returns the <span class=\"code\" >n</span>th bit (returns non-zero or 0)." },
+            "type": "Bitstring.bitstring -> int -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Bitstring.bitstring" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "comment": "<h3>Miscellaneous</h3>" }, 
+      { "value": 
+          { "name": "Bitstring.package",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30764" },
+            "info": 
+              { "description": "The package name, always <span class=\"code\" >\"ocaml-bitstring\"</span>" },
+            "type": "string",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring.version",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30838" },
+            "info": 
+              { "description": "The package version as a string." },
+            "type": "string",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Bitstring.debug",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/bitstring.mli|30900" },
+            "info": 
+              { "description": "Set this variable to true to enable extended debugging. This only works if debugging was also enabled in the <span class=\"code\" >pa_bitstring.ml</span> file at compile time, otherwise it does nothing." },
+            "type": "bool Pervasives.ref",
+            "params": [  ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [ "OS", "Net", "Block", "Dns", "Http" ] } } }

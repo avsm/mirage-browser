@@ -1,0 +1,166 @@
+{ "module": 
+  { "name": "Weak",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|0" },
+    "info": 
+      { "description": "Arrays of weak pointers and hash tables of weak pointers." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "<h6>Low-level functions</h6>" }, 
+      { "type": 
+          { "name": "Weak.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|1049" },
+            "info": 
+              { "description": "The type of arrays of weak pointers (weak arrays).  A weak pointer is a value that the garbage collector may erase whenever the value is not used any more (through normal pointers) by the program.  Note that finalisation functions are run after the weak pointers are erased.<br></br> A weak pointer is said to be full if it points to a value, empty if the value was erased by the GC.<br></br> Notes:<ul><li>Integers are not allocated and cannot be stored in weak arrays.</li><li>Weak arrays cannot be marshaled using <a href=\"{value|Pervasives.output_value}\" ><span class=\"code\" >Pervasives.output_value</span></a> nor the functions of the <a href=\"{module|Marshal}\" ><span class=\"code\" >Marshal</span></a> module.</li></ul>" },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Weak.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|1657" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.create n</span> returns a new weak array of length <span class=\"code\" >n</span>. All the pointers are initially empty.  Raise <span class=\"code\" >Invalid_argument</span> if <span class=\"code\" >n</span> is negative or greater than <a href=\"{value|Sys.max_array_length}\" ><span class=\"code\" >Sys.max_array_length</span></a><span class=\"code\" >-1</span>." },
+            "type": "int -> 'a Weak.t",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Weak.length",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|1879" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.length ar</span> returns the length (number of elements) of <span class=\"code\" >ar</span>." },
+            "type": "'a Weak.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" } ] } }, 
+      { "value": 
+          { "name": "Weak.set",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|1980" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.set ar n (Some el)</span> sets the <span class=\"code\" >n</span>th cell of <span class=\"code\" >ar</span> to be a (full) pointer to <span class=\"code\" >el</span>; <span class=\"code\" >Weak.set ar n None</span> sets the <span class=\"code\" >n</span>th cell of <span class=\"code\" >ar</span> to empty. Raise <span class=\"code\" >Invalid_argument \"Weak.set\"</span> if <span class=\"code\" >n</span> is not in the range 0 to <a href=\"{value|Weak.length}\" ><span class=\"code\" >Weak.length</span></a><span class=\"code\" > a - 1</span>." },
+            "type": "'a Weak.t -> int -> 'a option -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a option" } ] } }, 
+      { "value": 
+          { "name": "Weak.get",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|2279" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.get ar n</span> returns None if the <span class=\"code\" >n</span>th cell of <span class=\"code\" >ar</span> is empty, <span class=\"code\" >Some x</span> (where <span class=\"code\" >x</span> is the value) if it is full. Raise <span class=\"code\" >Invalid_argument \"Weak.get\"</span> if <span class=\"code\" >n</span> is not in the range 0 to <a href=\"{value|Weak.length}\" ><span class=\"code\" >Weak.length</span></a><span class=\"code\" > a - 1</span>." },
+            "type": "'a Weak.t -> int -> 'a option",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Weak.get_copy",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|2536" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.get_copy ar n</span> returns None if the <span class=\"code\" >n</span>th cell of <span class=\"code\" >ar</span> is empty, <span class=\"code\" >Some x</span> (where <span class=\"code\" >x</span> is a (shallow) copy of the value) if it is full. In addition to pitfalls with mutable values, the interesting difference with <span class=\"code\" >get</span> is that <span class=\"code\" >get_copy</span> does not prevent the incremental GC from erasing the value in its current cycle (<span class=\"code\" >get</span> may delay the erasure to the next GC cycle). Raise <span class=\"code\" >Invalid_argument \"Weak.get\"</span> if <span class=\"code\" >n</span> is not in the range 0 to <a href=\"{value|Weak.length}\" ><span class=\"code\" >Weak.length</span></a><span class=\"code\" > a - 1</span>." },
+            "type": "'a Weak.t -> int -> 'a option",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Weak.check",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|3073" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.check ar n</span> returns <span class=\"code\" >true</span> if the <span class=\"code\" >n</span>th cell of <span class=\"code\" >ar</span> is full, <span class=\"code\" >false</span> if it is empty.  Note that even if <span class=\"code\" >Weak.check ar n</span> returns <span class=\"code\" >true</span>, a subsequent <a href=\"{value|Weak.get}\" ><span class=\"code\" >Weak.get</span></a><span class=\"code\" > ar n</span> can return <span class=\"code\" >None</span>." },
+            "type": "'a Weak.t -> int -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Weak.fill",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|3314" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.fill ar ofs len el</span> sets to <span class=\"code\" >el</span> all pointers of <span class=\"code\" >ar</span> from <span class=\"code\" >ofs</span> to <span class=\"code\" >ofs + len - 1</span>.  Raise <span class=\"code\" >Invalid_argument \"Weak.fill\"</span> if <span class=\"code\" >ofs</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >a</span>." },
+            "type": "'a Weak.t -> int -> int -> 'a option -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a option" } ] } }, 
+      { "value": 
+          { "name": "Weak.blit",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|3568" },
+            "info": 
+              { "description": "<span class=\"code\" >Weak.blit ar1 off1 ar2 off2 len</span> copies <span class=\"code\" >len</span> weak pointers from <span class=\"code\" >ar1</span> (starting at <span class=\"code\" >off1</span>) to <span class=\"code\" >ar2</span> (starting at <span class=\"code\" >off2</span>). It works correctly even if <span class=\"code\" >ar1</span> and <span class=\"code\" >ar2</span> are the same. Raise <span class=\"code\" >Invalid_argument \"Weak.blit\"</span> if <span class=\"code\" >off1</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >ar1</span>, or if <span class=\"code\" >off2</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >ar2</span>." },
+            "type": "'a Weak.t -> int -> 'a Weak.t -> int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a Weak.t" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "comment": "<h6>Weak hash tables</h6>" }, 
+      { "comment": "A weak hash table is a hashed set of values.  Each value may magically disappear from the set when it is not used by the rest of the program any more.  This is normally used to share data structures without inducing memory leaks. Weak hash tables are defined on values from a <a href=\"{module_type|Hashtbl.HashedType}\" ><span class=\"code\" >Hashtbl.HashedType</span></a> module; the <span class=\"code\" >equal</span> relation and <span class=\"code\" >hash</span> function are taken from that module.  We will say that <span class=\"code\" >v</span> is an instance of <span class=\"code\" >x</span> if <span class=\"code\" >equal x v</span> is <span class=\"code\" >true</span>.<br></br> The <span class=\"code\" >equal</span> relation must be able to work on a shallow copy of the values and give the same result as with the values themselves." }, 
+      { "module_type": 
+          { "name": "Weak.S",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|4646" },
+            "info": 
+              { "description": "The output signature of the functor <a href=\"{module|Weak.Make}\" ><span class=\"code\" >Weak.Make</span></a>." },
+            "type": "sig  end",
+            "kind": "" } }, 
+      { "module": 
+          { "name": "Weak.Make",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/weak.mli|7147" },
+            "info": 
+              { "description": "Functor building an implementation of the weak hash table structure." },
+            "type": "functor (H : Hashtbl.HashedType) -> sig  end",
+            "module_functor": 
+              { "parameter": 
+                  { "name": "H" },
+                "module_with": "unavailable" },
+            "dependencies": 
+              { "uses": [  ] } } } ],
+    "dependencies": 
+      { "uses": [ "Hashtbl" ],
+        "used_by": [  ] } } }

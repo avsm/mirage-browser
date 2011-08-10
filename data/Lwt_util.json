@@ -1,0 +1,145 @@
+{ "module": 
+  { "name": "Lwt_util",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|0" },
+    "info": 
+      { "description": "Note: This lodule is deprecated. Use <a href=\"{module|Lwt_list}\" ><span class=\"code\" >Lwt_list</span></a> and <a href=\"{module|Lwt_pool}\" ><span class=\"code\" >Lwt_pool</span></a> instead." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "<h2>Lists iterators</h2>" }, 
+      { "value": 
+          { "name": "Lwt_util.iter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|1115" },
+            "info": 
+              { "description": "<span class=\"code\" >iter f l</span> start a thread for each element in <span class=\"code\" >l</span>.  The threads are started according to the list order, but then can run concurrently.  It terminates when all the threads are terminated, if all threads are successful.  It fails if any of the threads fail." },
+            "type": "('a -> unit Lwt.t) -> 'a list -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.iter_serial",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|1471" },
+            "info": 
+              { "description": "Similar to <span class=\"code\" >iter</span> but wait for one thread to terminate before starting the next one." },
+            "type": "('a -> unit Lwt.t) -> 'a list -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.map",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|1638" },
+            "info": 
+              { "description": "<span class=\"code\" >map f l</span> apply <span class=\"code\" >f</span> to each element in <span class=\"code\" >l</span> and collect the results of the threads thus created.  The threads are started according to the list order, but then can run concurrently. <span class=\"code\" >map f l</span> fails if any of the threads fail." },
+            "type": "('a -> 'b Lwt.t) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.map_with_waiting_action",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|1954" },
+            "info": 
+              { "description": "<span class=\"code\" >map_with_waiting_action f wa l</span> apply <span class=\"code\" >f</span> to each element in <span class=\"code\" >l</span> and collect the results of the threads thus created. The threads are started according to the list order, but then can run concurrently.  The difference with <span class=\"code\" >map f l</span> is that function wa will be called on the element that the function is waiting for its termination." },
+            "type": "('a -> 'b Lwt.t) -> ('a -> unit) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.map_serial",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|2455" },
+            "info": 
+              { "description": "Similar to <span class=\"code\" >map</span> but wait for one thread to terminate before starting the next one." },
+            "type": "('a -> 'b Lwt.t) -> 'a list -> 'b list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.fold_left",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|2621" },
+            "info": 
+              { "description": "Similar to <span class=\"code\" >List.fold_left</span>." },
+            "type": "('a -> 'b -> 'a Lwt.t) -> 'a -> 'b list -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "comment": "<h2>Regions</h2>" }, 
+      { "type": 
+          { "name": "Lwt_util.region",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|2763" },
+            "info": "",
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Lwt_util.make_region",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|2771" },
+            "info": 
+              { "description": "<span class=\"code\" >make_region sz</span> create a region of size <span class=\"code\" >sz</span>." },
+            "type": "int -> Lwt_util.region",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.resize_region",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|2863" },
+            "info": 
+              { "description": "<span class=\"code\" >resize_region reg sz</span> resize the region <span class=\"code\" >reg</span> to size <span class=\"code\" >sz</span>." },
+            "type": "Lwt_util.region -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Lwt_util.region" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Lwt_util.run_in_region",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_util.mli|2979" },
+            "info": 
+              { "description": "<span class=\"code\" >run_in_region reg size f</span> execute the thread produced by the function <span class=\"code\" >f</span> in the region <span class=\"code\" >reg</span>. The thread is not started before some room is available in the region." },
+            "type": "Lwt_util.region -> int -> (unit -> 'a Lwt.t) -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "Lwt_util.region" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "unit -> 'a Lwt.t" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Lwt" ],
+        "used_by": [  ] } } }

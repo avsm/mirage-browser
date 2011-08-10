@@ -1,0 +1,58 @@
+{ "module": 
+  { "name": "CamlinternalLazy",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli|0" },
+    "info": "",
+    "type": "sig  end",
+    "module_structure": [ 
+      { "exception": 
+          { "name": "CamlinternalLazy.Undefined",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli|996" },
+            "info": "" } }, 
+      { "value": 
+          { "name": "CamlinternalLazy.force_lazy_block",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli|1019" },
+            "info": "",
+            "type": "'a lazy_t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a lazy_t" } ] } }, 
+      { "value": 
+          { "name": "CamlinternalLazy.force_val_lazy_block",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli|1062" },
+            "info": "",
+            "type": "'a lazy_t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a lazy_t" } ] } }, 
+      { "value": 
+          { "name": "CamlinternalLazy.force",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli|1109" },
+            "info": "",
+            "type": "'a lazy_t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a lazy_t" } ] } }, 
+      { "value": 
+          { "name": "CamlinternalLazy.force_val",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalLazy.mli|1140" },
+            "info": "",
+            "type": "'a lazy_t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a lazy_t" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

@@ -1,0 +1,368 @@
+{ "module": 
+  { "name": "Int32",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|0" },
+    "info": 
+      { "description": "32-bit integers.<br></br> This module provides operations on the type <span class=\"code\" >int32</span> of signed 32-bit integers.  Unlike the built-in <span class=\"code\" >int</span> type, the type <span class=\"code\" >int32</span> is guaranteed to be exactly 32-bit wide on all platforms.  All arithmetic operations over <span class=\"code\" >int32</span> are taken modulo 2<sup>32</sup>.<br></br> Performance notice: values of type <span class=\"code\" >int32</span> occupy more memory space than values of type <span class=\"code\" >int</span>, and arithmetic operations on <span class=\"code\" >int32</span> are generally slower than those on <span class=\"code\" >int</span>.  Use <span class=\"code\" >int32</span> only when the application requires exact 32-bit arithmetic." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Int32.zero",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1500" },
+            "info": 
+              { "description": "The 32-bit integer 0." },
+            "type": "int32",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Int32.one",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1547" },
+            "info": 
+              { "description": "The 32-bit integer 1." },
+            "type": "int32",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Int32.minus_one",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1593" },
+            "info": 
+              { "description": "The 32-bit integer -1." },
+            "type": "int32",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Int32.neg",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1646" },
+            "info": 
+              { "description": "Unary negation." },
+            "type": "int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.add",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1715" },
+            "info": 
+              { "description": "Addition." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.sub",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1787" },
+            "info": 
+              { "description": "Subtraction." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.mul",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1862" },
+            "info": 
+              { "description": "Multiplication." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.div",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|1940" },
+            "info": 
+              { "description": "Integer division.  Raise <span class=\"code\" >Division_by_zero</span> if the second argument is zero.  This division rounds the real quotient of its arguments towards zero, as specified for <a href=\"{value|Pervasives.(/)}\" ><span class=\"code\" >Pervasives.(/)</span></a>." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.rem",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2191" },
+            "info": 
+              { "description": "Integer remainder.  If <span class=\"code\" >y</span> is not zero, the result of <span class=\"code\" >Int32.rem x y</span> satisfies the following property: <span class=\"code\" >x = Int32.add (Int32.mul (Int32.div x y) y) (Int32.rem x y)</span>. If <span class=\"code\" >y = 0</span>, <span class=\"code\" >Int32.rem x y</span> raises <span class=\"code\" >Division_by_zero</span>." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.succ",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2484" },
+            "info": 
+              { "description": "Successor.  <span class=\"code\" >Int32.succ x</span> is <span class=\"code\" >Int32.add x Int32.one</span>." },
+            "type": "int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.pred",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2573" },
+            "info": 
+              { "description": "Predecessor.  <span class=\"code\" >Int32.pred x</span> is <span class=\"code\" >Int32.sub x Int32.one</span>." },
+            "type": "int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.abs",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2664" },
+            "info": 
+              { "description": "Return the absolute value of its argument." },
+            "type": "int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.max_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2740" },
+            "info": 
+              { "description": "The greatest representable 32-bit integer, 2<sup>31</sup> - 1." },
+            "type": "int32",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Int32.min_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2823" },
+            "info": 
+              { "description": "The smallest representable 32-bit integer, -2<sup>31</sup>." },
+            "type": "int32",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Int32.logand",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2904" },
+            "info": 
+              { "description": "Bitwise logical and." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.logor",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|2990" },
+            "info": 
+              { "description": "Bitwise logical or." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.logxor",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|3073" },
+            "info": 
+              { "description": "Bitwise logical exclusive or." },
+            "type": "int32 -> int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.lognot",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|3168" },
+            "info": 
+              { "description": "Bitwise logical negation" },
+            "type": "int32 -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.shift_left",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|3229" },
+            "info": 
+              { "description": "<span class=\"code\" >Int32.shift_left x y</span> shifts <span class=\"code\" >x</span> to the left by <span class=\"code\" >y</span> bits. The result is unspecified if <span class=\"code\" >y &lt; 0</span> or <span class=\"code\" >y &gt;= 32</span>." },
+            "type": "int32 -> int -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Int32.shift_right",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|3409" },
+            "info": 
+              { "description": "<span class=\"code\" >Int32.shift_right x y</span> shifts <span class=\"code\" >x</span> to the right by <span class=\"code\" >y</span> bits. This is an arithmetic shift: the sign bit of <span class=\"code\" >x</span> is replicated and inserted in the vacated bits. The result is unspecified if <span class=\"code\" >y &lt; 0</span> or <span class=\"code\" >y &gt;= 32</span>." },
+            "type": "int32 -> int -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Int32.shift_right_logical",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|3695" },
+            "info": 
+              { "description": "<span class=\"code\" >Int32.shift_right_logical x y</span> shifts <span class=\"code\" >x</span> to the right by <span class=\"code\" >y</span> bits. This is a logical shift: zeroes are inserted in the vacated bits regardless of the sign of <span class=\"code\" >x</span>. The result is unspecified if <span class=\"code\" >y &lt; 0</span> or <span class=\"code\" >y &gt;= 32</span>." },
+            "type": "int32 -> int -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int32" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Int32.of_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|3996" },
+            "info": 
+              { "description": "Convert the given integer (type <span class=\"code\" >int</span>) to a 32-bit integer (type <span class=\"code\" >int32</span>)." },
+            "type": "int -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Int32.to_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|4132" },
+            "info": 
+              { "description": "Convert the given 32-bit integer (type <span class=\"code\" >int32</span>) to an integer (type <span class=\"code\" >int</span>).  On 32-bit platforms, the 32-bit integer is taken modulo 2<sup>31</sup>, i.e. the high-order bit is lost during the conversion.  On 64-bit platforms, the conversion is exact." },
+            "type": "int32 -> int",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.of_float",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|4444" },
+            "info": 
+              { "description": "Convert the given floating-point number to a 32-bit integer, discarding the fractional part (truncate towards 0). The result of the conversion is undefined if, after truncation, the number is outside the range [<a href=\"{value|Int32.min_int}\" ><span class=\"code\" >Int32.min_int</span></a>, <a href=\"{value|Int32.max_int}\" ><span class=\"code\" >Int32.max_int</span></a>]." },
+            "type": "float -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "float" } ] } }, 
+      { "value": 
+          { "name": "Int32.to_float",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|4770" },
+            "info": 
+              { "description": "Convert the given 32-bit integer to a floating-point number." },
+            "type": "int32 -> float",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.of_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|4898" },
+            "info": 
+              { "description": "Convert the given string to a 32-bit integer. The string is read in decimal (by default) or in hexadecimal, octal or binary if the string begins with <span class=\"code\" >0x</span>, <span class=\"code\" >0o</span> or <span class=\"code\" >0b</span> respectively. Raise <span class=\"code\" >Failure \"int_of_string\"</span> if the given string is not a valid representation of an integer, or if the integer represented exceeds the range of integers representable in type <span class=\"code\" >int32</span>." },
+            "type": "string -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Int32.to_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|5357" },
+            "info": 
+              { "description": "Return the string representation of its argument, in signed decimal." },
+            "type": "int32 -> string",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "value": 
+          { "name": "Int32.bits_of_float",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|5466" },
+            "info": 
+              { "description": "Return the internal representation of the given float according to the IEEE 754 floating-point ``single format'' bit layout. Bit 31 of the result represents the sign of the float; bits 30 to 23 represent the (biased) exponent; bits 22 to 0 represent the mantissa." },
+            "type": "float -> int32",
+            "params": [ 
+              { "name": "",
+                "type": "float" } ] } }, 
+      { "value": 
+          { "name": "Int32.float_of_bits",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|5819" },
+            "info": 
+              { "description": "Return the floating-point number whose internal representation, according to the IEEE 754 floating-point ``single format'' bit layout, is the given <span class=\"code\" >int32</span>." },
+            "type": "int32 -> float",
+            "params": [ 
+              { "name": "",
+                "type": "int32" } ] } }, 
+      { "type": 
+          { "name": "Int32.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|6064" },
+            "info": 
+              { "description": "An alias for the type of 32-bit integers." },
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" },
+            "manifest": "int32" } }, 
+      { "value": 
+          { "name": "Int32.compare",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/int32.mli|6124" },
+            "info": 
+              { "description": "The comparison function for 32-bit integers, with the same specification as <a href=\"{value|Pervasives.compare}\" ><span class=\"code\" >Pervasives.compare</span></a>.  Along with the type <span class=\"code\" >t</span>, this function <span class=\"code\" >compare</span> allows the module <span class=\"code\" >Int32</span> to be passed as argument to the functors <a href=\"{module|Set.Make}\" ><span class=\"code\" >Set.Make</span></a> and <a href=\"{module|Map.Make}\" ><span class=\"code\" >Map.Make</span></a>." },
+            "type": "Int32.t -> Int32.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Int32.t" }, 
+              { "name": "",
+                "type": "Int32.t" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [ "Random", "Obj" ] } } }

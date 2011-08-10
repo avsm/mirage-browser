@@ -1,0 +1,136 @@
+{ "module": 
+  { "name": "Stack",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|0" },
+    "info": 
+      { "description": "Last-in first-out stacks.<br></br> This module implements stacks (LIFOs), with in-place modification." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "Stack.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1056" },
+            "info": 
+              { "description": "The type of stacks containing elements of type <span class=\"code\" >'a</span>." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'a" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "exception": 
+          { "name": "Stack.Empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1123" },
+            "info": 
+              { "description": "Raised when <a href=\"{value|Stack.pop}\" ><span class=\"code\" >Stack.pop</span></a> or <a href=\"{value|Stack.top}\" ><span class=\"code\" >Stack.top</span></a> is applied to an empty stack." } } }, 
+      { "value": 
+          { "name": "Stack.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1219" },
+            "info": 
+              { "description": "Return a new stack, initially empty." },
+            "type": "unit -> 'a Stack.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Stack.push",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1290" },
+            "info": 
+              { "description": "<span class=\"code\" >push x s</span> adds the element <span class=\"code\" >x</span> at the top of stack <span class=\"code\" >s</span>." },
+            "type": "'a -> 'a Stack.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.pop",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1385" },
+            "info": 
+              { "description": "<span class=\"code\" >pop s</span> removes and returns the topmost element in stack <span class=\"code\" >s</span>, or raises <span class=\"code\" >Empty</span> if the stack is empty." },
+            "type": "'a Stack.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.top",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1520" },
+            "info": 
+              { "description": "<span class=\"code\" >top s</span> returns the topmost element in stack <span class=\"code\" >s</span>, or raises <span class=\"code\" >Empty</span> if the stack is empty." },
+            "type": "'a Stack.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.clear",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1643" },
+            "info": 
+              { "description": "Discard all elements from a stack." },
+            "type": "'a Stack.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.copy",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1711" },
+            "info": 
+              { "description": "Return a copy of the given stack." },
+            "type": "'a Stack.t -> 'a Stack.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.is_empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1777" },
+            "info": 
+              { "description": "Return <span class=\"code\" >true</span> if the given stack is empty, <span class=\"code\" >false</span> otherwise." },
+            "type": "'a Stack.t -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.length",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1875" },
+            "info": 
+              { "description": "Return the number of elements in a stack." },
+            "type": "'a Stack.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stack.t" } ] } }, 
+      { "value": 
+          { "name": "Stack.iter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stack.mli|1950" },
+            "info": 
+              { "description": "<span class=\"code\" >iter f s</span> applies <span class=\"code\" >f</span> in turn to all elements of <span class=\"code\" >s</span>, from the element at the top of the stack to the element at the bottom of the stack. The stack itself is unchanged." },
+            "type": "('a -> unit) -> 'a Stack.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a Stack.t" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

@@ -1,0 +1,283 @@
+{ "module": 
+  { "name": "Utf16",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|0" },
+    "info": 
+      { "description": "UTF-16 support for Ulex. Implementation as described in \"http://www.ietf.org/rfc/rfc2781.txt\"." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "exception": 
+          { "name": "Utf16.MalFormed",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|108" },
+            "info": "" } }, 
+      { "comment": "UTF-16 can be encoded in little endian format (0xabcd -&gt; (0xcd|0xab)) or big endian format (0xabcd -&gt; (0xab|0xcd)." }, 
+      { "type": 
+          { "name": "Utf16.byte_order",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|261" },
+            "info": "",
+            "params": [  ],
+            "kind": 
+              { "type": "variant",
+                "private": "false",
+                "constructors": [ 
+                  { "name": "Little_endian",
+                    "type": [  ] }, 
+                  { "name": "Big_endian",
+                    "type": [  ] } ] } } }, 
+      { "comment": "<h6>Interface </h6>" }, 
+      { "value": 
+          { "name": "Utf16.to_int_array",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|703" },
+            "info": 
+              { "description": "<span class=\"code\" >to_int_array opt_bo str spos bytes</span> decodes the string <span class=\"code\" >str</span> of length <span class=\"code\" >bytes</span> starting in position <span class=\"code\" >spos</span>. If <span class=\"code\" >opt_bo</span> matches with <span class=\"code\" >None</span> the functions tries to detect a BOM, if it can't it assumes big endian byte order. If <span class=\"code\" >opt_bo</span> matches with <span class=\"code\" >Some bo</span> byte order <span class=\"code\" >bo</span> is assumed and potential byte order marks are interpreted as code points 0xfeff." },
+            "type": "Utf16.byte_order option -> string -> int -> int -> int array",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order option" }, 
+              { "name": "",
+                "type": "string" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Utf16.from_int_array",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|986" },
+            "info": 
+              { "description": "<span class=\"code\" >from_int_array bo a apos len bom</span> encodes an int array <span class=\"code\" >a</span> containing <span class=\"code\" >len</span> code points from position <span class=\"code\" >apos</span> into a string with byte order <span class=\"code\" >bo</span>. The results starts with a BOM if <span class=\"code\" >bom = true</span>." },
+            "type": "Utf16.byte_order -> int array -> int -> int -> bool -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "int array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Utf16.stream_from_char_stream",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|1216" },
+            "info": 
+              { "description": "<span class=\"code\" >stream_from_char_stream opt_stro</span> creates a new int stream containing the code points encoded in <span class=\"code\" >str</span>. Treats <span class=\"code\" >opt_bo</span> as <span class=\"code\" >to_int_array</span>." },
+            "type": "Utf16.byte_order option -> char Stream.t -> int Stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order option" }, 
+              { "name": "",
+                "type": "char Stream.t" } ] } }, 
+      { "comment": "<h6>Low level</h6>" }, 
+      { "value": 
+          { "name": "Utf16.get_byte_order",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|1424" },
+            "info": 
+              { "description": "<span class=\"code\" >get_byte_order c1 c2</span> determines the byte order by a pair of bytes/characters <span class=\"code\" >c1</span> and <span class=\"code\" >c2</span>." },
+            "type": "char -> char -> Utf16.byte_order",
+            "params": [ 
+              { "name": "",
+                "type": "char" }, 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Utf16.from_stream",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|1570" },
+            "info": 
+              { "description": "<span class=\"code\" >from_stream bo s</span> reads the next code point from a stream encoded in byte order <span class=\"code\" >bo</span>." },
+            "type": "Utf16.byte_order -> char Stream.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "char Stream.t" } ] } }, 
+      { "value": 
+          { "name": "Utf16.number_of_char_pair",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|1739" },
+            "info": 
+              { "description": "<span class=\"code\" >number_of_char_pair bo c1 c2</span> returns the code point encoded in <span class=\"code\" >c1</span> and <span class=\"code\" >c2</span> following byte order <span class=\"code\" >bo</span>." },
+            "type": "Utf16.byte_order -> char -> char -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "char" }, 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Utf16.char_pair_of_number",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|1904" },
+            "info": 
+              { "description": "<span class=\"code\" >char_pair_of_number bo cp</span> encodes code point <span class=\"code\" >cp</span> into two characters with byte order <span class=\"code\" >bo</span>." },
+            "type": "Utf16.byte_order -> int -> char * char",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Utf16.next_code",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|2093" },
+            "info": 
+              { "description": "<span class=\"code\" >next_code bo s pos bytes bo</span> reads the code point starting at position <span class=\"code\" >pos</span> in a string <span class=\"code\" >s</span> of total length <span class=\"code\" >bytes</span>." },
+            "type": "Utf16.byte_order -> string -> int -> int -> int * int",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "string" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Utf16.compute_len",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|2298" },
+            "info": 
+              { "description": "<span class=\"code\" >compute_len opt_bo str pos len</span> computes the number of encoded code points in string <span class=\"code\" >str</span> from position <span class=\"code\" >pos</span> to <span class=\"code\" >pos+len-1</span>." },
+            "type": "Utf16.byte_order option -> string -> int -> int -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order option" }, 
+              { "name": "",
+                "type": "string" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Utf16.blit_to_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|2514" },
+            "info": 
+              { "description": "<span class=\"code\" >blit_to_int bo str spos a apos n</span> decode <span class=\"code\" >len</span> bytes from string <span class=\"code\" >str</span> starting at position <span class=\"code\" >spos</span> into array <span class=\"code\" >a</span>, at position <span class=\"code\" >apos</span>." },
+            "type": "Utf16.byte_order option -> string -> int -> int array -> int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order option" }, 
+              { "name": "",
+                "type": "string" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Utf16.store",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|2703" },
+            "info": 
+              { "description": "<span class=\"code\" >store bo buf cp</span> adds a codepoint <span class=\"code\" >cp</span> to a buffer <span class=\"code\" >buf</span> following the byte order <span class=\"code\" >bo</span>." },
+            "type": "Utf16.byte_order -> Buffer.t -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "Buffer.t" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Utf16.from_utf16_stream",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|2756" },
+            "info": 
+              { "description": "<span class=\"code\" >from_utf16_stream s opt_bo</span> creates a lexbuf from an UTF-16 encoded stream. If <span class=\"code\" >opt_bo</span> matches with <span class=\"code\" >None</span> the function expects a BOM (Byte Order Mark), and takes the byte order as <span class=\"code\" >Utf16.Big_endian</span> if it cannot find one. When <span class=\"code\" >opt_bo</span> matches  with <span class=\"code\" >Some bo</span>, <span class=\"code\" >bo</span> is taken as byte order. In this case a leading BOM is kept in the stream - the lexer has to ignore it and a `wrong' BOM (<span class=\"code\" >0xfffe</span>) will raise Utf16.InvalidCodepoint." },
+            "type": "char Stream.t -> Utf16.byte_order option -> Ulexing.lexbuf",
+            "params": [ 
+              { "name": "",
+                "type": "char Stream.t" }, 
+              { "name": "",
+                "type": "Utf16.byte_order option" } ] } }, 
+      { "value": 
+          { "name": "Utf16.from_utf16_channel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|3317" },
+            "info": 
+              { "description": "Works as <span class=\"code\" >from_utf16_stream</span> with an <span class=\"code\" >in_channel</span>." },
+            "type": "Pervasives.in_channel -> Utf16.byte_order option -> Ulexing.lexbuf",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.in_channel" }, 
+              { "name": "",
+                "type": "Utf16.byte_order option" } ] } }, 
+      { "value": 
+          { "name": "Utf16.from_utf16_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|3517" },
+            "info": 
+              { "description": "Works as <span class=\"code\" >from_utf16_stream</span> with a <span class=\"code\" >string</span>." },
+            "type": "string -> Utf16.byte_order option -> Ulexing.lexbuf",
+            "params": [ 
+              { "name": "",
+                "type": "string" }, 
+              { "name": "",
+                "type": "Utf16.byte_order option" } ] } }, 
+      { "value": 
+          { "name": "Utf16.utf16_lexeme",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|3705" },
+            "info": 
+              { "description": "<span class=\"code\" >utf16_lexeme lb bo bom</span> as <span class=\"code\" >Ulexing.lexeme</span> with a result encoded in UTF-16 in byte_order <span class=\"code\" >bo</span> and starting with a BOM if <span class=\"code\" >bom = true</span>." },
+            "type": "Ulexing.lexbuf -> Utf16.byte_order -> bool -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Ulexing.lexbuf" }, 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Utf16.utf16_sub_lexeme",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/utf16.mli|3975" },
+            "info": 
+              { "description": "<span class=\"code\" >utf16_sub_lexeme lb pos len bo bom</span> as <span class=\"code\" >Ulexing.sub_lexeme</span> with a  result encoded in UTF-16 with byte order <span class=\"code\" >bo</span> and starting with a BOM if <span class=\"code\" >bom=true</span>" },
+            "type": "Ulexing.lexbuf -> int -> int -> Utf16.byte_order -> bool -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Ulexing.lexbuf" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "Utf16.byte_order" }, 
+              { "name": "",
+                "type": "bool" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Ulexing", "Stream", "Buffer" ],
+        "used_by": [  ] } } }

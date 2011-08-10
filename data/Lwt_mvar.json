@@ -1,0 +1,73 @@
+{ "module": 
+  { "name": "Lwt_mvar",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli|0" },
+    "info": 
+      { "description": "Mailbox variables" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "\"Mailbox\" variables implement a synchronising variable, used for communication between concurrent threads.<br></br> This code adapted from <a href=\"http://eigenclass.org/hiki.rb?cmd=view&amp;p=lightweight-threads-with-lwt\" >Comparing lightweight threads (eigenclass.org)</a>" }, 
+      { "type": 
+          { "name": "Lwt_mvar.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli|2032" },
+            "info": 
+              { "description": "The type of a mailbox variable. Mailbox variables are used to communicate values between threads in a synchronous way. The type parameter specifies the type of the value propagated from <span class=\"code\" >put</span> to <span class=\"code\" >take</span>." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Lwt_mvar.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli|2269" },
+            "info": 
+              { "description": "<span class=\"code\" >create v</span> creates a new mailbox variable containing value <span class=\"code\" >v</span>." },
+            "type": "'a -> 'a Lwt_mvar.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt_mvar.create_empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli|2367" },
+            "info": 
+              { "description": "<span class=\"code\" >create ()</span> creates a new empty mailbox variable." },
+            "type": "unit -> 'a Lwt_mvar.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt_mvar.put",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli|2459" },
+            "info": 
+              { "description": "<span class=\"code\" >put mvar value</span> puts a value into a mailbox variable. This value will remain in the mailbox until <span class=\"code\" >take</span> is called to remove it. If the mailbox is not empty, the current thread will block until it is emptied." },
+            "type": "'a Lwt_mvar.t -> 'a -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_mvar.t" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt_mvar.take",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_mvar.mli|2732" },
+            "info": 
+              { "description": "<span class=\"code\" >take mvar</span> will take any currently available value from the mailbox variable. If no value is currently available, the current thread will block, awaiting a value to be <span class=\"code\" >put</span> by another thread." },
+            "type": "'a Lwt_mvar.t -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_mvar.t" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Lwt" ],
+        "used_by": [  ] } } }

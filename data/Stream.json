@@ -1,0 +1,170 @@
+{ "module": 
+  { "name": "Stream",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|0" },
+    "info": 
+      { "description": "Streams and parsers." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "Stream.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|981" },
+            "info": 
+              { "description": "The type of streams holding values of type <span class=\"code\" >'a</span>." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "exception": 
+          { "name": "Stream.Failure",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|1044" },
+            "info": 
+              { "description": "Raised by parsers when none of the first components of the stream patterns is accepted." } } }, 
+      { "exception": 
+          { "name": "Stream.Error",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|1161" },
+            "info": 
+              { "description": "Raised by parsers when the first component of a stream pattern is accepted, but one of the following components is rejected." },
+            "exception_args": [ "string" ] } }, 
+      { "comment": "<h6>Stream builders</h6><br></br> Warning: these functions create streams with fast access; it is illegal to mix them with streams built with <span class=\"code\" >[&lt; &gt;]</span>; would raise <span class=\"code\" >Failure</span> when accessing such mixed streams." }, 
+      { "value": 
+          { "name": "Stream.from",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|1536" },
+            "info": 
+              { "description": "<span class=\"code\" >Stream.from f</span> returns a stream built from the function <span class=\"code\" >f</span>. To create a new stream element, the function <span class=\"code\" >f</span> is called with the current stream count. The user function <span class=\"code\" >f</span> must return either <span class=\"code\" >Some &lt;value&gt;</span> for a value or <span class=\"code\" >None</span> to specify the end of the stream." },
+            "type": "(int -> 'a option) -> 'a Stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "int -> 'a option" } ] } }, 
+      { "value": 
+          { "name": "Stream.of_list",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|1858" },
+            "info": 
+              { "description": "Return the stream holding the elements of the list in the same order." },
+            "type": "'a list -> 'a Stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Stream.of_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|1969" },
+            "info": 
+              { "description": "Return the stream of the characters of the string parameter." },
+            "type": "string -> char Stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Stream.of_channel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2071" },
+            "info": 
+              { "description": "Return the stream of the characters read from the input channel." },
+            "type": "Pervasives.in_channel -> char Stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.in_channel" } ] } }, 
+      { "comment": "<h6>Stream iterator</h6>" }, 
+      { "value": 
+          { "name": "Stream.iter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2211" },
+            "info": 
+              { "description": "<span class=\"code\" >Stream.iter f s</span> scans the whole stream s, applying function <span class=\"code\" >f</span> in turn to each stream element encountered." },
+            "type": "('a -> unit) -> 'a Stream.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a Stream.t" } ] } }, 
+      { "comment": "<h6>Predefined parsers</h6>" }, 
+      { "value": 
+          { "name": "Stream.next",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2404" },
+            "info": 
+              { "description": "Return the first element of the stream and remove it from the stream. Raise Stream.Failure if the stream is empty." },
+            "type": "'a Stream.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stream.t" } ] } }, 
+      { "value": 
+          { "name": "Stream.empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2552" },
+            "info": 
+              { "description": "Return <span class=\"code\" >()</span> if the stream is empty, else raise <span class=\"code\" >Stream.Failure</span>." },
+            "type": "'a Stream.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stream.t" } ] } }, 
+      { "comment": "<h6>Useful functions</h6>" }, 
+      { "value": 
+          { "name": "Stream.peek",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2680" },
+            "info": 
+              { "description": "Return <span class=\"code\" >Some</span> of \"the first element\" of the stream, or <span class=\"code\" >None</span> if the stream is empty." },
+            "type": "'a Stream.t -> 'a option",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stream.t" } ] } }, 
+      { "value": 
+          { "name": "Stream.junk",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2806" },
+            "info": 
+              { "description": "Remove the first element of the stream, possibly unfreezing it before." },
+            "type": "'a Stream.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stream.t" } ] } }, 
+      { "value": 
+          { "name": "Stream.count",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|2912" },
+            "info": 
+              { "description": "Return the current count of the stream elements, i.e. the number of the stream elements discarded." },
+            "type": "'a Stream.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "'a Stream.t" } ] } }, 
+      { "value": 
+          { "name": "Stream.npeek",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/stream.mli|3046" },
+            "info": 
+              { "description": "<span class=\"code\" >npeek n</span> returns the list of the <span class=\"code\" >n</span> first elements of the stream, or all its remaining elements if less than <span class=\"code\" >n</span> elements are available." },
+            "type": "int -> 'a Stream.t -> 'a list",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a Stream.t" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [ "Utf8", "Utf16", "Ulexing" ] } } }

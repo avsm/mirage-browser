@@ -1,0 +1,1398 @@
+{ "module": 
+  { "name": "Format",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|0" },
+    "info": 
+      { "description": "Pretty printing.<br></br> This module implements a pretty-printing facility to format text within ``pretty-printing boxes''. The pretty-printer breaks lines at specified break hints, and indents lines according to the box structure.<br></br> For a gentle introduction to the basics of pretty-printing using <span class=\"code\" >Format</span>, read <a href=\"http://caml.inria.fr/resources/doc/guides/format.html\" >http://caml.inria.fr/resources/doc/guides/format.html</a>.<br></br> You may consider this module as providing an extension to the <span class=\"code\" >printf</span> facility to provide automatic line breaking. The addition of pretty-printing annotations to your regular <span class=\"code\" >printf</span> formats gives you fancy indentation and line breaks. Pretty-printing annotations are described below in the documentation of the function <a href=\"{value|Format.fprintf}\" ><span class=\"code\" >Format.fprintf</span></a>.<br></br> You may also use the explicit box management and printing functions provided by this module. This style is more basic but more verbose than the <span class=\"code\" >fprintf</span> concise formats.<br></br> For instance, the sequence <span class=\"code\" >open_box 0; print_string \"x =\"; print_space (); print_int 1; close_box (); print_newline ()</span> that prints <span class=\"code\" >x = 1</span> within a pretty-printing box, can be abbreviated as <span class=\"code\" >printf \"@[%s@ %i@]@.\" \"x =\" 1</span>, or even shorter <span class=\"code\" >printf \"@[x =@ %i@]@.\" 1</span>.<br></br> Rule of thumb for casual users of this library:<ul><li>use simple boxes (as obtained by <span class=\"code\" >open_box 0</span>);</li><li>use simple break hints (as obtained by <span class=\"code\" >print_cut ()</span> that outputs a simple break hint, or by <span class=\"code\" >print_space ()</span> that outputs a space indicating a break hint);</li><li>once a box is opened, display its material with basic printing functions (e. g. <span class=\"code\" >print_int</span> and <span class=\"code\" >print_string</span>);</li><li>when the material for a box has been printed, call <span class=\"code\" >close_box ()</span> to close the box;</li><li>at the end of your routine, flush the pretty-printer to display all the remaining material, e.g. evaluate <span class=\"code\" >print_newline ()</span>.</li></ul> The behaviour of pretty-printing commands is unspecified if there is no opened pretty-printing box. Each box opened via one of the <span class=\"code\" >open_</span> functions below must be closed using <span class=\"code\" >close_box</span> for proper formatting. Otherwise, some of the material printed in the boxes may not be output, or may be formatted incorrectly.<br></br> In case of interactive use, the system closes all opened boxes and flushes all pending text (as with the <span class=\"code\" >print_newline</span> function) after each phrase. Each phrase is therefore executed in the initial state of the pretty-printer.<br></br> Warning: the material output by the following functions is delayed in the pretty-printer queue in order to compute the proper line breaking. Hence, you should not mix calls to the printing functions of the basic I/O system with calls to the functions of this module: this could result in some strange output seemingly unrelated with the evaluation order of printing commands." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "Pretty printing.<br></br> This module implements a pretty-printing facility to format text within ``pretty-printing boxes''. The pretty-printer breaks lines at specified break hints, and indents lines according to the box structure.<br></br> For a gentle introduction to the basics of pretty-printing using <span class=\"code\" >Format</span>, read <a href=\"http://caml.inria.fr/resources/doc/guides/format.html\" >http://caml.inria.fr/resources/doc/guides/format.html</a>.<br></br> You may consider this module as providing an extension to the <span class=\"code\" >printf</span> facility to provide automatic line breaking. The addition of pretty-printing annotations to your regular <span class=\"code\" >printf</span> formats gives you fancy indentation and line breaks. Pretty-printing annotations are described below in the documentation of the function <a href=\"{value|Format.fprintf}\" ><span class=\"code\" >Format.fprintf</span></a>.<br></br> You may also use the explicit box management and printing functions provided by this module. This style is more basic but more verbose than the <span class=\"code\" >fprintf</span> concise formats.<br></br> For instance, the sequence <span class=\"code\" >open_box 0; print_string \"x =\"; print_space (); print_int 1; close_box (); print_newline ()</span> that prints <span class=\"code\" >x = 1</span> within a pretty-printing box, can be abbreviated as <span class=\"code\" >printf \"@[%s@ %i@]@.\" \"x =\" 1</span>, or even shorter <span class=\"code\" >printf \"@[x =@ %i@]@.\" 1</span>.<br></br> Rule of thumb for casual users of this library:<ul><li>use simple boxes (as obtained by <span class=\"code\" >open_box 0</span>);</li><li>use simple break hints (as obtained by <span class=\"code\" >print_cut ()</span> that outputs a simple break hint, or by <span class=\"code\" >print_space ()</span> that outputs a space indicating a break hint);</li><li>once a box is opened, display its material with basic printing functions (e. g. <span class=\"code\" >print_int</span> and <span class=\"code\" >print_string</span>);</li><li>when the material for a box has been printed, call <span class=\"code\" >close_box ()</span> to close the box;</li><li>at the end of your routine, flush the pretty-printer to display all the remaining material, e.g. evaluate <span class=\"code\" >print_newline ()</span>.</li></ul> The behaviour of pretty-printing commands is unspecified if there is no opened pretty-printing box. Each box opened via one of the <span class=\"code\" >open_</span> functions below must be closed using <span class=\"code\" >close_box</span> for proper formatting. Otherwise, some of the material printed in the boxes may not be output, or may be formatted incorrectly.<br></br> In case of interactive use, the system closes all opened boxes and flushes all pending text (as with the <span class=\"code\" >print_newline</span> function) after each phrase. Each phrase is therefore executed in the initial state of the pretty-printer.<br></br> Warning: the material output by the following functions is delayed in the pretty-printer queue in order to compute the proper line breaking. Hence, you should not mix calls to the printing functions of the basic I/O system with calls to the functions of this module: this could result in some strange output seemingly unrelated with the evaluation order of printing commands." }, 
+      { "comment": "<h6>Boxes</h6>" }, 
+      { "value": 
+          { "name": "Format.open_box",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|3842" },
+            "info": 
+              { "description": "<span class=\"code\" >open_box d</span> opens a new pretty-printing box with offset <span class=\"code\" >d</span>. This box is the general purpose pretty-printing box. Material in this box is displayed ``horizontal or vertical'': break hints inside the box may lead to a new line, if there is no more room on the line to print the remainder of the box, or if a new line may lead to a new indentation (demonstrating the indentation of the box). When a new line is printed in the box, <span class=\"code\" >d</span> is added to the current indentation." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.close_box",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|4377" },
+            "info": 
+              { "description": "Closes the most recently opened pretty-printing box." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Formatting functions</h6>" }, 
+      { "value": 
+          { "name": "Format.print_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|4502" },
+            "info": 
+              { "description": "<span class=\"code\" >print_string str</span> prints <span class=\"code\" >str</span> in the current box." },
+            "type": "string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.print_as",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|4598" },
+            "info": 
+              { "description": "<span class=\"code\" >print_as len str</span> prints <span class=\"code\" >str</span> in the current box. The pretty-printer formats <span class=\"code\" >str</span> as if it were of length <span class=\"code\" >len</span>." },
+            "type": "int -> string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.print_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|4767" },
+            "info": 
+              { "description": "Prints an integer in the current box." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.print_float",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|4843" },
+            "info": 
+              { "description": "Prints a floating point number in the current box." },
+            "type": "float -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "float" } ] } }, 
+      { "value": 
+          { "name": "Format.print_char",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|4936" },
+            "info": 
+              { "description": "Prints a character in the current box." },
+            "type": "char -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Format.print_bool",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|5015" },
+            "info": 
+              { "description": "Prints a boolean in the current box." },
+            "type": "bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "comment": "<h6>Break hints</h6>" }, 
+      { "value": 
+          { "name": "Format.print_space",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|5116" },
+            "info": 
+              { "description": "<span class=\"code\" >print_space ()</span> is used to separate items (typically to print a space between two words). It indicates that the line may be split at this point. It either prints one space or splits the line. It is equivalent to <span class=\"code\" >print_break 1 0</span>." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.print_cut",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|5401" },
+            "info": 
+              { "description": "<span class=\"code\" >print_cut ()</span> is used to mark a good break position. It indicates that the line may be split at this point. It either prints nothing or splits the line. This allows line splitting at the current point, without printing spaces or adding indentation. It is equivalent to <span class=\"code\" >print_break 0 0</span>." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.print_break",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|5744" },
+            "info": 
+              { "description": "Inserts a break hint in a pretty-printing box. <span class=\"code\" >print_break nspaces offset</span> indicates that the line may be split (a newline character is printed) at this point, if the contents of the current box does not fit on the current line. If the line is split at that point, <span class=\"code\" >offset</span> is added to the current indentation. If the line is not split, <span class=\"code\" >nspaces</span> spaces are printed." },
+            "type": "int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.print_flush",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|6180" },
+            "info": 
+              { "description": "Flushes the pretty printer: all opened boxes are closed, and all pending text is displayed." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.print_newline",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|6316" },
+            "info": 
+              { "description": "Equivalent to <span class=\"code\" >print_flush</span> followed by a new line." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.force_newline",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|6411" },
+            "info": 
+              { "description": "Forces a newline in the current box. Not the normal way of pretty-printing, you should prefer break hints." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.print_if_newline",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|6564" },
+            "info": 
+              { "description": "Executes the next formatting command if the preceding line has just been split. Otherwise, ignore the next formatting command." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Margin</h6>" }, 
+      { "value": 
+          { "name": "Format.set_margin",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|6762" },
+            "info": 
+              { "description": "<span class=\"code\" >set_margin d</span> sets the value of the right margin to <span class=\"code\" >d</span> (in characters): this value is used to detect line overflows that leads to split lines. Nothing happens if <span class=\"code\" >d</span> is smaller than 2. If <span class=\"code\" >d</span> is too large, the right margin is set to the maximum admissible value (which is greater than <span class=\"code\" >10^10</span>)." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.get_margin",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|7113" },
+            "info": 
+              { "description": "Returns the position of the right margin." },
+            "type": "unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Maximum indentation limit</h6>" }, 
+      { "value": 
+          { "name": "Format.set_max_indent",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|7232" },
+            "info": 
+              { "description": "<span class=\"code\" >set_max_indent d</span> sets the value of the maximum indentation limit to <span class=\"code\" >d</span> (in characters): once this limit is reached, boxes are rejected to the left, if they do not fit on the current line. Nothing happens if <span class=\"code\" >d</span> is smaller than 2. If <span class=\"code\" >d</span> is too large, the limit is set to the maximum admissible value (which is greater than <span class=\"code\" >10^10</span>)." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.get_max_indent",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|7629" },
+            "info": 
+              { "description": "Return the value of the maximum indentation limit (in characters)." },
+            "type": "unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Formatting depth: maximum number of boxes allowed before ellipsis</h6>" }, 
+      { "value": 
+          { "name": "Format.set_max_boxes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|7817" },
+            "info": 
+              { "description": "<span class=\"code\" >set_max_boxes max</span> sets the maximum number of boxes simultaneously opened. Material inside boxes nested deeper is printed as an ellipsis (more precisely as the text returned by <span class=\"code\" >get_ellipsis_text ()</span>). Nothing happens if <span class=\"code\" >max</span> is smaller than 2." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.get_max_boxes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|8121" },
+            "info": 
+              { "description": "Returns the maximum number of boxes allowed before ellipsis." },
+            "type": "unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.over_max_boxes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|8224" },
+            "info": 
+              { "description": "Tests if the maximum number of boxes allowed have already been opened." },
+            "type": "unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Advanced formatting</h6>" }, 
+      { "value": 
+          { "name": "Format.open_hbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|8371" },
+            "info": 
+              { "description": "<span class=\"code\" >open_hbox ()</span> opens a new pretty-printing box. This box is ``horizontal'': the line is not split in this box (new lines may still occur inside boxes nested deeper)." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.open_vbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|8582" },
+            "info": 
+              { "description": "<span class=\"code\" >open_vbox d</span> opens a new pretty-printing box with offset <span class=\"code\" >d</span>. This box is ``vertical'': every break hint inside this box leads to a new line. When a new line is printed in the box, <span class=\"code\" >d</span> is added to the current indentation." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.open_hvbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|8858" },
+            "info": 
+              { "description": "<span class=\"code\" >open_hvbox d</span> opens a new pretty-printing box with offset <span class=\"code\" >d</span>. This box is ``horizontal-vertical'': it behaves as an ``horizontal'' box if it fits on a single line, otherwise it behaves as a ``vertical'' box. When a new line is printed in the box, <span class=\"code\" >d</span> is added to the current indentation." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.open_hovbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|9205" },
+            "info": 
+              { "description": "<span class=\"code\" >open_hovbox d</span> opens a new pretty-printing box with offset <span class=\"code\" >d</span>. This box is ``horizontal or vertical'': break hints inside this box may lead to a new line, if there is no more room on the line to print the remainder of the box. When a new line is printed in the box, <span class=\"code\" >d</span> is added to the current indentation." },
+            "type": "int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "comment": "<h6>Tabulations</h6>" }, 
+      { "value": 
+          { "name": "Format.open_tbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|9596" },
+            "info": 
+              { "description": "Opens a tabulation box." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.close_tbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|9659" },
+            "info": 
+              { "description": "Closes the most recently opened tabulation box." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.print_tbreak",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|9747" },
+            "info": 
+              { "description": "Break hint in a tabulation box. <span class=\"code\" >print_tbreak spaces offset</span> moves the insertion point to the next tabulation (<span class=\"code\" >spaces</span> being added to this position). Nothing occurs if insertion point is already on a tabulation mark. If there is no next tabulation on the line, then a newline is printed and the insertion point moves to the first tabulation of the box. If a new line is printed, <span class=\"code\" >offset</span> is added to the current indentation." },
+            "type": "int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.set_tab",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|10248" },
+            "info": 
+              { "description": "Sets a tabulation mark at the current insertion point." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.print_tab",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|10340" },
+            "info": 
+              { "description": "<span class=\"code\" >print_tab ()</span> is equivalent to <span class=\"code\" >print_tbreak 0 0</span>." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Ellipsis</h6>" }, 
+      { "value": 
+          { "name": "Format.set_ellipsis_text",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|10452" },
+            "info": 
+              { "description": "Set the text of the ellipsis printed when too many boxes are opened (a single dot, <span class=\"code\" >.</span>, by default)." },
+            "type": "string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.get_ellipsis_text",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|10605" },
+            "info": 
+              { "description": "Return the text of the ellipsis." },
+            "type": "unit -> string",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Semantics Tags</h6>" }, 
+      { "type": 
+          { "name": "Format.tag",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|10724" },
+            "info": "",
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" },
+            "manifest": "string" } }, 
+      { "comment": "<i>Semantics tags</i> (or simply <em>tags</em>) are used to decorate printed entities for user's defined purposes, e.g. setting font and giving size indications for a display device, or marking delimitation of semantics entities (e.g. HTML or TeX elements or terminal escape sequences).<br></br> By default, those tags do not influence line breaking calculation: the tag ``markers'' are not considered as part of the printing material that drives line breaking (in other words, the length of those strings is considered as zero for line breaking).<br></br> Thus, tag handling is in some sense transparent to pretty-printing and does not interfere with usual pretty-printing. Hence, a single pretty printing routine can output both simple ``verbatim'' material or richer decorated output depending on the treatment of tags. By default, tags are not active, hence the output is not decorated with tag information. Once <span class=\"code\" >set_tags</span> is set to <span class=\"code\" >true</span>, the pretty printer engine honours tags and decorates the output accordingly.<br></br> When a tag has been opened (or closed), it is both and successively ``printed'' and ``marked''. Printing a tag means calling a formatter specific function with the name of the tag as argument: that ``tag printing'' function can then print any regular material to the formatter (so that this material is enqueued as usual in the formatter queue for further line-breaking computation). Marking a tag means to output an arbitrary string (the ``tag marker''), directly into the output device of the formatter. Hence, the formatter specific ``tag marking'' function must return the tag marker string associated to its tag argument. Being flushed directly into the output device of the formatter, tag marker strings are not considered as part of the printing material that drives line breaking (in other words, the length of the strings corresponding to tag markers is considered as zero for line breaking). In addition, advanced users may take advantage of the specificity of tag markers to be precisely output when the pretty printer has already decided where to break the lines, and precisely when the queue is flushed into the output device.<br></br> In the spirit of HTML tags, the default tag marking functions output tags enclosed in \"&lt;\" and \"&gt;\": hence, the opening marker of tag <span class=\"code\" >t</span> is <span class=\"code\" >\"&lt;t&gt;\"</span> and the closing marker <span class=\"code\" >\"&lt;/t&gt;\"</span>.<br></br> Default tag printing functions just do nothing.<br></br> Tag marking and tag printing functions are user definable and can be set by calling <span class=\"code\" >set_formatter_tag_functions</span>." }, 
+      { "value": 
+          { "name": "Format.open_tag",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|13351" },
+            "info": 
+              { "description": "<span class=\"code\" >open_tag t</span> opens the tag named <span class=\"code\" >t</span>; the <span class=\"code\" >print_open_tag</span> function of the formatter is called with <span class=\"code\" >t</span> as argument; the tag marker <span class=\"code\" >mark_open_tag t</span> will be flushed into the output device of the formatter." },
+            "type": "Format.tag -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.tag" } ] } }, 
+      { "value": 
+          { "name": "Format.close_tag",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|13603" },
+            "info": 
+              { "description": "<span class=\"code\" >close_tag ()</span> closes the most recently opened tag <span class=\"code\" >t</span>. In addition, the <span class=\"code\" >print_close_tag</span> function of the formatter is called with <span class=\"code\" >t</span> as argument. The marker <span class=\"code\" >mark_close_tag t</span> will be flushed into the output device of the formatter." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.set_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|13887" },
+            "info": 
+              { "description": "<span class=\"code\" >set_tags b</span> turns on or off the treatment of tags (default is off)." },
+            "type": "bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.set_print_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|13993" },
+            "info": "",
+            "type": "bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.set_mark_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|14029" },
+            "info": 
+              { "description": "<span class=\"code\" >set_print_tags b</span> turns on or off the printing of tags, while <span class=\"code\" >set_mark_tags b</span> turns on or off the output of tag markers." },
+            "type": "bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.get_print_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|14199" },
+            "info": "",
+            "type": "unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.get_mark_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|14235" },
+            "info": 
+              { "description": "Return the current status of tags printing and tags marking." },
+            "type": "unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Redirecting the standard formatter output</h6>" }, 
+      { "value": 
+          { "name": "Format.set_formatter_out_channel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|14393" },
+            "info": 
+              { "description": "Redirect the pretty-printer output to the given channel. (All the output functions of the standard formatter are set to the default output functions printing to the given channel.)" },
+            "type": "Pervasives.out_channel -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.out_channel" } ] } }, 
+      { "value": 
+          { "name": "Format.set_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|14656" },
+            "info": 
+              { "description": "<span class=\"code\" >set_formatter_output_functions out flush</span> redirects the relevant pretty-printer output functions to the functions <span class=\"code\" >out</span> and <span class=\"code\" >flush</span>.<br></br> The <span class=\"code\" >out</span> function performs the pretty-printer string output. It is called with a string <span class=\"code\" >s</span>, a start position <span class=\"code\" >p</span>, and a number of characters <span class=\"code\" >n</span>; it is supposed to output characters <span class=\"code\" >p</span> to <span class=\"code\" >p + n - 1</span> of <span class=\"code\" >s</span>. The <span class=\"code\" >flush</span> function is called whenever the pretty-printer is flushed (via conversion <span class=\"code\" >%!</span>, pretty-printing indications <span class=\"code\" >@?</span> or <span class=\"code\" >@.</span>, or using low level function <span class=\"code\" >print_flush</span> or <span class=\"code\" >print_newline</span>)." },
+            "type": "(string -> int -> int -> unit) -> (unit -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "string -> int -> int -> unit" }, 
+              { "name": "",
+                "type": "unit -> unit" } ] } }, 
+      { "value": 
+          { "name": "Format.get_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|15330" },
+            "info": 
+              { "description": "Return the current output functions of the pretty-printer." },
+            "type": "unit -> (string -> int -> int -> unit) * (unit -> unit)",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Changing the meaning of standard formatter pretty printing</h6>" }, 
+      { "comment": "The <span class=\"code\" >Format</span> module is versatile enough to let you completely redefine the meaning of pretty printing: you may provide your own functions to define how to handle indentation, line breaking, and even printing of all the characters that have to be printed!" }, 
+      { "value": 
+          { "name": "Format.set_all_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|15840" },
+            "info": 
+              { "description": "<span class=\"code\" >set_all_formatter_output_functions out flush outnewline outspace</span> redirects the pretty-printer output to the functions <span class=\"code\" >out</span> and <span class=\"code\" >flush</span> as described in <span class=\"code\" >set_formatter_output_functions</span>. In addition, the pretty-printer function that outputs a newline is set to the function <span class=\"code\" >outnewline</span> and the function that outputs indentation spaces is set to the function <span class=\"code\" >outspace</span>.<br></br> This way, you can change the meaning of indentation (which can be something else than just printing space characters) and the meaning of new lines opening (which can be connected to any other action needed by the application at hand). The two functions <span class=\"code\" >outspace</span> and <span class=\"code\" >outnewline</span> are normally connected to <span class=\"code\" >out</span> and <span class=\"code\" >flush</span>: respective default values for <span class=\"code\" >outspace</span> and <span class=\"code\" >outnewline</span> are <span class=\"code\" >out (String.make n ' ') 0 n</span> and <span class=\"code\" >out \"\\n\" 0 1</span>." },
+            "type": "out:(string -> int -> int -> unit) ->\n  flush:(unit -> unit) ->\n  newline:(unit -> unit) -> spaces:(int -> unit) -> unit",
+            "params": [ 
+              { "name": "out",
+                "type": "string -> int -> int -> unit" }, 
+              { "name": "flush",
+                "type": "unit -> unit" }, 
+              { "name": "newline",
+                "type": "unit -> unit" }, 
+              { "name": "spaces",
+                "type": "int -> unit" } ] } }, 
+      { "value": 
+          { "name": "Format.get_all_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|16866" },
+            "info": 
+              { "description": "Return the current output functions of the pretty-printer, including line breaking and indentation functions. Useful to record the current setting and restore it afterwards." },
+            "type": "unit ->\n  (string -> int -> int -> unit) * (unit -> unit) * (unit -> unit) *\n  (int -> unit)",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Changing the meaning of printing semantics tags</h6>" }, 
+      { "type": 
+          { "name": "Format.formatter_tag_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|17267" },
+            "info": 
+              { "description": "The tag handling functions specific to a formatter: <span class=\"code\" >mark</span> versions are the ``tag marking'' functions that associate a string marker to a tag in order for the pretty-printing engine to flush those markers as 0 length tokens in the output device of the formatter. <span class=\"code\" >print</span> versions are the ``tag printing'' functions that can perform regular printing when a tag is closed or opened." },
+            "params": [  ],
+            "kind": 
+              { "type": "record",
+                "private": "false",
+                "fields": [ 
+                  { "name": "mark_open_tag",
+                    "mutable": false,
+                    "type": "Format.tag -> string" }, 
+                  { "name": "mark_close_tag",
+                    "mutable": false,
+                    "type": "Format.tag -> string" }, 
+                  { "name": "print_open_tag",
+                    "mutable": false,
+                    "type": "Format.tag -> unit" }, 
+                  { "name": "print_close_tag",
+                    "mutable": false,
+                    "type": "Format.tag -> unit" } ] } } }, 
+      { "value": 
+          { "name": "Format.set_formatter_tag_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|17836" },
+            "info": "",
+            "type": "Format.formatter_tag_functions -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter_tag_functions" } ] } }, 
+      { "comment": "<span class=\"code\" >set_formatter_tag_functions tag_funs</span> changes the meaning of opening and closing tags to use the functions in <span class=\"code\" >tag_funs</span>.<br></br> When opening a tag name <span class=\"code\" >t</span>, the string <span class=\"code\" >t</span> is passed to the opening tag marking function (the <span class=\"code\" >mark_open_tag</span> field of the record <span class=\"code\" >tag_funs</span>), that must return the opening tag marker for that name. When the next call to <span class=\"code\" >close_tag ()</span> happens, the tag name <span class=\"code\" >t</span> is sent back to the closing tag marking function (the <span class=\"code\" >mark_close_tag</span> field of record <span class=\"code\" >tag_funs</span>), that must return a closing tag marker for that name.<br></br> The <span class=\"code\" >print_</span> field of the record contains the functions that are called at tag opening and tag closing time, to output regular material in the pretty-printer queue." }, 
+      { "value": 
+          { "name": "Format.get_formatter_tag_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|18654" },
+            "info": 
+              { "description": "Return the current tag functions of the pretty-printer." },
+            "type": "unit -> Format.formatter_tag_functions",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6>Multiple formatted output</h6>" }, 
+      { "type": 
+          { "name": "Format.formatter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|18832" },
+            "info": 
+              { "description": "Abstract data corresponding to a pretty-printer (also called a formatter) and all its machinery.<br></br> Defining new pretty-printers permits unrelated output of material in parallel on several output channels. All the parameters of a pretty-printer are local to this pretty-printer: margin, maximum indentation limit, maximum number of boxes simultaneously opened, ellipsis, and so on, are specific to each pretty-printer and may be fixed independently. Given a <span class=\"code\" >Pervasives.out_channel</span> output channel <span class=\"code\" >oc</span>, a new formatter writing to that channel is simply obtained by calling <span class=\"code\" >formatter_of_out_channel oc</span>. Alternatively, the <span class=\"code\" >make_formatter</span> function allocates a new formatter with explicit output and flushing functions (convenient to output material to strings for instance)." },
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Format.formatter_of_out_channel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|19653" },
+            "info": 
+              { "description": "<span class=\"code\" >formatter_of_out_channel oc</span> returns a new formatter that writes to the corresponding channel <span class=\"code\" >oc</span>." },
+            "type": "Pervasives.out_channel -> Format.formatter",
+            "params": [ 
+              { "name": "",
+                "type": "Pervasives.out_channel" } ] } }, 
+      { "value": 
+          { "name": "Format.std_formatter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|19823" },
+            "info": 
+              { "description": "The standard formatter used by the formatting functions above. It is defined as <span class=\"code\" >formatter_of_out_channel stdout</span>." },
+            "type": "Format.formatter",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Format.err_formatter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|19981" },
+            "info": 
+              { "description": "A formatter to use with formatting functions below for output to standard error. It is defined as <span class=\"code\" >formatter_of_out_channel stderr</span>." },
+            "type": "Format.formatter",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Format.formatter_of_buffer",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|20160" },
+            "info": 
+              { "description": "<span class=\"code\" >formatter_of_buffer b</span> returns a new formatter writing to buffer <span class=\"code\" >b</span>. As usual, the formatter has to be flushed at the end of pretty printing, using <span class=\"code\" >pp_print_flush</span> or <span class=\"code\" >pp_print_newline</span>, to display all the pending material." },
+            "type": "Buffer.t -> Format.formatter",
+            "params": [ 
+              { "name": "",
+                "type": "Buffer.t" } ] } }, 
+      { "value": 
+          { "name": "Format.stdbuf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|20454" },
+            "info": 
+              { "description": "The string buffer in which <span class=\"code\" >str_formatter</span> writes." },
+            "type": "Buffer.t",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Format.str_formatter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|20537" },
+            "info": 
+              { "description": "A formatter to use with formatting functions below for output to the <span class=\"code\" >stdbuf</span> string buffer. <span class=\"code\" >str_formatter</span> is defined as <span class=\"code\" >formatter_of_buffer stdbuf</span>." },
+            "type": "Format.formatter",
+            "params": [  ] } }, 
+      { "value": 
+          { "name": "Format.flush_str_formatter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|20736" },
+            "info": 
+              { "description": "Returns the material printed with <span class=\"code\" >str_formatter</span>, flushes the formatter and resets the corresponding buffer." },
+            "type": "unit -> string",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.make_formatter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|20900" },
+            "info": 
+              { "description": "<span class=\"code\" >make_formatter out flush</span> returns a new formatter that writes according to the output function <span class=\"code\" >out</span>, and the flushing function <span class=\"code\" >flush</span>. For instance, a formatter to the <span class=\"code\" >Pervasives.out_channel</span> <span class=\"code\" >oc</span> is returned by <span class=\"code\" >make_formatter (Pervasives.output oc) (fun () -&gt; Pervasives.flush oc)</span>." },
+            "type": "(string -> int -> int -> unit) -> (unit -> unit) -> Format.formatter",
+            "params": [ 
+              { "name": "",
+                "type": "string -> int -> int -> unit" }, 
+              { "name": "",
+                "type": "unit -> unit" } ] } }, 
+      { "comment": "<h6>Basic functions to use with formatters</h6>" }, 
+      { "value": 
+          { "name": "Format.pp_open_hbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21342" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_open_vbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21389" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_open_hvbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21435" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_open_hovbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21482" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_open_box",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21530" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_close_box",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21575" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_open_tag",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21622" },
+            "info": "",
+            "type": "Format.formatter -> string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_close_tag",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21670" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21717" },
+            "info": "",
+            "type": "Format.formatter -> string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_as",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21769" },
+            "info": "",
+            "type": "Format.formatter -> int -> string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_int",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21824" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_float",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21870" },
+            "info": "",
+            "type": "Format.formatter -> float -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "float" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_char",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21920" },
+            "info": "",
+            "type": "Format.formatter -> char -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_bool",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|21968" },
+            "info": "",
+            "type": "Format.formatter -> bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_break",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22016" },
+            "info": "",
+            "type": "Format.formatter -> int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_cut",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22071" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_space",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22118" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_force_newline",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22167" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_flush",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22218" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_newline",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22267" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_if_newline",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22318" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_open_tbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22372" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_close_tbox",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22419" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_tbreak",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22467" },
+            "info": "",
+            "type": "Format.formatter -> int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_tab",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22523" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_print_tab",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22568" },
+            "info": "",
+            "type": "Format.formatter -> unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22615" },
+            "info": "",
+            "type": "Format.formatter -> bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_print_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22661" },
+            "info": "",
+            "type": "Format.formatter -> bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_mark_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22713" },
+            "info": "",
+            "type": "Format.formatter -> bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_print_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22764" },
+            "info": "",
+            "type": "Format.formatter -> unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_mark_tags",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22816" },
+            "info": "",
+            "type": "Format.formatter -> unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_margin",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22867" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_margin",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22914" },
+            "info": "",
+            "type": "Format.formatter -> unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_max_indent",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|22961" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_max_indent",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23012" },
+            "info": "",
+            "type": "Format.formatter -> unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_max_boxes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23063" },
+            "info": "",
+            "type": "Format.formatter -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_max_boxes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23113" },
+            "info": "",
+            "type": "Format.formatter -> unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_over_max_boxes",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23163" },
+            "info": "",
+            "type": "Format.formatter -> unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_ellipsis_text",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23215" },
+            "info": "",
+            "type": "Format.formatter -> string -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_ellipsis_text",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23272" },
+            "info": "",
+            "type": "Format.formatter -> unit -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_formatter_out_channel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23329" },
+            "info": "",
+            "type": "Format.formatter -> Pervasives.out_channel -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "Pervasives.out_channel" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23410" },
+            "info": "",
+            "type": "Format.formatter -> (string -> int -> int -> unit) -> (unit -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "string -> int -> int -> unit" }, 
+              { "name": "",
+                "type": "unit -> unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23525" },
+            "info": "",
+            "type": "Format.formatter -> unit -> (string -> int -> int -> unit) * (unit -> unit)",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_all_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23639" },
+            "info": "",
+            "type": "Format.formatter ->\n  out:(string -> int -> int -> unit) ->\n  flush:(unit -> unit) ->\n  newline:(unit -> unit) -> spaces:(int -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "out",
+                "type": "string -> int -> int -> unit" }, 
+              { "name": "flush",
+                "type": "unit -> unit" }, 
+              { "name": "newline",
+                "type": "unit -> unit" }, 
+              { "name": "spaces",
+                "type": "int -> unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_all_formatter_output_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23820" },
+            "info": "",
+            "type": "Format.formatter ->\n  unit ->\n  (string -> int -> int -> unit) * (unit -> unit) * (unit -> unit) *\n  (int -> unit)",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_set_formatter_tag_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|23975" },
+            "info": "",
+            "type": "Format.formatter -> Format.formatter_tag_functions -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "Format.formatter_tag_functions" } ] } }, 
+      { "value": 
+          { "name": "Format.pp_get_formatter_tag_functions",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|24062" },
+            "info": 
+              { "description": "These functions are the basic ones: usual functions operating on the standard formatter are defined via partial evaluation of these primitives. For instance, <span class=\"code\" >print_string</span> is equal to <span class=\"code\" >pp_print_string std_formatter</span>." },
+            "type": "Format.formatter -> unit -> Format.formatter_tag_functions",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h6><span class=\"code\" >printf</span> like functions for pretty-printing.</h6>" }, 
+      { "value": 
+          { "name": "Format.fprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|24441" },
+            "info": "",
+            "type": "Format.formatter -> ('a, Format.formatter, unit) Pervasives.format -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "('a, Format.formatter, unit) Pervasives.format" } ] } }, 
+      { "comment": "<span class=\"code\" >fprintf ff fmt arg1 ... argN</span> formats the arguments <span class=\"code\" >arg1</span> to <span class=\"code\" >argN</span> according to the format string <span class=\"code\" >fmt</span>, and outputs the resulting string on the formatter <span class=\"code\" >ff</span>.<br></br> The format <span class=\"code\" >fmt</span> is a character string which contains three types of objects: plain characters and conversion specifications as specified in the <span class=\"code\" >Printf</span> module, and pretty-printing indications specific to the <span class=\"code\" >Format</span> module.<br></br> The pretty-printing indication characters are introduced by a <span class=\"code\" >@</span> character, and their meanings are:<ul><li><span class=\"code\" >@[</span>: open a pretty-printing box. The type and offset of the box may be optionally specified with the following syntax: the <span class=\"code\" >&lt;</span> character, followed by an optional box type indication, then an optional integer offset, and the closing <span class=\"code\" >&gt;</span> character. Box type is one of <span class=\"code\" >h</span>, <span class=\"code\" >v</span>, <span class=\"code\" >hv</span>, <span class=\"code\" >b</span>, or <span class=\"code\" >hov</span>, which stand respectively for an horizontal box, a vertical box, an ``horizontal-vertical'' box, or an ``horizontal or vertical'' box (<span class=\"code\" >b</span> standing for an ``horizontal or vertical'' box demonstrating indentation and <span class=\"code\" >hov</span> standing for a regular``horizontal or vertical'' box). For instance, <span class=\"code\" >@[&lt;hov 2&gt;</span> opens an ``horizontal or vertical'' box with indentation 2 as obtained with <span class=\"code\" >open_hovbox 2</span>. For more details about boxes, see the various box opening functions <span class=\"code\" >open_*box</span>.</li><li><span class=\"code\" >@]</span>: close the most recently opened pretty-printing box.</li><li><span class=\"code\" >@,</span>: output a good break as with <span class=\"code\" >print_cut ()</span>.</li><li><span class=\"code\" >@ </span>: output a space, as with <span class=\"code\" >print_space ()</span>.</li><li><span class=\"code\" >@\\n</span>: force a newline, as with <span class=\"code\" >force_newline ()</span>.</li><li><span class=\"code\" >@;</span>: output a good break as with <span class=\"code\" >print_break</span>. The <span class=\"code\" >nspaces</span> and <span class=\"code\" >offset</span> parameters of the break may be optionally specified with the following syntax: the <span class=\"code\" >&lt;</span> character, followed by an integer <span class=\"code\" >nspaces</span> value, then an integer <span class=\"code\" >offset</span>, and a closing <span class=\"code\" >&gt;</span> character. If no parameters are provided, the good break defaults to a space.</li><li><span class=\"code\" >@?</span>: flush the pretty printer as with <span class=\"code\" >print_flush ()</span>. This is equivalent to the conversion <span class=\"code\" >%!</span>.</li><li><span class=\"code\" >@.</span>: flush the pretty printer and output a new line, as with <span class=\"code\" >print_newline ()</span>.</li><li><span class=\"code\" >@&lt;n&gt;</span>: print the following item as if it were of length <span class=\"code\" >n</span>. Hence, <span class=\"code\" >printf \"@&lt;0&gt;%s\" arg</span> is equivalent to <span class=\"code\" >print_as 0 arg</span>. If <span class=\"code\" >@&lt;n&gt;</span> is not followed by a conversion specification, then the following character of the format is printed as if it were of length <span class=\"code\" >n</span>.</li><li><span class=\"code\" >@{</span>: open a tag. The name of the tag may be optionally specified with the following syntax: the <span class=\"code\" >&lt;</span> character, followed by an optional string specification, and the closing <span class=\"code\" >&gt;</span> character. The string specification is any character string that does not contain the closing character <span class=\"code\" >'&gt;'</span>. If omitted, the tag name defaults to the empty string. For more details about tags, see the functions <span class=\"code\" >open_tag</span> and <span class=\"code\" >close_tag</span>.</li><li><span class=\"code\" >@}</span>: close the most recently opened tag.</li><li><span class=\"code\" >@@</span>: print a plain <span class=\"code\" >@</span> character.</li></ul> Example: <span class=\"code\" >printf \"@[%s@ %d@]@.\" \"x =\" 1</span> is equivalent to <span class=\"code\" >open_box (); print_string \"x =\"; print_space (); print_int 1; close_box (); print_newline ()</span>. It prints <span class=\"code\" >x = 1</span> within a pretty-printing box." }, 
+      { "value": 
+          { "name": "Format.printf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|27740" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >fprintf</span> above, but output on <span class=\"code\" >std_formatter</span>." },
+            "type": "('a, Format.formatter, unit) Pervasives.format -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "('a, Format.formatter, unit) Pervasives.format" } ] } }, 
+      { "value": 
+          { "name": "Format.eprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|27854" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >fprintf</span> above, but output on <span class=\"code\" >err_formatter</span>." },
+            "type": "('a, Format.formatter, unit) Pervasives.format -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "('a, Format.formatter, unit) Pervasives.format" } ] } }, 
+      { "value": 
+          { "name": "Format.sprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|27969" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >printf</span> above, but instead of printing on a formatter, returns a string containing the result of formatting the arguments. Note that the pretty-printer queue is flushed at the end of <em>each call</em> to <span class=\"code\" >sprintf</span>.<br></br> In case of multiple and related calls to <span class=\"code\" >sprintf</span> to output material on a single string, you should consider using <span class=\"code\" >fprintf</span> with the predefined formatter <span class=\"code\" >str_formatter</span> and call <span class=\"code\" >flush_str_formatter ()</span> to get the final result.<br></br> Alternatively, you can use <span class=\"code\" >Format.fprintf</span> with a formatter writing to a buffer of your own: flushing the formatter and the buffer at the end of pretty-printing returns the desired string." },
+            "type": "('a, unit, string) Pervasives.format -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "('a, unit, string) Pervasives.format" } ] } }, 
+      { "value": 
+          { "name": "Format.ifprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|28698" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >fprintf</span> above, but does not print anything. Useful to ignore some material when conditionally printing.",
+                "since": "3.10.0" },
+            "type": "Format.formatter -> ('a, Format.formatter, unit) Pervasives.format -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "('a, Format.formatter, unit) Pervasives.format" } ] } }, 
+      { "comment": "Formatted output functions with continuations." }, 
+      { "value": 
+          { "name": "Format.kfprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|28960" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >fprintf</span> above, but instead of returning immediately, passes the formatter to its first argument at the end of printing." },
+            "type": "(Format.formatter -> 'a) ->\n  Format.formatter -> ('b, Format.formatter, unit, 'a) Pervasives.format4 -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter -> 'a" }, 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "('a, Format.formatter, unit, 'b) Pervasives.format4" } ] } }, 
+      { "value": 
+          { "name": "Format.ikfprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|29207" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >kfprintf</span> above, but does not print anything. Useful to ignore some material when conditionally printing.",
+                "since": "3.12.0" },
+            "type": "(Format.formatter -> 'a) ->\n  Format.formatter -> ('b, Format.formatter, unit, 'a) Pervasives.format4 -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "Format.formatter -> 'a" }, 
+              { "name": "",
+                "type": "Format.formatter" }, 
+              { "name": "",
+                "type": "('a, Format.formatter, unit, 'b) Pervasives.format4" } ] } }, 
+      { "value": 
+          { "name": "Format.ksprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|29457" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >sprintf</span> above, but instead of returning the string, passes it to the first argument." },
+            "type": "(string -> 'a) -> ('b, unit, string, 'a) Pervasives.format4 -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "string -> 'a" }, 
+              { "name": "",
+                "type": "('a, unit, string, 'b) Pervasives.format4" } ] } }, 
+      { "comment": "<h6>Deprecated</h6>" }, 
+      { "value": 
+          { "name": "Format.bprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|29658" },
+            "info": 
+              { "description": "Deprecated and error prone function. Do not use it.<br></br> If you need to print to some buffer <span class=\"code\" >b</span>, you must first define a formatter writing to <span class=\"code\" >b</span>, using <span class=\"code\" >let to_b = formatter_of_buffer b</span>; then use regular calls to <span class=\"code\" >Format.fprintf</span> on formatter <span class=\"code\" >to_b</span>." },
+            "type": "Buffer.t -> ('a, Format.formatter, unit) Pervasives.format -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "Buffer.t" }, 
+              { "name": "",
+                "type": "('a, Format.formatter, unit) Pervasives.format" } ] } }, 
+      { "value": 
+          { "name": "Format.kprintf",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/format.mli|29985" },
+            "info": 
+              { "description": "Deprecated name. A synonym for <span class=\"code\" >ksprintf</span>." },
+            "type": "(string -> 'a) -> ('b, unit, string, 'a) Pervasives.format4 -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "string -> 'a" }, 
+              { "name": "",
+                "type": "('a, unit, string, 'b) Pervasives.format4" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Pervasives", "Buffer" ],
+        "used_by": [  ] } } }

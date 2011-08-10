@@ -1,0 +1,618 @@
+{ "module": 
+  { "name": "Lwt_stream",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|0" },
+    "info": 
+      { "description": "Data streams" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "Lwt_stream.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|970" },
+            "info": 
+              { "description": "Type of a stream holding values of type <span class=\"code\" >'a</span>" },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "comment": "Naming convention: in this module all function taking a function which is applied to all element of the streams are suffixed by:<br></br><ul><li><span class=\"code\" >_s</span> when the function returns a thread and calls are serialised</li><li><span class=\"code\" >_p</span> when the function returns a thread and calls are parallelised</li></ul>" }, 
+      { "comment": "<h6>Construction</h6>" }, 
+      { "value": 
+          { "name": "Lwt_stream.from",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|1342" },
+            "info": 
+              { "description": "<span class=\"code\" >from f</span> creates an stream from the given input function. <span class=\"code\" >f</span> is called each time more input is needed, and the stream ends when <span class=\"code\" >f</span> returns <span class=\"code\" >None</span>." },
+            "type": "(unit -> 'a option Lwt.t) -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit -> 'a option Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|1558" },
+            "info": 
+              { "description": "<span class=\"code\" >create ()</span> returns a new stream and a push function" },
+            "type": "unit -> 'a Lwt_stream.t * ('a option -> unit)",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.of_list",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|1669" },
+            "info": 
+              { "description": "<span class=\"code\" >of_list l</span> creates a stream returning all elements of <span class=\"code\" >l</span>" },
+            "type": "'a list -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.of_array",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|1768" },
+            "info": 
+              { "description": "<span class=\"code\" >of_array a</span> creates a stream returning all elements of <span class=\"code\" >a</span>" },
+            "type": "'a array -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.of_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|1870" },
+            "info": 
+              { "description": "<span class=\"code\" >of_string str</span> creates a stream returning all characters of <span class=\"code\" >str</span>" },
+            "type": "string -> char Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.clone",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|1986" },
+            "info": 
+              { "description": "<span class=\"code\" >clone st</span> clone the given stream. Operations on each stream will not affect the other.<br></br> For example:<br></br> <span class=\"codepre\" > # let st1 = Lwt_stream.of_list [1; 2; 3];; val st1 : int Lwt_stream.t = &lt;abstr&gt; # let st2 = Lwt_stream.clone st1;; val st2 : int Lwt_stream.t = &lt;abstr&gt; # lwt x = Lwt_stream.next st1;; val x : int = 1 # lwt y = Lwt_stream.next st2;; val y : int = 1 </span>" },
+            "type": "'a Lwt_stream.t -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "comment": "<h6>Destruction</h6>" }, 
+      { "value": 
+          { "name": "Lwt_stream.to_list",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|2492" },
+            "info": 
+              { "description": "Returns the list of elements of the given stream" },
+            "type": "'a Lwt_stream.t -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.to_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|2587" },
+            "info": 
+              { "description": "Returns the word composed of all characters of the given stream" },
+            "type": "char Lwt_stream.t -> string Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "char Lwt_stream.t" } ] } }, 
+      { "comment": "<h6>Data retreival</h6>" }, 
+      { "exception": 
+          { "name": "Lwt_stream.Empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|2733" },
+            "info": 
+              { "description": "Exception raised when trying to retreive data from an empty stream." } } }, 
+      { "value": 
+          { "name": "Lwt_stream.peek",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|2833" },
+            "info": 
+              { "description": "<span class=\"code\" >peek st</span> returns the first element of the stream, if any, without removing it." },
+            "type": "'a Lwt_stream.t -> 'a option Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.npeek",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|2964" },
+            "info": 
+              { "description": "<span class=\"code\" >npeek n st</span> returns at most the first <span class=\"code\" >n</span> elements of <span class=\"code\" >st</span>, without removing them." },
+            "type": "int -> 'a Lwt_stream.t -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.get",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|3105" },
+            "info": 
+              { "description": "<span class=\"code\" >get st</span> remove and returns the first element of the stream, if any." },
+            "type": "'a Lwt_stream.t -> 'a option Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.nget",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|3224" },
+            "info": 
+              { "description": "<span class=\"code\" >nget n st</span> remove and returns at most the first <span class=\"code\" >n</span> elements of <span class=\"code\" >st</span>." },
+            "type": "int -> 'a Lwt_stream.t -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.get_while",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|3351" },
+            "info": "",
+            "type": "('a -> bool) -> 'a Lwt_stream.t -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.get_while_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|3405" },
+            "info": 
+              { "description": "<span class=\"code\" >get_while f st</span> returns the longest prefix of <span class=\"code\" >st</span> where all elements satisfy <span class=\"code\" >f</span>." },
+            "type": "('a -> bool Lwt.t) -> 'a Lwt_stream.t -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.next",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|3567" },
+            "info": 
+              { "description": "<span class=\"code\" >next st</span> remove and returns the next element of the stream, of fail with <a href=\"{exception|Lwt_stream.Empty}\" ><span class=\"code\" >Lwt_stream.Empty</span></a> if the stream is empty." },
+            "type": "'a Lwt_stream.t -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.last_new",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|3718" },
+            "info": 
+              { "description": "<span class=\"code\" >next_new st</span> if no element are available on <span class=\"code\" >st</span> without sleeping, then it is the same as <span class=\"code\" >next st</span>. Otherwise it removes all elements of <span class=\"code\" >st</span> that are ready except the last one, and return it.<br></br> If fails with <a href=\"{exception|Lwt_stream.Empty}\" ><span class=\"code\" >Lwt_stream.Empty</span></a> if the stream has no more elements" },
+            "type": "'a Lwt_stream.t -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.junk",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4038" },
+            "info": 
+              { "description": "<span class=\"code\" >junk st</span> remove the first element of <span class=\"code\" >st</span>." },
+            "type": "'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.njunk",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4122" },
+            "info": 
+              { "description": "<span class=\"code\" >njunk n st</span> removes at most the first <span class=\"code\" >n</span> elements of the stream." },
+            "type": "int -> 'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.junk_while",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4243" },
+            "info": "",
+            "type": "('a -> bool) -> 'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.junk_while_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4295" },
+            "info": 
+              { "description": "<span class=\"code\" >junk_while f st</span> removes all elements at the beginning of the streams which satisfy <span class=\"code\" >f</span>." },
+            "type": "('a -> bool Lwt.t) -> 'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.junk_old",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4461" },
+            "info": 
+              { "description": "<span class=\"code\" >junk_old st</span> removes all elements that are ready to be read without yeilding from <span class=\"code\" >st</span>.<br></br> For example the <span class=\"code\" >read_password</span> function of <span class=\"code\" >Lwt_read_line</span> use that to junk key previously typed by the user." },
+            "type": "'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.get_available",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4726" },
+            "info": 
+              { "description": "<span class=\"code\" >get_available l</span> returns all available elements of <span class=\"code\" >l</span> without blocking" },
+            "type": "'a Lwt_stream.t -> 'a list",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.get_available_up_to",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4851" },
+            "info": 
+              { "description": "<span class=\"code\" >get_available_up_to l n</span> returns up to <span class=\"code\" >n</span> elements of <span class=\"code\" >l</span> without blocking" },
+            "type": "int -> 'a Lwt_stream.t -> 'a list",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.is_empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|4993" },
+            "info": 
+              { "description": "<span class=\"code\" >is_empty enum</span> returns wether the given stream is empty" },
+            "type": "'a Lwt_stream.t -> bool Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "comment": "<h6>Stream transversal</h6>" }, 
+      { "comment": "Note: all the following functions are destructive.<br></br> For example:<br></br> <span class=\"codepre\" > # let st1 = Lwt_stream.of_list [1; 2; 3];; val st1 : int Lwt_stream.t = &lt;abstr&gt; # let st2 = Lwt_stream.map string_of_int st1;; val st2 : string Lwt_stream.t = &lt;abstr&gt; # lwt x = Lwt_stream.next st1;; val x : int = 1 # lwt y = Lwt_stream.next st2;; val y : string = \"2\" </span>" }, 
+      { "value": 
+          { "name": "Lwt_stream.choose",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|5533" },
+            "info": 
+              { "description": "<span class=\"code\" >choose l</span> creates an stream from a list of streams. The resulting stream will returns elements returned by any stream of <span class=\"code\" >l</span> in an unspecified order." },
+            "type": "'a Lwt_stream.t list -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.map",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|5737" },
+            "info": "",
+            "type": "('a -> 'b) -> 'a Lwt_stream.t -> 'b Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.map_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|5774" },
+            "info": 
+              { "description": "<span class=\"code\" >map f st</span> maps the value returned by <span class=\"code\" >st</span> with <span class=\"code\" >f</span>" },
+            "type": "('a -> 'b Lwt.t) -> 'a Lwt_stream.t -> 'b Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.filter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|5881" },
+            "info": "",
+            "type": "('a -> bool) -> 'a Lwt_stream.t -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.filter_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|5923" },
+            "info": 
+              { "description": "<span class=\"code\" >filter f st</span> keeps only value <span class=\"code\" >x</span> such that <span class=\"code\" >f x</span> is <span class=\"code\" >true</span>" },
+            "type": "('a -> bool Lwt.t) -> 'a Lwt_stream.t -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.filter_map",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6044" },
+            "info": "",
+            "type": "('a -> 'b option) -> 'a Lwt_stream.t -> 'b Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b option" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.filter_map_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6095" },
+            "info": 
+              { "description": "<span class=\"code\" >filter_map f st</span> filter and map <span class=\"code\" >st</span> at the same time" },
+            "type": "('a -> 'b option Lwt.t) -> 'a Lwt_stream.t -> 'b Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b option Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.map_list",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6219" },
+            "info": "",
+            "type": "('a -> 'b list) -> 'a Lwt_stream.t -> 'b Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b list" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.map_list_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6266" },
+            "info": 
+              { "description": "<span class=\"code\" >map_list f st</span> applies <span class=\"code\" >f</span> on each element of <span class=\"code\" >st</span> and flattens the lists returned" },
+            "type": "('a -> 'b list Lwt.t) -> 'a Lwt_stream.t -> 'b Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b list Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.fold",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6421" },
+            "info": "",
+            "type": "('a -> 'b -> 'b) -> 'a Lwt_stream.t -> 'b -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'b" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.fold_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6475" },
+            "info": 
+              { "description": "<span class=\"code\" >fold f s x</span> fold_like function for streams." },
+            "type": "('a -> 'b -> 'b Lwt.t) -> 'a Lwt_stream.t -> 'b -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.iter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6592" },
+            "info": "",
+            "type": "('a -> unit) -> 'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.iter_p",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6638" },
+            "info": "",
+            "type": "('a -> unit Lwt.t) -> 'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.iter_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6692" },
+            "info": 
+              { "description": "<span class=\"code\" >iter f s</span> iterates over all elements of the stream" },
+            "type": "('a -> unit Lwt.t) -> 'a Lwt_stream.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.find",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6808" },
+            "info": "",
+            "type": "('a -> bool) -> 'a Lwt_stream.t -> 'a option Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.find_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6859" },
+            "info": 
+              { "description": "<span class=\"code\" >find f s</span> find an element in a stream." },
+            "type": "('a -> bool Lwt.t) -> 'a Lwt_stream.t -> 'a option Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> bool Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.find_map",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|6968" },
+            "info": "",
+            "type": "('a -> 'b option) -> 'a Lwt_stream.t -> 'b option Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b option" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.find_map_s",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7028" },
+            "info": 
+              { "description": "<span class=\"code\" >find f s</span> find and map at the same time." },
+            "type": "('a -> 'b option Lwt.t) -> 'a Lwt_stream.t -> 'b option Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b option Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.combine",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7148" },
+            "info": 
+              { "description": "<span class=\"code\" >combine s1 s2</span> combine two streams. The stream will ends when the first stream ends." },
+            "type": "'a Lwt_stream.t -> 'b Lwt_stream.t -> ('a * 'b) Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.append",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7292" },
+            "info": 
+              { "description": "<span class=\"code\" >append s1 s2</span> returns a stream which returns all elements of <span class=\"code\" >s1</span>, then all elements of <span class=\"code\" >s2</span>" },
+            "type": "'a Lwt_stream.t -> 'a Lwt_stream.t -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.concat",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7436" },
+            "info": 
+              { "description": "<span class=\"code\" >concat st</span> returns the concatenation of all streams of <span class=\"code\" >st</span>." },
+            "type": "'a Lwt_stream.t Lwt_stream.t -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t Lwt_stream.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_stream.flatten",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7536" },
+            "info": 
+              { "description": "<span class=\"code\" >flatten st = map_list (fun l -&gt; l) st</span>" },
+            "type": "'a list Lwt_stream.t -> 'a Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a list Lwt_stream.t" } ] } }, 
+      { "comment": "<h6>Parsing</h6>" }, 
+      { "value": 
+          { "name": "Lwt_stream.parse",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7638" },
+            "info": 
+              { "description": "<span class=\"code\" >parse st f</span> parses <span class=\"code\" >st</span> with <span class=\"code\" >f</span>. If <span class=\"code\" >f</span> raise an exception, <span class=\"code\" >st</span> is restored to its previous state." },
+            "type": "'a Lwt_stream.t -> ('a Lwt_stream.t -> 'b Lwt.t) -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_stream.t" }, 
+              { "name": "",
+                "type": "'a Lwt_stream.t -> 'b Lwt.t" } ] } }, 
+      { "comment": "<h6>Misc</h6>" }, 
+      { "value": 
+          { "name": "Lwt_stream.hexdump",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_stream.mli|7824" },
+            "info": 
+              { "description": "<span class=\"code\" >hexdump byte_stream</span> returns a stream which is the same as the output of <span class=\"code\" >hexdump -C</span>.<br></br> Basically, here is a simple implementation of <span class=\"code\" >hexdump -C</span>:<br></br> <span class=\"codepre\" > open Lwt open Lwt_io let () = Lwt_main.run (write_lines stdout (Lwt_stream.hexdump (read_lines stdin))) </span>" },
+            "type": "char Lwt_stream.t -> string Lwt_stream.t",
+            "params": [ 
+              { "name": "",
+                "type": "char Lwt_stream.t" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Lwt" ],
+        "used_by": [ "Net", "Block", "Http" ] } } }

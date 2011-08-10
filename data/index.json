@@ -1,0 +1,249 @@
+[ { "name": "Base64",
+"info": 
+  { "description": "decode a string encoded in base64. Will leave trailing NULLs on the string padding it out to a multiple of 3 characters" },
+"descr_cnt": 3.0000,
+"compl_descr_cnt": 2.0000 }, { "name": "String",
+"info": 
+  { "description": "String operations. Given a string <span class=\"code\" >s</span> of length <span class=\"code\" >l</span>, we call character number in <span class=\"code\" >s</span> the index of a character in <span class=\"code\" >s</span>.  Indexes start at <span class=\"code\" >0</span>, and we will call a character number valid in <span class=\"code\" >s</span> if it falls within the range <span class=\"code\" >[0...l-1]</span>. A position is the point between two characters or at the beginning or end of the string.  We call a position valid in <span class=\"code\" >s</span> if it falls within the range <span class=\"code\" >[0...l]</span>. Note that character number <span class=\"code\" >n</span> is between positions <span class=\"code\" >n</span> and <span class=\"code\" >n+1</span>.<br></br> Two parameters <span class=\"code\" >start</span> and <span class=\"code\" >len</span> are said to designate a valid substring of <span class=\"code\" >s</span> if <span class=\"code\" >len &gt;= 0</span> and <span class=\"code\" >start</span> and <span class=\"code\" >start+len</span> are valid positions in <span class=\"code\" >s</span>." },
+"descr_cnt": 26.0000,
+"compl_descr_cnt": 26.0000 }, { "name": "Stack",
+"info": 
+  { "description": "Last-in first-out stacks.<br></br> This module implements stacks (LIFOs), with in-place modification." },
+"descr_cnt": 12.0000,
+"compl_descr_cnt": 12.0000 }, { "name": "Sort",
+"info": 
+  { "description": "Sorting and merging lists.",
+    "deprecated": "This module is obsolete and exists only for backward compatibility. The sorting functions in <a href=\"{module|Array}\" ><span class=\"code\" >Array</span></a> and <a href=\"{module|List}\" ><span class=\"code\" >List</span></a> should be used instead. The new functions are faster and use less memory." },
+"descr_cnt": 4.0000,
+"compl_descr_cnt": 4.0000 }, { "name": "Set",
+"info": 
+  { "description": "Sets over ordered types.<br></br> This module implements the set data structure, given a total ordering function over the set elements. All operations over sets are purely applicative (no side-effects). The implementation uses balanced binary trees, and is therefore reasonably efficient: insertion and membership take time logarithmic in the size of the set, for instance." },
+"descr_cnt": 4.0000,
+"compl_descr_cnt": 4.0000 }, { "name": "Queue",
+"info": 
+  { "description": "First-in first-out queues.<br></br> This module implements queues (FIFOs), with in-place modification." },
+"descr_cnt": 17.0000,
+"compl_descr_cnt": 17.0000 }, { "name": "Printexc",
+"info": 
+  { "description": "Facilities for printing exceptions." },
+"descr_cnt": 8.0000,
+"compl_descr_cnt": 8.0000 }, { "name": "Pervasives",
+"info": 
+  { "description": "The initially opened module.<br></br> This module provides the basic operations over the built-in types (numbers, booleans, strings, exceptions, references, lists, arrays, input-output channels, ...).<br></br> This module is automatically opened at the beginning of each compilation. All components of this module can therefore be referred by their short name, without prefixing them by <span class=\"code\" >Pervasives</span>." },
+"descr_cnt": 184.0000,
+"compl_descr_cnt": 174.0000 }, { "name": "Nativeint",
+"info": 
+  { "description": "Processor-native integers.<br></br> This module provides operations on the type <span class=\"code\" >nativeint</span> of signed 32-bit integers (on 32-bit platforms) or signed 64-bit integers (on 64-bit platforms). This integer type has exactly the same width as that of a <span class=\"code\" >long</span> integer type in the C compiler.  All arithmetic operations over <span class=\"code\" >nativeint</span> are taken modulo 2<sup>32</sup> or 2<sup>64</sup> depending on the word size of the architecture.<br></br> Performance notice: values of type <span class=\"code\" >nativeint</span> occupy more memory space than values of type <span class=\"code\" >int</span>, and arithmetic operations on <span class=\"code\" >nativeint</span> are generally slower than those on <span class=\"code\" >int</span>.  Use <span class=\"code\" >nativeint</span> only when the application requires the extra bit of precision over the <span class=\"code\" >int</span> type." },
+"descr_cnt": 33.0000,
+"compl_descr_cnt": 33.0000 }, { "name": "Marshal",
+"info": 
+  { "description": "Marshaling of data structures.<br></br> This module provides functions to encode arbitrary data structures as sequences of bytes, which can then be written on a file or sent over a pipe or network connection.  The bytes can then be read back later, possibly in another process, and decoded back into a data structure. The format for the byte sequences is compatible across all machines for a given version of Objective Caml.<br></br> Warning: marshaling is currently not type-safe. The type of marshaled data is not transmitted along the value of the data, making it impossible to check that the data read back possesses the type expected by the context. In particular, the result type of the <span class=\"code\" >Marshal.from_*</span> functions is given as <span class=\"code\" >'a</span>, but this is misleading: the returned Caml value does not possess type <span class=\"code\" >'a</span> for all <span class=\"code\" >'a</span>; it has one, unique type which cannot be determined at compile-type.  The programmer should explicitly give the expected type of the returned value, using the following syntax:<ul><li><span class=\"code\" >(Marshal.from_channel chan : type)</span>. Anything can happen at run-time if the object in the file does not belong to the given type.</li></ul> The representation of marshaled values is not human-readable, and uses bytes that are not printable characters. Therefore, input and output channels used in conjunction with <span class=\"code\" >Marshal.to_channel</span> and <span class=\"code\" >Marshal.from_channel</span> must be opened in binary mode, using e.g. <span class=\"code\" >open_out_bin</span> or <span class=\"code\" >open_in_bin</span>; channels opened in text mode will cause unmarshaling errors on platforms where text channels behave differently than binary channels, e.g. Windows." },
+"descr_cnt": 10.0000,
+"compl_descr_cnt": 10.0000 }, { "name": "Map",
+"info": 
+  { "description": "Association tables over ordered types.<br></br> This module implements applicative association tables, also known as finite maps or dictionaries, given a total ordering function over the keys. All operations over maps are purely applicative (no side-effects). The implementation uses balanced binary trees, and therefore searching and insertion take time logarithmic in the size of the map." },
+"descr_cnt": 4.0000,
+"compl_descr_cnt": 4.0000 }, { "name": "Lazy",
+"info": 
+  { "description": "Deferred computations." },
+"descr_cnt": 8.0000,
+"compl_descr_cnt": 6.0000 }, { "name": "Stream",
+"info": 
+  { "description": "Streams and parsers." },
+"descr_cnt": 15.0000,
+"compl_descr_cnt": 15.0000 }, { "name": "List",
+"info": 
+  { "description": "List operations.<br></br> Some functions are flagged as not tail-recursive.  A tail-recursive function uses constant stack space, while a non-tail-recursive function uses stack space proportional to the length of its list argument, which can be a problem with very long lists.  When the function takes several list arguments, an approximate formula giving stack usage (in some unspecified constant unit) is shown in parentheses.<br></br> The above considerations can usually be ignored if your lists are not longer than about 10000 elements." },
+"descr_cnt": 42.0000,
+"compl_descr_cnt": 42.0000 }, { "name": "Lexing",
+"info": 
+  { "description": "The run-time library for lexers generated by <span class=\"code\" >ocamllex</span>." },
+"descr_cnt": 30.0000,
+"compl_descr_cnt": 14.0000 }, { "name": "Int64",
+"info": 
+  { "description": "64-bit integers.<br></br> This module provides operations on the type <span class=\"code\" >int64</span> of signed 64-bit integers.  Unlike the built-in <span class=\"code\" >int</span> type, the type <span class=\"code\" >int64</span> is guaranteed to be exactly 64-bit wide on all platforms.  All arithmetic operations over <span class=\"code\" >int64</span> are taken modulo 2<sup>64</sup><br></br> Performance notice: values of type <span class=\"code\" >int64</span> occupy more memory space than values of type <span class=\"code\" >int</span>, and arithmetic operations on <span class=\"code\" >int64</span> are generally slower than those on <span class=\"code\" >int</span>.  Use <span class=\"code\" >int64</span> only when the application requires exact 64-bit arithmetic." },
+"descr_cnt": 36.0000,
+"compl_descr_cnt": 36.0000 }, { "name": "Int32",
+"info": 
+  { "description": "32-bit integers.<br></br> This module provides operations on the type <span class=\"code\" >int32</span> of signed 32-bit integers.  Unlike the built-in <span class=\"code\" >int</span> type, the type <span class=\"code\" >int32</span> is guaranteed to be exactly 32-bit wide on all platforms.  All arithmetic operations over <span class=\"code\" >int32</span> are taken modulo 2<sup>32</sup>.<br></br> Performance notice: values of type <span class=\"code\" >int32</span> occupy more memory space than values of type <span class=\"code\" >int</span>, and arithmetic operations on <span class=\"code\" >int32</span> are generally slower than those on <span class=\"code\" >int</span>.  Use <span class=\"code\" >int32</span> only when the application requires exact 32-bit arithmetic." },
+"descr_cnt": 32.0000,
+"compl_descr_cnt": 32.0000 }, { "name": "Hashtbl",
+"info": 
+  { "description": "Hash tables and hash functions.<br></br> Hash tables are hashed association tables, with in-place modification." },
+"descr_cnt": 19.0000,
+"compl_descr_cnt": 19.0000 }, { "name": "Gc",
+"info": 
+  { "description": "Memory management control and statistics; finalised values." },
+"descr_cnt": 42.0000,
+"compl_descr_cnt": 42.0000 }, { "name": "Digest",
+"info": 
+  { "description": "MD5 message digest.<br></br> This module provides functions to compute 128-bit ``digests'' of arbitrary-length strings or files. The digests are of cryptographic quality: it is very hard, given a digest, to forge a string having that digest. The algorithm used is MD5." },
+"descr_cnt": 6.0000,
+"compl_descr_cnt": 6.0000 }, { "name": "Complex",
+"info": 
+  { "description": "Complex numbers.<br></br> This module provides arithmetic operations on complex numbers. Complex numbers are represented by their real and imaginary parts (cartesian representation).  Each part is represented by a double-precision floating-point number (type <span class=\"code\" >float</span>)." },
+"descr_cnt": 22.0000,
+"compl_descr_cnt": 20.0000 }, { "name": "Char",
+"info": 
+  { "description": "Character operations." },
+"descr_cnt": 8.0000,
+"compl_descr_cnt": 8.0000 }, { "name": "CamlinternalLazy",
+"info": "",
+"descr_cnt": 6.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Callback",
+"info": 
+  { "description": "Registering Caml values with the C runtime.<br></br> This module allows Caml values to be registered with the C runtime under a symbolic name, so that C code can later call back registered Caml functions, or raise registered Caml exceptions." },
+"descr_cnt": 3.0000,
+"compl_descr_cnt": 3.0000 }, { "name": "Buffer",
+"info": 
+  { "description": "Extensible string buffers.<br></br> This module implements string buffers that automatically expand as necessary.  It provides accumulative concatenation of strings in quasi-linear time (instead of quadratic time when strings are concatenated pairwise)." },
+"descr_cnt": 15.0000,
+"compl_descr_cnt": 15.0000 }, { "name": "Array",
+"info": 
+  { "description": "Array operations." },
+"descr_cnt": 26.0000,
+"compl_descr_cnt": 24.0000 }, { "name": "Weak",
+"info": 
+  { "description": "Arrays of weak pointers and hash tables of weak pointers." },
+"descr_cnt": 12.0000,
+"compl_descr_cnt": 12.0000 }, { "name": "Sys",
+"info": 
+  { "description": "System interface." },
+"descr_cnt": 5.0000,
+"compl_descr_cnt": 5.0000 }, { "name": "Scanf",
+"info": 
+  { "description": "Formatted input functions." },
+"descr_cnt": 27.0000,
+"compl_descr_cnt": 26.0000 }, { "name": "Random",
+"info": 
+  { "description": "Pseudo-random number generators (PRNG)." },
+"descr_cnt": 25.0000,
+"compl_descr_cnt": 18.0000 }, { "name": "Obj",
+"info": 
+  { "description": "Operations on internal representations of values.<br></br> Not for the casual user." },
+"descr_cnt": 35.0000,
+"compl_descr_cnt": 1.0000 }, { "name": "Format",
+"info": 
+  { "description": "Pretty printing.<br></br> This module implements a pretty-printing facility to format text within ``pretty-printing boxes''. The pretty-printer breaks lines at specified break hints, and indents lines according to the box structure.<br></br> For a gentle introduction to the basics of pretty-printing using <span class=\"code\" >Format</span>, read <a href=\"http://caml.inria.fr/resources/doc/guides/format.html\" >http://caml.inria.fr/resources/doc/guides/format.html</a>.<br></br> You may consider this module as providing an extension to the <span class=\"code\" >printf</span> facility to provide automatic line breaking. The addition of pretty-printing annotations to your regular <span class=\"code\" >printf</span> formats gives you fancy indentation and line breaks. Pretty-printing annotations are described below in the documentation of the function <a href=\"{value|Format.fprintf}\" ><span class=\"code\" >Format.fprintf</span></a>.<br></br> You may also use the explicit box management and printing functions provided by this module. This style is more basic but more verbose than the <span class=\"code\" >fprintf</span> concise formats.<br></br> For instance, the sequence <span class=\"code\" >open_box 0; print_string \"x =\"; print_space (); print_int 1; close_box (); print_newline ()</span> that prints <span class=\"code\" >x = 1</span> within a pretty-printing box, can be abbreviated as <span class=\"code\" >printf \"@[%s@ %i@]@.\" \"x =\" 1</span>, or even shorter <span class=\"code\" >printf \"@[x =@ %i@]@.\" 1</span>.<br></br> Rule of thumb for casual users of this library:<ul><li>use simple boxes (as obtained by <span class=\"code\" >open_box 0</span>);</li><li>use simple break hints (as obtained by <span class=\"code\" >print_cut ()</span> that outputs a simple break hint, or by <span class=\"code\" >print_space ()</span> that outputs a space indicating a break hint);</li><li>once a box is opened, display its material with basic printing functions (e. g. <span class=\"code\" >print_int</span> and <span class=\"code\" >print_string</span>);</li><li>when the material for a box has been printed, call <span class=\"code\" >close_box ()</span> to close the box;</li><li>at the end of your routine, flush the pretty-printer to display all the remaining material, e.g. evaluate <span class=\"code\" >print_newline ()</span>.</li></ul> The behaviour of pretty-printing commands is unspecified if there is no opened pretty-printing box. Each box opened via one of the <span class=\"code\" >open_</span> functions below must be closed using <span class=\"code\" >close_box</span> for proper formatting. Otherwise, some of the material printed in the boxes may not be output, or may be formatted incorrectly.<br></br> In case of interactive use, the system closes all opened boxes and flushes all pending text (as with the <span class=\"code\" >print_newline</span> function) after each phrase. Each phrase is therefore executed in the initial state of the pretty-printer.<br></br> Warning: the material output by the following functions is delayed in the pretty-printer queue in order to compute the proper line breaking. Hence, you should not mix calls to the printing functions of the basic I/O system with calls to the functions of this module: this could result in some strange output seemingly unrelated with the evaluation order of printing commands." },
+"descr_cnt": 120.0000,
+"compl_descr_cnt": 65.0000 }, { "name": "Printf",
+"info": 
+  { "description": "Formatted output functions." },
+"descr_cnt": 11.0000,
+"compl_descr_cnt": 11.0000 }, { "name": "Parsing",
+"info": 
+  { "description": "The run-time library for parsers generated by <span class=\"code\" >ocamlyacc</span>." },
+"descr_cnt": 12.0000,
+"compl_descr_cnt": 12.0000 }, { "name": "CamlinternalOO",
+"info": 
+  { "description": "Run-time support for objects and classes. All functions in this module are for system use only, not for the casual user." },
+"descr_cnt": 80.0000,
+"compl_descr_cnt": 1.0000 }, { "name": "CamlinternalMod",
+"info": "",
+"descr_cnt": 8.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Std_exit",
+"info": "",
+"descr_cnt": 1.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Log",
+"info": 
+  { "description": "<h2>Loggers</h2>" },
+"descr_cnt": 14.0000,
+"compl_descr_cnt": 10.0000 }, { "name": "Oo",
+"info": 
+  { "description": "Operations on objects" },
+"descr_cnt": 3.0000,
+"compl_descr_cnt": 3.0000 }, { "name": "Bitstring",
+"info": 
+  { "description": "Bitstring library." },
+"descr_cnt": 43.0000,
+"compl_descr_cnt": 33.0000 }, { "name": "Bitstring_types",
+"info": "",
+"descr_cnt": 6.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Bitstring_config",
+"info": "",
+"descr_cnt": 6.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Lwt",
+"info": 
+  { "description": "Module <span class=\"code\" >Lwt</span>: cooperative light-weight threads." },
+"descr_cnt": 47.0000,
+"compl_descr_cnt": 47.0000 }, { "name": "Lwt_util",
+"info": 
+  { "description": "Note: This lodule is deprecated. Use <a href=\"{module|Lwt_list}\" ><span class=\"code\" >Lwt_list</span></a> and <a href=\"{module|Lwt_pool}\" ><span class=\"code\" >Lwt_pool</span></a> instead." },
+"descr_cnt": 11.0000,
+"compl_descr_cnt": 10.0000 }, { "name": "Lwt_stream",
+"info": 
+  { "description": "Data streams" },
+"descr_cnt": 51.0000,
+"compl_descr_cnt": 40.0000 }, { "name": "Lwt_sequence",
+"info": 
+  { "description": "Mutable sequence of elements" },
+"descr_cnt": 24.0000,
+"compl_descr_cnt": 24.0000 }, { "name": "Lwt_mvar",
+"info": 
+  { "description": "Mailbox variables" },
+"descr_cnt": 6.0000,
+"compl_descr_cnt": 6.0000 }, { "name": "Lwt_mutex",
+"info": 
+  { "description": "Cooperative locks for mutual exclusion" },
+"descr_cnt": 8.0000,
+"compl_descr_cnt": 8.0000 }, { "name": "Lwt_list",
+"info": 
+  { "description": "List helpers" },
+"descr_cnt": 18.0000,
+"compl_descr_cnt": 1.0000 }, { "name": "Lwt_pool",
+"info": 
+  { "description": "Creating pools (for example pools of connections to a database)." },
+"descr_cnt": 4.0000,
+"compl_descr_cnt": 4.0000 }, { "name": "Lwt_condition",
+"info": 
+  { "description": "Conditions" },
+"descr_cnt": 6.0000,
+"compl_descr_cnt": 6.0000 }, { "name": "Lwt_pqueue",
+"info": "",
+"descr_cnt": 4.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Lwt_switch",
+"info": 
+  { "description": "Lwt switches" },
+"descr_cnt": 9.0000,
+"compl_descr_cnt": 9.0000 }, { "name": "Regexp",
+"info": 
+  { "description": "This module can be safely open for it only contains a module <span class=\"code\" >Re</span>." },
+"descr_cnt": 23.0000,
+"compl_descr_cnt": 22.0000 }, { "name": "OS",
+"info": 
+  { "description": "Operating System interfaces for UNIX" },
+"descr_cnt": 48.0000,
+"compl_descr_cnt": 20.0000 }, { "name": "Net",
+"info": "",
+"descr_cnt": 106.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Block",
+"info": "",
+"descr_cnt": 18.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Dns",
+"info": 
+  { "description": "<span class=\"code\" >create n</span> creates an empty table of initial size <span class=\"code\" >n</span>. The table will grow as needed." },
+"descr_cnt": 284.0000,
+"compl_descr_cnt": 6.0000 }, { "name": "Http",
+"info": 
+  { "description": "Type definitions" },
+"descr_cnt": 145.0000,
+"compl_descr_cnt": 45.0000 }, { "name": "Utf8",
+"info": "",
+"descr_cnt": 11.0000,
+"compl_descr_cnt": 0.0000 }, { "name": "Utf16",
+"info": 
+  { "description": "UTF-16 support for Ulex. Implementation as described in \"http://www.ietf.org/rfc/rfc2781.txt\"." },
+"descr_cnt": 21.0000,
+"compl_descr_cnt": 17.0000 }, { "name": "Ulexing",
+"info": 
+  { "description": "Runtime support for lexers generated by <span class=\"code\" >ulex</span>. This module is roughly equivalent to the module Lexing from  the OCaml standard library, except that its lexbuffers handles Unicode code points (OCaml type: <span class=\"code\" >int</span> in the range <span class=\"code\" >0..0x10ffff</span>) instead of bytes (OCaml type: <span class=\"code\" >char</span>).<br></br> It is possible to have ulex-generated lexers work on a custom implementation for lex buffers. To do this, define a module <span class=\"code\" >L</span> which implements the <span class=\"code\" >start</span>, <span class=\"code\" >next</span>, <span class=\"code\" >mark</span> and <span class=\"code\" >backtrack</span> functions (See the Internal Interface section below for a specification), and the <span class=\"code\" >Error</span> exception.   They need not work on a type named <span class=\"code\" >lexbuf</span>: you can use the type name you want. Then, just do in your ulex-processed source, before the first lexer specification:<br></br> <span class=\"code\" >module Ulexing = L</span><br></br> Of course, you'll probably want to define functions like <span class=\"code\" >lexeme</span> to be used in the lexers semantic actions." },
+"descr_cnt": 40.0000,
+"compl_descr_cnt": 36.0000 }, { "name": "Dyntype",
+"info": 
+  { "description": "Dynamic types" },
+"descr_cnt": 28.0000,
+"compl_descr_cnt": 27.0000 }, { "name": "Cow",
+"info": 
+  { "description": "Streaming XML IO.  <br></br> A well-formed sequence of <a href=\"#TYPEsignal\" >signals</a> represents an <a href=\"http://www.w3.org/TR/REC-xml\" >XML</a> document tree traversal in depth first order (this has nothing to do with XML well-formedness). Input pulls a well-formed sequence of signals from a data source and output pushes a well-formed sequence of signals to a data destination. Functions are provided to easily  transform sequences of signals to/from arborescent data structures.<br></br> Consult the <a href=\"#io\" >features and limitations</a> and <a href=\"#ex\" >examples</a>  of use.<br></br> <em>Version 1.0.2 - daniel.buenzl i@erratique.ch </em><br></br> <b>References.</b><br></br> Tim Bray.  <em><a href=\"http://www.xml.com/axml/axml.html\" >The annotated XML Specification</a></em>,  1998. <br></br> Tim Bray et al.  <em><a href=\"http://www.w3.org/TR/xml-names11\" >Namespaces in XML 1.1 (2nd ed.)</a></em>, 2006.<br></br> <h1>Basic types and values</h1>" },
+"descr_cnt": 164.0000,
+"compl_descr_cnt": 41.0000 } ]

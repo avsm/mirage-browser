@@ -1,0 +1,92 @@
+{ "module": 
+  { "name": "Char",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|0" },
+    "info": 
+      { "description": "Character operations." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Char.code",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|976" },
+            "info": 
+              { "description": "Return the ASCII code of the argument." },
+            "type": "char -> int",
+            "params": [ 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Char.chr",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|1065" },
+            "info": 
+              { "description": "Return the character with the given ASCII code. Raise <span class=\"code\" >Invalid_argument \"Char.chr\"</span> if the argument is outside the range 0--255." },
+            "type": "int -> char",
+            "params": [ 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Char.escaped",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|1230" },
+            "info": 
+              { "description": "Return a string representing the given character, with special characters escaped following the lexical conventions of Objective Caml." },
+            "type": "char -> string",
+            "params": [ 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Char.lowercase",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|1408" },
+            "info": 
+              { "description": "Convert the given character to its equivalent lowercase character." },
+            "type": "char -> char",
+            "params": [ 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "value": 
+          { "name": "Char.uppercase",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|1512" },
+            "info": 
+              { "description": "Convert the given character to its equivalent uppercase character." },
+            "type": "char -> char",
+            "params": [ 
+              { "name": "",
+                "type": "char" } ] } }, 
+      { "type": 
+          { "name": "Char.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|1621" },
+            "info": 
+              { "description": "An alias for the type of characters." },
+            "params": [  ],
+            "kind": 
+              { "type": "abstract" },
+            "manifest": "char" } }, 
+      { "value": 
+          { "name": "Char.compare",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/char.mli|1675" },
+            "info": 
+              { "description": "The comparison function for characters, with the same specification as <a href=\"{value|Pervasives.compare}\" ><span class=\"code\" >Pervasives.compare</span></a>.  Along with the type <span class=\"code\" >t</span>, this function <span class=\"code\" >compare</span> allows the module <span class=\"code\" >Char</span> to be passed as argument to the functors <a href=\"{module|Set.Make}\" ><span class=\"code\" >Set.Make</span></a> and <a href=\"{module|Map.Make}\" ><span class=\"code\" >Map.Make</span></a>." },
+            "type": "Char.t -> Char.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "Char.t" }, 
+              { "name": "",
+                "type": "Char.t" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

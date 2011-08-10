@@ -1,0 +1,35 @@
+{ "module": 
+  { "name": "Oo",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/oo.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/oo.mli|0" },
+    "info": 
+      { "description": "Operations on objects" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Oo.copy",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/oo.mli|975" },
+            "info": 
+              { "description": "<span class=\"code\" >Oo.copy o</span> returns a copy of object <span class=\"code\" >o</span>, that is a fresh object with the same methods and instance variables as <span class=\"code\" >o</span>" },
+            "type": "(< .. > as 'a) -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "< .. >" } ] } }, 
+      { "value": 
+          { "name": "Oo.id",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/oo.mli|1136" },
+            "info": 
+              { "description": "Return an integer identifying this object, unique for the current execution of the program." },
+            "type": "< .. > -> int",
+            "params": [ 
+              { "name": "",
+                "type": "< .. >" } ] } } ],
+    "dependencies": 
+      { "uses": [ "CamlinternalOO" ],
+        "used_by": [  ] } } }

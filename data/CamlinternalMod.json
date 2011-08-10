@@ -1,0 +1,64 @@
+{ "module": 
+  { "name": "CamlinternalMod",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalMod.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalMod.mli|0" },
+    "info": "",
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "CamlinternalMod.shape",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalMod.mli|961" },
+            "info": "",
+            "params": [  ],
+            "kind": 
+              { "type": "variant",
+                "private": "false",
+                "constructors": [ 
+                  { "name": "Function",
+                    "type": [  ] }, 
+                  { "name": "Lazy",
+                    "type": [  ] }, 
+                  { "name": "Class",
+                    "type": [  ] }, 
+                  { "name": "Module",
+                    "type": [ "CamlinternalMod.shape array" ] } ] } } }, 
+      { "value": 
+          { "name": "CamlinternalMod.init_mod",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalMod.mli|1028" },
+            "info": "",
+            "type": "string * int * int -> CamlinternalMod.shape -> Obj.t",
+            "params": [ 
+              { "tuple": 
+                  { "type": "string * int * int",
+                    "contents": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "name": "",
+                "type": "CamlinternalMod.shape" } ] } }, 
+      { "value": 
+          { "name": "CamlinternalMod.update_mod",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/camlinternalMod.mli|1079" },
+            "info": "",
+            "type": "CamlinternalMod.shape -> Obj.t -> Obj.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "CamlinternalMod.shape" }, 
+              { "name": "",
+                "type": "Obj.t" }, 
+              { "name": "",
+                "type": "Obj.t" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Obj" ],
+        "used_by": [  ] } } }

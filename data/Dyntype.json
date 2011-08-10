@@ -1,0 +1,188 @@
+{ "module": 
+  { "name": "Dyntype",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|0" },
+    "info": 
+      { "description": "Dynamic types" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "Dyntype.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|832" },
+            "info": "",
+            "params": [  ],
+            "kind": 
+              { "type": "variant",
+                "private": "false",
+                "constructors": [ 
+                  { "name": "Unit",
+                    "description": "unit",
+                    "type": [  ] }, 
+                  { "name": "Bool",
+                    "description": "booleans",
+                    "type": [  ] }, 
+                  { "name": "Float",
+                    "description": "floating-point numbers",
+                    "type": [  ] }, 
+                  { "name": "Char",
+                    "description": "characters",
+                    "type": [  ] }, 
+                  { "name": "String",
+                    "description": "strings",
+                    "type": [  ] }, 
+                  { "name": "Int",
+                    "description": "integer type of a given size (as 31-,32- or 64-bits); <span class=\"code\" >Int None</span> is for bigints",
+                    "type": [ "int option" ] }, 
+                  { "name": "List",
+                    "description": "collection of stuff of the same type (stored as lists)",
+                    "type": [ "Dyntype.t" ] }, 
+                  { "name": "Array",
+                    "description": "collection of stuff of the same type (stored as arrays)",
+                    "type": [ "Dyntype.t" ] }, 
+                  { "name": "Tuple",
+                    "description": "Cartesian product",
+                    "type": [ "Dyntype.t list" ] }, 
+                  { "name": "Dict",
+                    "description": "record <span class=\"code\" >'R</span> or object <span class=\"code\" >'O</span> type; <span class=\"code\" >`RW</span> stands for mutable fields",
+                    "type": [ "[ `O | `R ]", "(string * [ `RO | `RW ] * Dyntype.t) list" ] }, 
+                  { "name": "Sum",
+                    "description": "polymorphic <span class=\"code\" >`P</span> or normal <span class=\"code\" >`N</span> variant type",
+                    "type": [ "[ `N | `P ]", "(string * Dyntype.t list) list" ] }, 
+                  { "name": "Option",
+                    "description": "option type",
+                    "type": [ "Dyntype.t" ] }, 
+                  { "name": "Rec",
+                    "description": "recursive type",
+                    "type": [ "string", "Dyntype.t" ] }, 
+                  { "name": "Var",
+                    "description": "recursive fix-point",
+                    "type": [ "string" ] }, 
+                  { "name": "Arrow",
+                    "description": "arrow type",
+                    "type": [ "Dyntype.t", "Dyntype.t" ] }, 
+                  { "name": "Ext",
+                    "description": "type variable",
+                    "type": [ "string", "Dyntype.t" ] } ] } } }, 
+      { "comment": "<h2>Utility functions</h2>" }, 
+      { "value": 
+          { "name": "Dyntype.is_mutable",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|1794" },
+            "info": 
+              { "description": "<span class=\"code\" >is_mutable t</span> checks whether <span class=\"code\" >t</span> contains a mutable field" },
+            "type": "Dyntype.t -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "value": 
+          { "name": "Dyntype.free_vars",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|1990" },
+            "info": 
+              { "description": "<span class=\"code\" >free_vars t</span> returns all the free variables of type <span class=\"code\" >t</span>. If <span class=\"code\" >t</span> is unfolded (as it should be when calling <span class=\"code\" >type_of_t</span>, this call should return an empty list." },
+            "type": "Dyntype.t -> string list",
+            "params": [ 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "value": 
+          { "name": "Dyntype.foreigns",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2093" },
+            "info": 
+              { "description": "<span class=\"code\" >foreigns t</span> returns all the type variables appearing in <span class=\"code\" >t</span>." },
+            "type": "Dyntype.t -> string list",
+            "params": [ 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "value": 
+          { "name": "Dyntype.unroll",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2221" },
+            "info": 
+              { "description": "<span class=\"code\" >unroll env t</span> replaces every type appearing in <span class=\"code\" >t</span> by its type value defined in <span class=\"code\" >env</span>." },
+            "type": "(string * Dyntype.t) list -> Dyntype.t -> Dyntype.t",
+            "params": [ 
+              { "name": "",
+                "type": "(string * Dyntype.t) list" }, 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "comment": "<h2>Sub-typing</h2>" }, 
+      { "value": 
+          { "name": "Dyntype.is_subtype_of",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2551" },
+            "info": 
+              { "description": "<span class=\"code\" >is_subtype_of s t</span> checks whether <span class=\"code\" >s</span> is a sub-type of <span class=\"code\" >t</span>. Sub-typing relation is based on naming. Basically, <span class=\"code\" >s</span> is a sub-type of <span class=\"code\" >t</span> if (i) named attributes have either compatible types (ii) or some fields/methods defined in <span class=\"code\" >t</span> do not appear in <span class=\"code\" >s</span>." },
+            "type": "Dyntype.t -> Dyntype.t -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Dyntype.t" }, 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "value": 
+          { "name": "Dyntype.(<:)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2642" },
+            "info": 
+              { "description": "<span class=\"code\" >s &lt;: t</span> is a short-cut for <span class=\"code\" >is_subtype_of s t</span>" },
+            "type": "Dyntype.t -> Dyntype.t -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "Dyntype.t" }, 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "value": 
+          { "name": "Dyntype.string_of_last_type_error",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2764" },
+            "info": 
+              { "description": "Returns the more recent failing sub-type relation tested by <span class=\"code\" >(&lt;:)</span> or <span class=\"code\" >is_subtype_of</span>" },
+            "type": "unit -> string",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "comment": "<h2>Pretty-printing</h2>" }, 
+      { "value": 
+          { "name": "Dyntype.to_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2888" },
+            "info": 
+              { "description": "<span class=\"code\" >to_string t</span> pretty-prints the type <span class=\"code\" >t</span>" },
+            "type": "Dyntype.t -> string",
+            "params": [ 
+              { "name": "",
+                "type": "Dyntype.t" } ] } }, 
+      { "exception": 
+          { "name": "Dyntype.Parse_error",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|2970" },
+            "info": 
+              { "description": "Exception that may be raised by <span class=\"code\" >!of_string</span>" },
+            "exception_args": [ "string" ] } }, 
+      { "value": 
+          { "name": "Dyntype.of_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dyntype.mli|3145" },
+            "info": 
+              { "description": "<span class=\"code\" >of_string str</span> returns the type <span class=\"code\" >t</span> corresponding to the pretty-printed string <span class=\"code\" >str</span>. Raises <span class=\"code\" >!Parse_error</span> if is not a valid string" },
+            "type": "string -> Dyntype.t",
+            "params": [ 
+              { "name": "",
+                "type": "string" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

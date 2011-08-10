@@ -1,0 +1,77 @@
+{ "module": 
+  { "name": "Lwt_condition",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli|0" },
+    "info": 
+      { "description": "Conditions" },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "Condition variables to synchronize between threads." }, 
+      { "type": 
+          { "name": "Lwt_condition.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli|1771" },
+            "info": 
+              { "description": "Condition variable type. The type parameter denotes the type of value propagated from notifier to waiter." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'c" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Lwt_condition.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli|1903" },
+            "info": 
+              { "description": "<span class=\"code\" >create ()</span> creates a new condition variable." },
+            "type": "unit -> 'a Lwt_condition.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt_condition.wait",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli|1987" },
+            "info": 
+              { "description": "<span class=\"code\" >wait mutex condvar</span> will cause the current thread to block, awaiting notification for a condition variable, <span class=\"code\" >condvar</span>. If provided, the <span class=\"code\" >mutex</span> must have been previously locked (within the scope of <span class=\"code\" >Lwt_mutex.with_lock</span>, for example) and is temporarily unlocked until the condition is notified. Upon notification, <span class=\"code\" >mutex</span> is re-locked before <span class=\"code\" >wait</span> returns and the thread's activity is resumed. When the awaited condition is notified, the value parameter passed to <span class=\"code\" >notify</span> is returned." },
+            "type": "?mutex:Lwt_mutex.t -> 'a Lwt_condition.t -> 'a Lwt.t",
+            "params": [ 
+              { "name": "mutex",
+                "type": "Lwt_mutex.t option" }, 
+              { "name": "",
+                "type": "'a Lwt_condition.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt_condition.signal",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli|2601" },
+            "info": 
+              { "description": "<span class=\"code\" >signal condvar value</span> notifies that a condition is ready. A single waiting thread will be awoken and will receive the notification value which will be returned from <span class=\"code\" >wait</span>. Note that condition notification is not \"sticky\", i.e. if there is no waiter when <span class=\"code\" >notify</span> is called, the notification will be missed and the value discarded." },
+            "type": "'a Lwt_condition.t -> 'a -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_condition.t" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt_condition.broadcast",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt_condition.mli|3018" },
+            "info": 
+              { "description": "<span class=\"code\" >broadcast condvar value</span> notifies all waiting threads. Each will be awoken in turn and will receive the same notification value." },
+            "type": "'a Lwt_condition.t -> 'a -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt_condition.t" }, 
+              { "name": "",
+                "type": "'a" } ] } } ],
+    "dependencies": 
+      { "uses": [ "Lwt_mutex", "Lwt", "*predef*" ],
+        "used_by": [  ] } } }

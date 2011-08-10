@@ -1,0 +1,550 @@
+{ "module": 
+  { "name": "Lwt",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|0" },
+    "info": 
+      { "description": "Module <span class=\"code\" >Lwt</span>: cooperative light-weight threads." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "comment": "This module defines <em>cooperative light-weight threads</em> with their primitives. A <em>light-weight thread</em> represent a computation that may be not terminated, for example because it is waiting for some event to happen.<br></br> Lwt threads are cooperative in the sense that switching to another thread is awlays explicit (with <a href=\"{value|Lwt.wakeup}\" ><span class=\"code\" >Lwt.wakeup</span></a> or <a href=\"{none|wekup_exn}\" ><span class=\"code\" >wekup_exn</span></a>). When a thread is running, it executes as much as possible, and then returns (a value or an eror) or sleeps.<br></br> Note that inside a Lwt thread, exceptions must be raised with <a href=\"{value|Lwt.fail}\" ><span class=\"code\" >Lwt.fail</span></a> instead of <span class=\"code\" >raise</span>. Also the <span class=\"code\" >try ... with ...</span> construction will not catch Lwt errors. You must use <a href=\"{value|Lwt.catch}\" ><span class=\"code\" >Lwt.catch</span></a> instead.<br></br> Lwt also provides the syntax extension <a href=\"{none|Pa_lwt}\" ><span class=\"code\" >Pa_lwt</span></a> to make code using Lwt more readable." }, 
+      { "comment": "<h6>Definitions and basics</h6>" }, 
+      { "type": 
+          { "name": "Lwt.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|1884" },
+            "info": 
+              { "description": "The type of threads returning a result of type <span class=\"code\" >'a</span>." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "false",
+                "type": "'a" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Lwt.return",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|1953" },
+            "info": 
+              { "description": "<span class=\"code\" >return e</span> is a thread whose return value is the value of the expression <span class=\"code\" >e</span>." },
+            "type": "'a -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt.fail",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|2071" },
+            "info": 
+              { "description": "<span class=\"code\" >fail e</span> is a thread that fails with the exception <span class=\"code\" >e</span>." },
+            "type": "exn -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "exn" } ] } }, 
+      { "value": 
+          { "name": "Lwt.bind",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|2160" },
+            "info": 
+              { "description": "<span class=\"code\" >bind t f</span> is a thread which first waits for the thread <span class=\"code\" >t</span> to terminate and then, if the thread succeeds, behaves as the application of function <span class=\"code\" >f</span> to the return value of <span class=\"code\" >t</span>.  If the thread <span class=\"code\" >t</span> fails, <span class=\"code\" >bind t f</span> also fails, with the same exception.<br></br> The expression <span class=\"code\" >bind t (fun x -&gt; t')</span> can intuitively be read as <span class=\"code\" >let x = t in t'</span>, and if you use the <em>lwt.syntax</em> syntax extension, you can write a bind operation like that: <span class=\"code\" >lwt x = t in t'</span>.<br></br> Note that <span class=\"code\" >bind</span> is also often used just for synchronization purpose: <span class=\"code\" >t'</span> will not execute before <span class=\"code\" >t</span> is terminated.<br></br> The result of a thread can be bound several time." },
+            "type": "'a Lwt.t -> ('a -> 'b Lwt.t) -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.(>>=)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|2890" },
+            "info": 
+              { "description": "<span class=\"code\" >t &gt;&gt;= f</span> is an alternative notation for <span class=\"code\" >bind t f</span>." },
+            "type": "'a Lwt.t -> ('a -> 'b Lwt.t) -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.(=<<)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|2994" },
+            "info": 
+              { "description": "<span class=\"code\" >f =&lt;&lt; t</span> is <span class=\"code\" >t &gt;&gt;= f</span>" },
+            "type": "('a -> 'b Lwt.t) -> 'a Lwt.t -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.map",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3068" },
+            "info": 
+              { "description": "<span class=\"code\" >map f m</span> map the result of a thread. This is the same as <span class=\"code\" >bind m (fun x -&gt; return (f x))</span>" },
+            "type": "('a -> 'b) -> 'a Lwt.t -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b" }, 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.(>|=)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3212" },
+            "info": 
+              { "description": "<span class=\"code\" >m &gt;|= f</span> is <span class=\"code\" >map f m</span>" },
+            "type": "'a Lwt.t -> ('a -> 'b) -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a -> 'b" } ] } }, 
+      { "value": 
+          { "name": "Lwt.(=|<)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3284" },
+            "info": 
+              { "description": "<span class=\"code\" >f =|&lt; m</span> is <span class=\"code\" >map f m</span>" },
+            "type": "('a -> 'b) -> 'a Lwt.t -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b" }, 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "comment": "<h6>Thread storage</h6>" }, 
+      { "type": 
+          { "name": "Lwt.key",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3387" },
+            "info": 
+              { "description": "Type of a key. Keys are used to store local values into threads" },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Lwt.new_key",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3475" },
+            "info": 
+              { "description": "<span class=\"code\" >new_key ()</span> creates a new key." },
+            "type": "unit -> 'a Lwt.key",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.get",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3546" },
+            "info": 
+              { "description": "<span class=\"code\" >get key</span> returns the value associated with <span class=\"code\" >key</span> in the current thread." },
+            "type": "'a Lwt.key -> 'a option",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.key" } ] } }, 
+      { "value": 
+          { "name": "Lwt.with_value",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3665" },
+            "info": 
+              { "description": "<span class=\"code\" >with_value key value f</span> executes <span class=\"code\" >f</span> with <span class=\"code\" >value</span> associated to <span class=\"code\" >key</span>. The previous value associated to <span class=\"code\" >key</span> is restored after <span class=\"code\" >f</span> terminates." },
+            "type": "'a Lwt.key -> 'a option -> (unit -> 'b) -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.key" }, 
+              { "name": "",
+                "type": "'a option" }, 
+              { "name": "",
+                "type": "unit -> 'a" } ] } }, 
+      { "comment": "<h6>Exceptions handling</h6>" }, 
+      { "value": 
+          { "name": "Lwt.catch",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|3923" },
+            "info": 
+              { "description": "<span class=\"code\" >catch t f</span> is a thread that behaves as the thread <span class=\"code\" >t ()</span> if this thread succeeds.  If the thread <span class=\"code\" >t ()</span> fails with some exception, <span class=\"code\" >catch t f</span> behaves as the application of <span class=\"code\" >f</span> to this exception." },
+            "type": "(unit -> 'a Lwt.t) -> (exn -> 'a Lwt.t) -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit -> 'a Lwt.t" }, 
+              { "name": "",
+                "type": "exn -> 'a Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.try_bind",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|4200" },
+            "info": 
+              { "description": "<span class=\"code\" >try_bind t f g</span> behaves as <span class=\"code\" >bind (t ()) f</span> if <span class=\"code\" >t</span> does not fail.  Otherwise, it behaves as the application of <span class=\"code\" >g</span> to the exception associated to <span class=\"code\" >t ()</span>." },
+            "type": "(unit -> 'a Lwt.t) -> ('a -> 'b Lwt.t) -> (exn -> 'b Lwt.t) -> 'b Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit -> 'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a -> 'b Lwt.t" }, 
+              { "name": "",
+                "type": "exn -> 'a Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.finalize",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|4447" },
+            "info": 
+              { "description": "<span class=\"code\" >finalize f g</span> returns the same result as <span class=\"code\" >f ()</span> whether it fails or not. In both cases, <span class=\"code\" >g ()</span> is executed after <span class=\"code\" >f</span>." },
+            "type": "(unit -> 'a Lwt.t) -> (unit -> unit Lwt.t) -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit -> 'a Lwt.t" }, 
+              { "name": "",
+                "type": "unit -> unit Lwt.t" } ] } }, 
+      { "comment": "<h6>Multi-threads composition</h6>" }, 
+      { "value": 
+          { "name": "Lwt.choose",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|4678" },
+            "info": 
+              { "description": "<span class=\"code\" >choose l</span> behaves as the first thread in <span class=\"code\" >l</span> to terminate.  If several threads are already terminated, one is choosen at random.<br></br> Note: <a href=\"{value|Lwt.choose}\" ><span class=\"code\" >Lwt.choose</span></a> leaves the local values of the current thread unchanged." },
+            "type": "'a Lwt.t list -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt.nchoose",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|4947" },
+            "info": 
+              { "description": "<span class=\"code\" >nchoose l</span> returns the value of all that have succcessfully terminated. If all threads are sleeping, it waits for at least one to terminates. If one the threads of <span class=\"code\" >l</span> fails, <span class=\"code\" >nchoose</span> fails with the same exception.<br></br> Note: <a href=\"{value|Lwt.nchoose}\" ><span class=\"code\" >Lwt.nchoose</span></a> leaves the local values of the current thread unchanged." },
+            "type": "'a Lwt.t list -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt.nchoose_split",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|5316" },
+            "info": 
+              { "description": "<span class=\"code\" >nchoose_split l</span> does the same as <a href=\"{value|Lwt.nchoose}\" ><span class=\"code\" >Lwt.nchoose</span></a> but also retrurns the list of threads that have not yet terminated." },
+            "type": "'a Lwt.t list -> ('a list * 'a Lwt.t list) Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt.join",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|5503" },
+            "info": 
+              { "description": "<span class=\"code\" >join l</span> waits for all threads in <span class=\"code\" >l</span> to terminate. If one of the threads fails, then <span class=\"code\" >join l</span> will fails with the same exception as the first one to terminate.<br></br> Note: <a href=\"{value|Lwt.join}\" ><span class=\"code\" >Lwt.join</span></a> leaves the local values of the current thread unchanged." },
+            "type": "unit Lwt.t list -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit Lwt.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt.(<?>)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|5803" },
+            "info": 
+              { "description": "<span class=\"code\" >t &lt;?&gt; t'</span> is the same as <span class=\"code\" >choose [t; t']</span>" },
+            "type": "'a Lwt.t -> 'a Lwt.t -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.(<&>)",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|5891" },
+            "info": 
+              { "description": "<span class=\"code\" >t &lt;&amp;&gt; t'</span> is the same as <span class=\"code\" >join [t; t']</span>" },
+            "type": "unit Lwt.t -> unit Lwt.t -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit Lwt.t" }, 
+              { "name": "",
+                "type": "unit Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.ignore_result",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|5983" },
+            "info": 
+              { "description": "<span class=\"code\" >ignore_result t</span> start the thread <span class=\"code\" >t</span> and ignores its result value if the thread terminates sucessfully.  However, if the thread <span class=\"code\" >t</span> fails, the exception is raised instead of being ignored.<br></br> You should use this function if you want to start a thread and don't care what its return value is, nor when it terminates (for instance, because it is looping).  Note that if the thread <span class=\"code\" >t</span> yields and later fails, the exception will not be raised at this point in the program." },
+            "type": "'a Lwt.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "comment": "<h6>Sleeping and resuming</h6>" }, 
+      { "type": 
+          { "name": "Lwt.u",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|6582" },
+            "info": 
+              { "description": "The type of thread wakeners." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "value": 
+          { "name": "Lwt.wait",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|6627" },
+            "info": 
+              { "description": "<span class=\"code\" >wait ()</span> is a pair of a thread which sleeps forever (unless it is resumed by one of the functions <span class=\"code\" >wakeup</span>, <span class=\"code\" >wakeup_exn</span> below) and the corresponding wakener.  This thread does not block the execution of the remainder of the program (except of course, if another thread tries to wait for its termination)." },
+            "type": "unit -> 'a Lwt.t * 'a Lwt.u",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.wakeup",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|6999" },
+            "info": 
+              { "description": "<span class=\"code\" >wakeup t e</span> makes the sleeping thread <span class=\"code\" >t</span> terminate and return the value of the expression <span class=\"code\" >e</span>." },
+            "type": "'a Lwt.u -> 'a -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.u" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Lwt.wakeup_exn",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|7144" },
+            "info": 
+              { "description": "<span class=\"code\" >wakeup_exn t e</span> makes the sleeping thread <span class=\"code\" >t</span> fail with the exception <span class=\"code\" >e</span>." },
+            "type": "'a Lwt.u -> exn -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.u" }, 
+              { "name": "",
+                "type": "exn" } ] } }, 
+      { "value": 
+          { "name": "Lwt.waiter_of_wakener",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|7273" },
+            "info": 
+              { "description": "Returns the thread associated to a wakener." },
+            "type": "'a Lwt.u -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.u" } ] } }, 
+      { "comment": "<h6>Threads state</h6>" }, 
+      { "type": 
+          { "name": "Lwt.state",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|7419" },
+            "info": 
+              { "description": "State of a thread" },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "false",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "variant",
+                "private": "false",
+                "constructors": [ 
+                  { "name": "Return",
+                    "description": "The thread which has successfully terminated",
+                    "type": [ "'a" ] }, 
+                  { "name": "Fail",
+                    "description": "The thread raised an exception",
+                    "type": [ "exn" ] }, 
+                  { "name": "Sleep",
+                    "description": "The thread is sleeping",
+                    "type": [  ] } ] } } }, 
+      { "value": 
+          { "name": "Lwt.state",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|7613" },
+            "info": 
+              { "description": "<span class=\"code\" >state t</span> returns the state of a thread" },
+            "type": "'a Lwt.t -> 'a Lwt.state",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "comment": "<h6>Cancelable threads</h6>" }, 
+      { "comment": "Cancelable threads are the same as regular threads except that they can be canceled." }, 
+      { "exception": 
+          { "name": "Lwt.Canceled",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|7820" },
+            "info": 
+              { "description": "Canceled threads fails with this exception" } } }, 
+      { "value": 
+          { "name": "Lwt.task",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|7892" },
+            "info": 
+              { "description": "<span class=\"code\" >task ()</span> is the same as <span class=\"code\" >wait ()</span> except that threads created with <span class=\"code\" >task</span> can be canceled." },
+            "type": "unit -> 'a Lwt.t * 'a Lwt.u",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.on_cancel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|8031" },
+            "info": 
+              { "description": "<span class=\"code\" >on_cancel t f</span> executes <span class=\"code\" >f</span> when <span class=\"code\" >t</span> is canceled. This is the same as catching <span class=\"code\" >Canceled</span>." },
+            "type": "'a Lwt.t -> (unit -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "unit -> unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.cancel",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|8186" },
+            "info": 
+              { "description": "<span class=\"code\" >cancel t</span> cancels the threads <span class=\"code\" >t</span>. This means that the deepest sleeping thread created with <span class=\"code\" >task</span> and connected to <span class=\"code\" >t</span> is wakeup with the exception <a href=\"{exception|Lwt.Canceled}\" ><span class=\"code\" >Lwt.Canceled</span></a>.<br></br> For example, in the following code:<br></br> <span class=\"codepre\" > let waiter, wakener = task () in cancel (waiter &gt;&gt; printl \"plop\") </span><br></br> <span class=\"code\" >waiter</span> will be waked up with <a href=\"{exception|Lwt.Canceled}\" ><span class=\"code\" >Lwt.Canceled</span></a>." },
+            "type": "'a Lwt.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "value": 
+          { "name": "Lwt.pick",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|8594" },
+            "info": 
+              { "description": "<span class=\"code\" >pick l</span> is the same as <a href=\"{value|Lwt.choose}\" ><span class=\"code\" >Lwt.choose</span></a>, except that it cancels all sleeping threads when one terminates.<br></br> Note: <a href=\"{value|Lwt.pick}\" ><span class=\"code\" >Lwt.pick</span></a> leaves the local values of the current thread unchanged." },
+            "type": "'a Lwt.t list -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt.npick",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|8823" },
+            "info": 
+              { "description": "<span class=\"code\" >npick l</span> is the same as <a href=\"{value|Lwt.nchoose}\" ><span class=\"code\" >Lwt.nchoose</span></a>, except that it cancels all sleeping threads when one terminates.<br></br> Note: <a href=\"{value|Lwt.npick}\" ><span class=\"code\" >Lwt.npick</span></a> leaves the local values of the current thread unchanged." },
+            "type": "'a Lwt.t list -> 'a list Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t list" } ] } }, 
+      { "value": 
+          { "name": "Lwt.protected",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|9061" },
+            "info": 
+              { "description": "<span class=\"code\" >protected thread</span> creates a new cancelable thread which behave as <span class=\"code\" >thread</span> except that cancelling it does not cancel <span class=\"code\" >thread</span>." },
+            "type": "'a Lwt.t -> 'a Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" } ] } }, 
+      { "comment": "<h6>Pause</h6>" }, 
+      { "value": 
+          { "name": "Lwt.pause",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|9258" },
+            "info": 
+              { "description": "<span class=\"code\" >pause ()</span> is a sleeping thread which is wake up on the next call to <a href=\"{value|Lwt.wakeup_paused}\" ><span class=\"code\" >Lwt.wakeup_paused</span></a>. A thread created with <span class=\"code\" >pause</span> can be canceled." },
+            "type": "unit -> unit Lwt.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.wakeup_paused",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|9441" },
+            "info": 
+              { "description": "<span class=\"code\" >wakeup_paused ()</span> wakes up all threads which suspended themselves with <a href=\"{value|Lwt.pause}\" ><span class=\"code\" >Lwt.pause</span></a>.<br></br> This function is called by the scheduler, before entering the main loop. You usually do not have to call it directly, except if you are writing a custom scheduler.<br></br> Note that if a paused thread resume and pause again, it will not be wakeup at this point." },
+            "type": "unit -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.paused_count",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|9858" },
+            "info": 
+              { "description": "<span class=\"code\" >paused_count ()</span> returns the number of thread currently paused." },
+            "type": "unit -> int",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.register_pause_notifier",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|9970" },
+            "info": 
+              { "description": "<span class=\"code\" >register_pause_notifier f</span> register a function <span class=\"code\" >f</span> that will be called each time pause is called. The parameter passed to <span class=\"code\" >f</span> is the new number of threads paused. It is usefull to be able to call <a href=\"{value|Lwt.wakeup_paused}\" ><span class=\"code\" >Lwt.wakeup_paused</span></a> when there is no scheduler" },
+            "type": "(int -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int -> unit" } ] } }, 
+      { "comment": "<h6>Misc</h6>" }, 
+      { "value": 
+          { "name": "Lwt.on_success",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|10308" },
+            "info": 
+              { "description": "<span class=\"code\" >on_success t f</span> executes <span class=\"code\" >f</span> when <span class=\"code\" >t</span> terminates without failing. This is the same as:<br></br> <span class=\"codepre\" > ignore_result (bind t (fun x -&gt; f x; return ())) </span><br></br> but a bit more efficient." },
+            "type": "'a Lwt.t -> ('a -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "'a -> unit" } ] } }, 
+      { "value": 
+          { "name": "Lwt.on_failure",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/lwt.mli|10568" },
+            "info": 
+              { "description": "<span class=\"code\" >on_failure t f</span> executes <span class=\"code\" >f</span> when <span class=\"code\" >t</span> terminates and fails. This is the same as:<br></br> <span class=\"codepre\" > ignore_result (catch t (fun e -&gt; f e; return ())) </span><br></br> but a bit more efficient." },
+            "type": "'a Lwt.t -> (exn -> unit) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Lwt.t" }, 
+              { "name": "",
+                "type": "exn -> unit" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [ "Lwt_util", "Lwt_stream", "Lwt_mvar", "Lwt_mutex", "Lwt_list", "Lwt_pool", "Lwt_condition", "Lwt_switch", "OS", "Net", "Block", "Dns", "Http" ] } } }

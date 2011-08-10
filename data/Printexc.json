@@ -1,0 +1,98 @@
+{ "module": 
+  { "name": "Printexc",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|0" },
+    "info": 
+      { "description": "Facilities for printing exceptions." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Printexc.to_string",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|995" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.to_string e</span> returns a string representation of the exception <span class=\"code\" >e</span>." },
+            "type": "exn -> string",
+            "params": [ 
+              { "name": "",
+                "type": "exn" } ] } }, 
+      { "value": 
+          { "name": "Printexc.print",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|1112" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.print fn x</span> applies <span class=\"code\" >fn</span> to <span class=\"code\" >x</span> and returns the result. If the evaluation of <span class=\"code\" >fn x</span> raises any exception, the name of the exception is printed on standard error output, and the exception is raised again. The typical use is to catch and report exceptions that escape a function application." },
+            "type": "('a -> 'b) -> 'a -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Printexc.catch",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|1469" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.catch fn x</span> is similar to <a href=\"{value|Printexc.print}\" ><span class=\"code\" >Printexc.print</span></a>, but aborts the program with exit code 2 after printing the uncaught exception.  This function is deprecated: the runtime system is now able to print uncaught exceptions as precisely as <span class=\"code\" >Printexc.catch</span> does.  Moreover, calling <span class=\"code\" >Printexc.catch</span> makes it harder to track the location of the exception using the debugger or the stack backtrace facility. So, do not use <span class=\"code\" >Printexc.catch</span> in new code." },
+            "type": "('a -> 'b) -> 'a -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Printexc.get_backtrace",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|1984" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.get_backtrace ()</span> returns a string containing the same exception backtrace that <span class=\"code\" >Printexc.print_backtrace</span> would print.",
+                "since": "3.11.0" },
+            "type": "unit -> string",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Printexc.record_backtrace",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|2182" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.record_backtrace b</span> turns recording of exception backtraces on (if <span class=\"code\" >b = true</span>) or off (if <span class=\"code\" >b = false</span>).  Initially, backtraces are not recorded, unless the <span class=\"code\" >b</span> flag is given to the program through the <span class=\"code\" >OCAMLRUNPARAM</span> variable.",
+                "since": "3.11.0" },
+            "type": "bool -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "bool" } ] } }, 
+      { "value": 
+          { "name": "Printexc.backtrace_status",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|2492" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.backtrace_status()</span> returns <span class=\"code\" >true</span> if exception backtraces are currently recorded, <span class=\"code\" >false</span> if not.",
+                "since": "3.11.0" },
+            "type": "unit -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Printexc.register_printer",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/printexc.mli|2666" },
+            "info": 
+              { "description": "<span class=\"code\" >Printexc.register_printer fn</span> registers <span class=\"code\" >fn</span> as an exception printer.  The printer should return <span class=\"code\" >None</span> or raise an exception if it does not know how to convert the passed exception, and <span class=\"code\" >Some s</span> with <span class=\"code\" >s</span> the resulting string if it can convert the passed exception. Exceptions raised by the printer are ignored.<br></br> When converting an exception into a string, the printers will be invoked in the reverse order of their registrations, until a printer returns a <span class=\"code\" >Some s</span> value (if no such printer exists, the runtime will use a generic printer).",
+                "since": "3.11.2" },
+            "type": "(exn -> string option) -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "exn -> string option" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

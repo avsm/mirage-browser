@@ -1,0 +1,199 @@
+{ "module": 
+  { "name": "Queue",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|0" },
+    "info": 
+      { "description": "First-in first-out queues.<br></br> This module implements queues (FIFOs), with in-place modification." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "type": 
+          { "name": "Queue.t",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1056" },
+            "info": 
+              { "description": "The type of queues containing elements of type <span class=\"code\" >'a</span>." },
+            "params": [ 
+              { "covariant": "true",
+                "contravariant": "true",
+                "type": "'b" } ],
+            "kind": 
+              { "type": "abstract" } } }, 
+      { "exception": 
+          { "name": "Queue.Empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1124" },
+            "info": 
+              { "description": "Raised when <a href=\"{value|Queue.take}\" ><span class=\"code\" >Queue.take</span></a> or <a href=\"{value|Queue.peek}\" ><span class=\"code\" >Queue.peek</span></a> is applied to an empty queue." } } }, 
+      { "value": 
+          { "name": "Queue.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1222" },
+            "info": 
+              { "description": "Return a new queue, initially empty." },
+            "type": "unit -> 'a Queue.t",
+            "params": [ 
+              { "name": "",
+                "type": "unit" } ] } }, 
+      { "value": 
+          { "name": "Queue.add",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1293" },
+            "info": 
+              { "description": "<span class=\"code\" >add x q</span> adds the element <span class=\"code\" >x</span> at the end of the queue <span class=\"code\" >q</span>." },
+            "type": "'a -> 'a Queue.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.push",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1390" },
+            "info": 
+              { "description": "<span class=\"code\" >push</span> is a synonym for <span class=\"code\" >add</span>." },
+            "type": "'a -> 'a Queue.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.take",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1459" },
+            "info": 
+              { "description": "<span class=\"code\" >take q</span> removes and returns the first element in queue <span class=\"code\" >q</span>, or raises <span class=\"code\" >Empty</span> if the queue is empty." },
+            "type": "'a Queue.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.pop",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1594" },
+            "info": 
+              { "description": "<span class=\"code\" >pop</span> is a synonym for <span class=\"code\" >take</span>." },
+            "type": "'a Queue.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.peek",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1654" },
+            "info": 
+              { "description": "<span class=\"code\" >peek q</span> returns the first element in queue <span class=\"code\" >q</span>, without removing it from the queue, or raises <span class=\"code\" >Empty</span> if the queue is empty." },
+            "type": "'a Queue.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.top",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1813" },
+            "info": 
+              { "description": "<span class=\"code\" >top</span> is a synonym for <span class=\"code\" >peek</span>." },
+            "type": "'a Queue.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.clear",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1873" },
+            "info": 
+              { "description": "Discard all elements from a queue." },
+            "type": "'a Queue.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.copy",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|1941" },
+            "info": 
+              { "description": "Return a copy of the given queue." },
+            "type": "'a Queue.t -> 'a Queue.t",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.is_empty",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|2007" },
+            "info": 
+              { "description": "Return <span class=\"code\" >true</span> if the given queue is empty, <span class=\"code\" >false</span> otherwise." },
+            "type": "'a Queue.t -> bool",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.length",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|2105" },
+            "info": 
+              { "description": "Return the number of elements in a queue." },
+            "type": "'a Queue.t -> int",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.iter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|2180" },
+            "info": 
+              { "description": "<span class=\"code\" >iter f q</span> applies <span class=\"code\" >f</span> in turn to all elements of <span class=\"code\" >q</span>, from the least recently entered to the most recently entered. The queue itself is unchanged." },
+            "type": "('a -> unit) -> 'a Queue.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.fold",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|2382" },
+            "info": 
+              { "description": "<span class=\"code\" >fold f accu q</span> is equivalent to <span class=\"code\" >List.fold_left f accu l</span>, where <span class=\"code\" >l</span> is the list of <span class=\"code\" >q</span>'s elements. The queue remains unchanged." },
+            "type": "('a -> 'b -> 'a) -> 'a -> 'b Queue.t -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'a" }, 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a Queue.t" } ] } }, 
+      { "value": 
+          { "name": "Queue.transfer",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/queue.mli|2574" },
+            "info": 
+              { "description": "<span class=\"code\" >transfer q1 q2</span> adds all of <span class=\"code\" >q1</span>'s elements at the end of the queue <span class=\"code\" >q2</span>, then clears <span class=\"code\" >q1</span>. It is equivalent to the sequence <span class=\"code\" >iter (fun x -&gt; add x q2) q1; clear q1</span>, but runs in constant time." },
+            "type": "'a Queue.t -> 'a Queue.t -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a Queue.t" }, 
+              { "name": "",
+                "type": "'a Queue.t" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

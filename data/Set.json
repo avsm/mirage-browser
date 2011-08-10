@@ -1,0 +1,48 @@
+{ "module": 
+  { "name": "Set",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli|0" },
+    "info": 
+      { "description": "Sets over ordered types.<br></br> This module implements the set data structure, given a total ordering function over the set elements. All operations over sets are purely applicative (no side-effects). The implementation uses balanced binary trees, and is therefore reasonably efficient: insertion and membership take time logarithmic in the size of the set, for instance." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "module_type": 
+          { "name": "Set.OrderedType",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli|1337" },
+            "info": 
+              { "description": "Input signature of the functor <a href=\"{module|Set.Make}\" ><span class=\"code\" >Set.Make</span></a>." },
+            "type": "sig  end",
+            "kind": "" } }, 
+      { "module_type": 
+          { "name": "Set.S",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli|1973" },
+            "info": 
+              { "description": "Output signature of the functor <a href=\"{module|Set.Make}\" ><span class=\"code\" >Set.Make</span></a>." },
+            "type": "sig  end",
+            "kind": "" } }, 
+      { "module": 
+          { "name": "Set.Make",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/set.mli|5783" },
+            "info": 
+              { "description": "Functor building an implementation of the set structure given a totally ordered type." },
+            "type": "functor (Ord : OrderedType) -> sig  end",
+            "module_functor": 
+              { "parameter": 
+                  { "name": "Ord" },
+                "module_with": "unavailable" },
+            "dependencies": 
+              { "uses": [  ] } } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

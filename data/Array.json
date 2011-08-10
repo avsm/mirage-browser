@@ -1,0 +1,351 @@
+{ "module": 
+  { "name": "Array",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|0" },
+    "info": 
+      { "description": "Array operations." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "value": 
+          { "name": "Array.length",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|973" },
+            "info": 
+              { "description": "Return the length (number of elements) of the given array." },
+            "type": "'a array -> int",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.get",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|1092" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.get a n</span> returns the element number <span class=\"code\" >n</span> of array <span class=\"code\" >a</span>. The first element has number 0. The last element has number <span class=\"code\" >Array.length a - 1</span>. You can also write <span class=\"code\" >a.(n)</span> instead of <span class=\"code\" >Array.get a n</span>.<br></br> Raise <span class=\"code\" >Invalid_argument \"index out of bounds\"</span> if <span class=\"code\" >n</span> is outside the range 0 to <span class=\"code\" >(Array.length a - 1)</span>." },
+            "type": "'a array -> int -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Array.set",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|1475" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.set a n x</span> modifies array <span class=\"code\" >a</span> in place, replacing element number <span class=\"code\" >n</span> with <span class=\"code\" >x</span>. You can also write <span class=\"code\" >a.(n) &lt;- x</span> instead of <span class=\"code\" >Array.set a n x</span>.<br></br> Raise <span class=\"code\" >Invalid_argument \"index out of bounds\"</span> if <span class=\"code\" >n</span> is outside the range 0 to <span class=\"code\" >Array.length a - 1</span>." },
+            "type": "'a array -> int -> 'a -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Array.make",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|1811" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.make n x</span> returns a fresh array of length <span class=\"code\" >n</span>, initialized with <span class=\"code\" >x</span>. All the elements of this new array are initially physically equal to <span class=\"code\" >x</span> (in the sense of the <span class=\"code\" >==</span> predicate). Consequently, if <span class=\"code\" >x</span> is mutable, it is shared among all elements of the array, and modifying <span class=\"code\" >x</span> through one of the array entries will modify all other entries at the same time.<br></br> Raise <span class=\"code\" >Invalid_argument</span> if <span class=\"code\" >n &lt; 0</span> or <span class=\"code\" >n &gt; Sys.max_array_length</span>. If the value of <span class=\"code\" >x</span> is a floating-point number, then the maximum size is only <span class=\"code\" >Sys.max_array_length / 2</span>." },
+            "type": "int -> 'a -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Array.create",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|2441" },
+            "info": 
+              { "deprecated": "<span class=\"code\" >Array.create</span> is an alias for <a href=\"{value|Array.make}\" ><span class=\"code\" >Array.make</span></a>." },
+            "type": "int -> 'a -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Array.init",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|2566" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.init n f</span> returns a fresh array of length <span class=\"code\" >n</span>, with element number <span class=\"code\" >i</span> initialized to the result of <span class=\"code\" >f i</span>. In other terms, <span class=\"code\" >Array.init n f</span> tabulates the results of <span class=\"code\" >f</span> applied to the integers <span class=\"code\" >0</span> to <span class=\"code\" >n-1</span>.<br></br> Raise <span class=\"code\" >Invalid_argument</span> if <span class=\"code\" >n &lt; 0</span> or <span class=\"code\" >n &gt; Sys.max_array_length</span>. If the return type of <span class=\"code\" >f</span> is <span class=\"code\" >float</span>, then the maximum size is only <span class=\"code\" >Sys.max_array_length / 2</span>." },
+            "type": "int -> (int -> 'a) -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int -> 'a" } ] } }, 
+      { "value": 
+          { "name": "Array.make_matrix",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|3011" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.make_matrix dimx dimy e</span> returns a two-dimensional array (an array of arrays) with first dimension <span class=\"code\" >dimx</span> and second dimension <span class=\"code\" >dimy</span>. All the elements of this new matrix are initially physically equal to <span class=\"code\" >e</span>. The element (<span class=\"code\" >x,y</span>) of a matrix <span class=\"code\" >m</span> is accessed with the notation <span class=\"code\" >m.(x).(y)</span>.<br></br> Raise <span class=\"code\" >Invalid_argument</span> if <span class=\"code\" >dimx</span> or <span class=\"code\" >dimy</span> is negative or greater than <span class=\"code\" >Sys.max_array_length</span>. If the value of <span class=\"code\" >e</span> is a floating-point number, then the maximum size is only <span class=\"code\" >Sys.max_array_length / 2</span>." },
+            "type": "int -> int -> 'a -> 'a array array",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Array.create_matrix",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|3599" },
+            "info": 
+              { "deprecated": "<span class=\"code\" >Array.create_matrix</span> is an alias for <a href=\"{value|Array.make_matrix}\" ><span class=\"code\" >Array.make_matrix</span></a>." },
+            "type": "int -> int -> 'a -> 'a array array",
+            "params": [ 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Array.append",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|3734" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.append v1 v2</span> returns a fresh array containing the concatenation of the arrays <span class=\"code\" >v1</span> and <span class=\"code\" >v2</span>." },
+            "type": "'a array -> 'a array -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.concat",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|3892" },
+            "info": 
+              { "description": "Same as <span class=\"code\" >Array.append</span>, but concatenates a list of arrays." },
+            "type": "'a array list -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "'a array list" } ] } }, 
+      { "value": 
+          { "name": "Array.sub",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|3998" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.sub a start len</span> returns a fresh array of length <span class=\"code\" >len</span>, containing the elements number <span class=\"code\" >start</span> to <span class=\"code\" >start + len - 1</span> of array <span class=\"code\" >a</span>.<br></br> Raise <span class=\"code\" >Invalid_argument \"Array.sub\"</span> if <span class=\"code\" >start</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >a</span>; that is, if <span class=\"code\" >start &lt; 0</span>, or <span class=\"code\" >len &lt; 0</span>, or <span class=\"code\" >start + len &gt; Array.length a</span>." },
+            "type": "'a array -> int -> int -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Array.copy",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|4378" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.copy a</span> returns a copy of <span class=\"code\" >a</span>, that is, a fresh array containing the same elements as <span class=\"code\" >a</span>." },
+            "type": "'a array -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.fill",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|4519" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.fill a ofs len x</span> modifies the array <span class=\"code\" >a</span> in place, storing <span class=\"code\" >x</span> in elements number <span class=\"code\" >ofs</span> to <span class=\"code\" >ofs + len - 1</span>.<br></br> Raise <span class=\"code\" >Invalid_argument \"Array.fill\"</span> if <span class=\"code\" >ofs</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >a</span>." },
+            "type": "'a array -> int -> int -> 'a -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "value": 
+          { "name": "Array.blit",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|4799" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.blit v1 o1 v2 o2 len</span> copies <span class=\"code\" >len</span> elements from array <span class=\"code\" >v1</span>, starting at element number <span class=\"code\" >o1</span>, to array <span class=\"code\" >v2</span>, starting at element number <span class=\"code\" >o2</span>. It works correctly even if <span class=\"code\" >v1</span> and <span class=\"code\" >v2</span> are the same array, and the source and destination chunks overlap.<br></br> Raise <span class=\"code\" >Invalid_argument \"Array.blit\"</span> if <span class=\"code\" >o1</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >v1</span>, or if <span class=\"code\" >o2</span> and <span class=\"code\" >len</span> do not designate a valid subarray of <span class=\"code\" >v2</span>." },
+            "type": "'a array -> int -> 'a array -> int -> int -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "int" }, 
+              { "name": "",
+                "type": "int" } ] } }, 
+      { "value": 
+          { "name": "Array.to_list",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|5310" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.to_list a</span> returns the list of all the elements of <span class=\"code\" >a</span>." },
+            "type": "'a array -> 'a list",
+            "params": [ 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.of_list",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|5415" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.of_list l</span> returns a fresh array containing the elements of <span class=\"code\" >l</span>." },
+            "type": "'a list -> 'a array",
+            "params": [ 
+              { "name": "",
+                "type": "'a list" } ] } }, 
+      { "value": 
+          { "name": "Array.iter",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|5532" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.iter f a</span> applies function <span class=\"code\" >f</span> in turn to all the elements of <span class=\"code\" >a</span>.  It is equivalent to <span class=\"code\" >f a.(0); f a.(1); ...; f a.(Array.length a - 1); ()</span>." },
+            "type": "('a -> unit) -> 'a array -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> unit" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.map",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|5740" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.map f a</span> applies function <span class=\"code\" >f</span> to all the elements of <span class=\"code\" >a</span>, and builds an array with the results returned by <span class=\"code\" >f</span>: <span class=\"code\" >[| f a.(0); f a.(1); ...; f a.(Array.length a - 1) |]</span>." },
+            "type": "('a -> 'b) -> 'a array -> 'b array",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.iteri",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|5975" },
+            "info": 
+              { "description": "Same as <a href=\"{value|Array.iter}\" ><span class=\"code\" >Array.iter</span></a>, but the function is applied to the index of the element as first argument, and the element itself as second argument." },
+            "type": "(int -> 'a -> unit) -> 'a array -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "int -> 'a -> unit" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.mapi",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|6182" },
+            "info": 
+              { "description": "Same as <a href=\"{value|Array.map}\" ><span class=\"code\" >Array.map</span></a>, but the function is applied to the index of the element as first argument, and the element itself as second argument." },
+            "type": "(int -> 'a -> 'b) -> 'a array -> 'b array",
+            "params": [ 
+              { "name": "",
+                "type": "int -> 'a -> 'b" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.fold_left",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|6389" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.fold_left f x a</span> computes <span class=\"code\" >f (... (f (f x a.(0)) a.(1)) ...) a.(n-1)</span>, where <span class=\"code\" >n</span> is the length of the array <span class=\"code\" >a</span>." },
+            "type": "('a -> 'b -> 'a) -> 'a -> 'b array -> 'a",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'a" }, 
+              { "name": "",
+                "type": "'a" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.fold_right",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|6580" },
+            "info": 
+              { "description": "<span class=\"code\" >Array.fold_right f a x</span> computes <span class=\"code\" >f a.(0) (f a.(1) ( ... (f a.(n-1) x) ...))</span>, where <span class=\"code\" >n</span> is the length of the array <span class=\"code\" >a</span>." },
+            "type": "('a -> 'b -> 'b) -> 'a array -> 'b -> 'b",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'b -> 'b" }, 
+              { "name": "",
+                "type": "'a array" }, 
+              { "name": "",
+                "type": "'a" } ] } }, 
+      { "comment": "<h6>Sorting</h6>" }, 
+      { "value": 
+          { "name": "Array.sort",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|6796" },
+            "info": 
+              { "description": "Sort an array in increasing order according to a comparison function.  The comparison function must return 0 if its arguments compare as equal, a positive integer if the first is greater, and a negative integer if the first is smaller (see below for a complete specification).  For example, <a href=\"{value|Pervasives.compare}\" ><span class=\"code\" >Pervasives.compare</span></a> is a suitable comparison function, provided there are no floating-point NaN values in the data.  After calling <span class=\"code\" >Array.sort</span>, the array is sorted in place in increasing order. <span class=\"code\" >Array.sort</span> is guaranteed to run in constant heap space and (at most) logarithmic stack space.<br></br> The current implementation uses Heap Sort.  It runs in constant stack space.<br></br> Specification of the comparison function: Let <span class=\"code\" >a</span> be the array and <span class=\"code\" >cmp</span> the comparison function.  The following must be true for all x, y, z in a :<ul><li>  <span class=\"code\" >cmp x y</span> &gt; 0 if and only if <span class=\"code\" >cmp y x</span> &lt; 0</li><li>  if <span class=\"code\" >cmp x y</span> &gt;= 0 and <span class=\"code\" >cmp y z</span> &gt;= 0 then <span class=\"code\" >cmp x z</span> &gt;= 0</li></ul> When <span class=\"code\" >Array.sort</span> returns, <span class=\"code\" >a</span> contains the same elements as before, reordered in such a way that for all i and j valid indices of <span class=\"code\" >a</span> :<ul><li>  <span class=\"code\" >cmp a.(i) a.(j)</span> &gt;= 0 if and only if i &gt;= j</li></ul>" },
+            "type": "('a -> 'a -> int) -> 'a array -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'a -> int" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.stable_sort",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|8008" },
+            "info": 
+              { "description": "Same as <a href=\"{value|Array.sort}\" ><span class=\"code\" >Array.sort</span></a>, but the sorting algorithm is stable (i.e. elements that compare equal are kept in their original order) and not guaranteed to run in constant heap space.<br></br> The current implementation uses Merge Sort. It uses <span class=\"code\" >n/2</span> words of heap space, where <span class=\"code\" >n</span> is the length of the array. It is usually faster than the current implementation of <a href=\"{value|Array.sort}\" ><span class=\"code\" >Array.sort</span></a>." },
+            "type": "('a -> 'a -> int) -> 'a array -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'a -> int" }, 
+              { "name": "",
+                "type": "'a array" } ] } }, 
+      { "value": 
+          { "name": "Array.fast_sort",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/array.mli|8453" },
+            "info": 
+              { "description": "Same as <a href=\"{value|Array.sort}\" ><span class=\"code\" >Array.sort</span></a> or <a href=\"{value|Array.stable_sort}\" ><span class=\"code\" >Array.stable_sort</span></a>, whichever is faster on typical input." },
+            "type": "('a -> 'a -> int) -> 'a array -> unit",
+            "params": [ 
+              { "name": "",
+                "type": "'a -> 'a -> int" }, 
+              { "name": "",
+                "type": "'a array" } ] } } ],
+    "dependencies": 
+      { "uses": [  ],
+        "used_by": [  ] } } }

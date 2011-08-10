@@ -1,0 +1,2065 @@
+{ "module": 
+  { "name": "Dns",
+    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+    "location": 
+      { "implementation": "unknown",
+        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|0" },
+    "info": 
+      { "description": "<span class=\"code\" >create n</span> creates an empty table of initial size <span class=\"code\" >n</span>. The table will grow as needed." },
+    "type": "sig  end",
+    "module_structure": [ 
+      { "module": 
+          { "name": "Dns.Hashcons",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|0" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Dns.Hashcons.hash_consed",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|592" },
+                    "info": "",
+                    "params": [ 
+                      { "covariant": "true",
+                        "contravariant": "true",
+                        "type": "'a" } ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "true",
+                        "fields": [ 
+                          { "name": "hkey",
+                            "mutable": false,
+                            "type": "int" }, 
+                          { "name": "tag",
+                            "mutable": false,
+                            "type": "int" }, 
+                          { "name": "node",
+                            "mutable": false,
+                            "type": "'a" } ] } } }, 
+              { "type": 
+                  { "name": "Dns.Hashcons.t",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|737" },
+                    "info": "",
+                    "params": [ 
+                      { "covariant": "true",
+                        "contravariant": "true",
+                        "type": "'b" } ],
+                    "kind": 
+                      { "type": "abstract" } } }, 
+              { "value": 
+                  { "name": "Dns.Hashcons.create",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|744" },
+                    "info": 
+                      { "description": "<span class=\"code\" >create n</span> creates an empty table of initial size <span class=\"code\" >n</span>. The table will grow as needed." },
+                    "type": "int -> 'a Dns.Hashcons.t",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Hashcons.clear",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|872" },
+                    "info": 
+                      { "description": "Removes all elements from the table." },
+                    "type": "'a Dns.Hashcons.t -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a Dns.Hashcons.t" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Hashcons.hashcons",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|943" },
+                    "info": 
+                      { "description": "<span class=\"code\" >hashcons t n</span> hash-cons the value <span class=\"code\" >n</span> using table <span class=\"code\" >t</span> i.e. returns any existing value in <span class=\"code\" >t</span> equal to <span class=\"code\" >n</span>, if any; otherwise, allocates a new one hash-consed value of node <span class=\"code\" >n</span> and returns it.  As a consequence the returned value is physically equal to any equal value already hash-consed using table <span class=\"code\" >t</span>." },
+                    "type": "'a Dns.Hashcons.t -> 'a -> 'a Dns.Hashcons.hash_consed",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a Dns.Hashcons.t" }, 
+                      { "name": "",
+                        "type": "'a" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Hashcons.iter",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|1326" },
+                    "info": 
+                      { "description": "<span class=\"code\" >iter f t</span> iterates <span class=\"code\" >f</span> over all elements of <span class=\"code\" >t</span>." },
+                    "type": "('a Dns.Hashcons.hash_consed -> unit) -> 'a Dns.Hashcons.t -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a Dns.Hashcons.hash_consed -> unit" }, 
+                      { "name": "",
+                        "type": "'a Dns.Hashcons.t" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Hashcons.stats",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|1437" },
+                    "info": 
+                      { "description": "Return statistics on the table.  The numbers are, in order: table length, number of entries, sum of bucket lengths, smallest bucket length, median bucket length, biggest bucket length." },
+                    "type": "'a Dns.Hashcons.t -> int * int * int * int * int * int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a Dns.Hashcons.t" } ] } }, 
+              { "module_type": 
+                  { "name": "Dns.Hashcons.HashedType",
+                    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|1729" },
+                    "info": "",
+                    "type": "sig  end",
+                    "kind": "" } }, 
+              { "module_type": 
+                  { "name": "Dns.Hashcons.S",
+                    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|1833" },
+                    "info": "",
+                    "type": "sig  end",
+                    "kind": "" } }, 
+              { "module": 
+                  { "name": "Dns.Hashcons.Make",
+                    "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2094" },
+                    "info": "",
+                    "type": "functor (H : HashedType) -> sig  end",
+                    "module_functor": 
+                      { "parameter": 
+                          { "name": "H" },
+                        "module_with": "unavailable" },
+                    "dependencies": 
+                      { "uses": [  ] } } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnsrr",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2152" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Dns.Dnsrr.serial",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2178" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "int32" } }, 
+              { "type": 
+                  { "name": "Dns.Dnsrr.ipv4",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2198" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "int32" } }, 
+              { "type": 
+                  { "name": "Dns.Dnsrr.cstr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2215" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "string Dns.Hashcons.hash_consed" } }, 
+              { "type": 
+                  { "name": "Dns.Dnsrr.dnsnode",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2254" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "owner",
+                            "mutable": false,
+                            "type": "string list Dns.Hashcons.hash_consed" }, 
+                          { "name": "rrsets",
+                            "mutable": true,
+                            "type": "Dns.Dnsrr.rrset list" } ] } } }, 
+              { "type": 
+                  { "name": "Dns.Dnsrr.rrset",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2346" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "ttl",
+                            "mutable": false,
+                            "type": "int32" }, 
+                          { "name": "rdata",
+                            "mutable": false,
+                            "type": "Dns.Dnsrr.rdata" } ] } } }, 
+              { "type": 
+                  { "name": "Dns.Dnsrr.rdata",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|2390" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "variant",
+                        "private": "false",
+                        "constructors": [ 
+                          { "name": "A",
+                            "type": [ "Dns.Dnsrr.ipv4 list" ] }, 
+                          { "name": "NS",
+                            "type": [ "Dns.Dnsrr.dnsnode list" ] }, 
+                          { "name": "CNAME",
+                            "type": [ "Dns.Dnsrr.dnsnode list" ] }, 
+                          { "name": "SOA",
+                            "type": [ "(Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode * Dns.Dnsrr.serial * int32 * int32 *\n   int32 * int32)\n  list" ] }, 
+                          { "name": "MB",
+                            "type": [ "Dns.Dnsrr.dnsnode list" ] }, 
+                          { "name": "MG",
+                            "type": [ "Dns.Dnsrr.dnsnode list" ] }, 
+                          { "name": "MR",
+                            "type": [ "Dns.Dnsrr.dnsnode list" ] }, 
+                          { "name": "WKS",
+                            "type": [ "(int32 * int * Dns.Dnsrr.cstr) list" ] }, 
+                          { "name": "PTR",
+                            "type": [ "Dns.Dnsrr.dnsnode list" ] }, 
+                          { "name": "HINFO",
+                            "type": [ "(Dns.Dnsrr.cstr * Dns.Dnsrr.cstr) list" ] }, 
+                          { "name": "MINFO",
+                            "type": [ "(Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode) list" ] }, 
+                          { "name": "MX",
+                            "type": [ "(int * Dns.Dnsrr.dnsnode) list" ] }, 
+                          { "name": "TXT",
+                            "type": [ "Dns.Dnsrr.cstr list list" ] }, 
+                          { "name": "RP",
+                            "type": [ "(Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode) list" ] }, 
+                          { "name": "AFSDB",
+                            "type": [ "(int * Dns.Dnsrr.dnsnode) list" ] }, 
+                          { "name": "X25",
+                            "type": [ "Dns.Dnsrr.cstr list" ] }, 
+                          { "name": "ISDN",
+                            "type": [ "(Dns.Dnsrr.cstr * Dns.Dnsrr.cstr option) list" ] }, 
+                          { "name": "RT",
+                            "type": [ "(int * Dns.Dnsrr.dnsnode) list" ] }, 
+                          { "name": "AAAA",
+                            "type": [ "Dns.Dnsrr.cstr list" ] }, 
+                          { "name": "SRV",
+                            "type": [ "(int * int * int * Dns.Dnsrr.dnsnode) list" ] }, 
+                          { "name": "UNSPEC",
+                            "type": [ "Dns.Dnsrr.cstr list" ] }, 
+                          { "name": "Unknown",
+                            "type": [ "int", "Dns.Dnsrr.cstr list" ] } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnsrr.hashcons_charstring",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3103" },
+                    "info": "",
+                    "type": "string -> Dns.Dnsrr.cstr",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsrr.hashcons_domainname",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3144" },
+                    "info": "",
+                    "type": "string list -> string list Dns.Hashcons.hash_consed",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsrr.clear_cons_tables",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3218" },
+                    "info": "",
+                    "type": "unit -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "unit" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsrr.get_rrsets",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3373" },
+                    "info": "",
+                    "type": "[> `A\n   | `AAAA\n   | `AFSDB\n   | `ANY\n   | `CNAME\n   | `HINFO\n   | `ISDN\n   | `MAILB\n   | `MB\n   | `MG\n   | `MINFO\n   | `MR\n   | `MX\n   | `NS\n   | `PTR\n   | `RP\n   | `RT\n   | `SOA\n   | `SRV\n   | `TXT\n   | `UNSPEC\n   | `Unknown of int * string\n   | `WKS\n   | `X25 ] ->\n  Dns.Dnsrr.rrset list -> bool -> Dns.Dnsrr.rrset list",
+                    "params": [ 
+                      { "name": "",
+                        "type": "[> `A\n   | `AAAA\n   | `AFSDB\n   | `ANY\n   | `CNAME\n   | `HINFO\n   | `ISDN\n   | `MAILB\n   | `MB\n   | `MG\n   | `MINFO\n   | `MR\n   | `MX\n   | `NS\n   | `PTR\n   | `RP\n   | `RT\n   | `SOA\n   | `SRV\n   | `TXT\n   | `UNSPEC\n   | `Unknown of int * string\n   | `WKS\n   | `X25 ]" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsrr.rrset list" }, 
+                      { "name": "",
+                        "type": "bool" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsrr.merge_rrset",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3799" },
+                    "info": "",
+                    "type": "Dns.Dnsrr.rrset -> Dns.Dnsrr.rrset list -> int32 * Dns.Dnsrr.rrset list",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnsrr.rrset" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsrr.rrset list" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnstrie",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3863" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Dns.Dnstrie.dnstrie",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3891" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" } } }, 
+              { "type": 
+                  { "name": "Dns.Dnstrie.key",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3931" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" } } }, 
+              { "exception": 
+                  { "name": "Dns.Dnstrie.BadDomainName",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|3970" },
+                    "info": "",
+                    "exception_args": [ "string" ] } }, 
+              { "exception": 
+                  { "name": "Dns.Dnstrie.TrieCorrupt",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|4039" },
+                    "info": "" } }, 
+              { "value": 
+                  { "name": "Dns.Dnstrie.canon2key",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|4237" },
+                    "info": "",
+                    "type": "string list -> Dns.Dnstrie.key",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnstrie.new_trie",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|4304" },
+                    "info": "",
+                    "type": "unit -> Dns.Dnstrie.dnstrie",
+                    "params": [ 
+                      { "name": "",
+                        "type": "unit" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnstrie.simple_lookup",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|4385" },
+                    "info": "",
+                    "type": "Dns.Dnstrie.key -> Dns.Dnstrie.dnstrie -> Dns.Dnsrr.dnsnode option",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.key" }, 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.dnstrie" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnstrie.lookup",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|4501" },
+                    "info": "",
+                    "type": "Dns.Dnstrie.key ->\n  Dns.Dnstrie.dnstrie ->\n  [> `Delegated of bool * Dns.Dnsrr.dnsnode\n   | `Found of bool * Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode\n   | `NXDomain of Dns.Dnsrr.dnsnode\n   | `NXDomainNSEC of Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode\n   | `NoError of Dns.Dnsrr.dnsnode\n   | `NoErrorNSEC of Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode\n   | `Wildcard of Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode\n   | `WildcardNSEC of Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode * Dns.Dnsrr.dnsnode ]",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.key" }, 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.dnstrie" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnstrie.lookup_or_insert",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5032" },
+                    "info": "",
+                    "type": "Dns.Dnstrie.key ->\n  Dns.Dnstrie.dnstrie ->\n  ?parent:Dns.Dnstrie.dnstrie ->\n  (unit -> Dns.Dnsrr.dnsnode) -> Dns.Dnsrr.dnsnode",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.key" }, 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.dnstrie" }, 
+                      { "name": "parent",
+                        "type": "Dns.Dnstrie.dnstrie option" }, 
+                      { "name": "",
+                        "type": "unit -> Dns.Dnsrr.dnsnode" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnstrie.fix_flags",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5235" },
+                    "info": "",
+                    "type": "Dns.Dnstrie.key -> Dns.Dnstrie.dnstrie -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.key" }, 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.dnstrie" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnsloader",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5279" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Dns.Dnsloader.db",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5385" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "trie",
+                            "mutable": false,
+                            "type": "Dns.Dnstrie.dnstrie" }, 
+                          { "name": "names",
+                            "mutable": true,
+                            "type": "(Dns.Dnstrie.key, Dns.Dnsrr.dnsnode) Hashtbl.t" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.new_db",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5515" },
+                    "info": "",
+                    "type": "unit -> Dns.Dnsloader.db",
+                    "params": [ 
+                      { "name": "",
+                        "type": "unit" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.no_more_updates",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5597" },
+                    "info": "",
+                    "type": "Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_generic_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5696" },
+                    "info": "",
+                    "type": "int -> string -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_a_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5769" },
+                    "info": "",
+                    "type": "Dns.Dnsrr.ipv4 -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnsrr.ipv4" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_ns_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5833" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_cname_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5899" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_soa_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|5968" },
+                    "info": "",
+                    "type": "string list ->\n  string list ->\n  Dns.Dnsrr.serial ->\n  int32 ->\n  int32 -> int32 -> int32 -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsrr.serial" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_mb_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6116" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_mg_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6182" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_mr_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6248" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_wks_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6314" },
+                    "info": "",
+                    "type": "int32 -> int -> string -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_ptr_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6392" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_hinfo_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6459" },
+                    "info": "",
+                    "type": "string -> string -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_minfo_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6533" },
+                    "info": "",
+                    "type": "string list ->\n  string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_mx_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6622" },
+                    "info": "",
+                    "type": "int -> string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_txt_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6695" },
+                    "info": "",
+                    "type": "string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_rp_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6762" },
+                    "info": "",
+                    "type": "string list ->\n  string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_afsdb_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6847" },
+                    "info": "",
+                    "type": "int -> string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_x25_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6923" },
+                    "info": "",
+                    "type": "string -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_isdn_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|6985" },
+                    "info": "",
+                    "type": "string -> string option -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "string option" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_rt_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7065" },
+                    "info": "",
+                    "type": "int -> string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_aaaa_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7138" },
+                    "info": "",
+                    "type": "string -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_srv_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7201" },
+                    "info": "",
+                    "type": "int ->\n  int -> int -> string list -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.add_unspec_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7291" },
+                    "info": "",
+                    "type": "string -> int32 -> string list -> Dns.Dnsloader.db -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnsloader.db" } ] } }, 
+              { "exception": 
+                  { "name": "Dns.Dnsloader.TTLMismatch",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7594" },
+                    "info": "" } }, 
+              { "type": 
+                  { "name": "Dns.Dnsloader.parserstate",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7670" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "db",
+                            "mutable": true,
+                            "type": "Dns.Dnsloader.db" }, 
+                          { "name": "paren",
+                            "mutable": true,
+                            "type": "int" }, 
+                          { "name": "filename",
+                            "mutable": true,
+                            "type": "string" }, 
+                          { "name": "lineno",
+                            "mutable": true,
+                            "type": "int" }, 
+                          { "name": "origin",
+                            "mutable": true,
+                            "type": "string list" }, 
+                          { "name": "ttl",
+                            "mutable": true,
+                            "type": "int32" }, 
+                          { "name": "owner",
+                            "mutable": true,
+                            "type": "string list" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnsloader.state",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7878" },
+                    "info": "",
+                    "type": "Dns.Dnsloader.parserstate",
+                    "params": [  ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnspacket",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7906" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "exception": 
+                  { "name": "Dns.Dnspacket.Unparsable",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7931" },
+                    "info": "",
+                    "exception_args": [ "string", "Bitstring.bitstring" ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(|>)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|7985" },
+                    "info": "",
+                    "type": "'a -> ('a -> 'b) -> 'b",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a" }, 
+                      { "name": "",
+                        "type": "'a -> 'b" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(>>)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8021" },
+                    "info": "",
+                    "type": "('a -> 'b) -> ('b -> 'c) -> 'a -> 'c",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a -> 'b" }, 
+                      { "name": "",
+                        "type": "'a -> 'b" }, 
+                      { "name": "",
+                        "type": "'a" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(||>)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8071" },
+                    "info": "",
+                    "type": "'a list -> ('a -> 'b) -> 'b list",
+                    "params": [ 
+                      { "name": "",
+                        "type": "'a list" }, 
+                      { "name": "",
+                        "type": "'a -> 'b" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(+++)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8118" },
+                    "info": "",
+                    "type": "int32 -> int32 -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(&&&)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8156" },
+                    "info": "",
+                    "type": "int32 -> int32 -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(|||)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8194" },
+                    "info": "",
+                    "type": "int32 -> int32 -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(^^^)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8232" },
+                    "info": "",
+                    "type": "int32 -> int32 -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int32" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(<<<)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8270" },
+                    "info": "",
+                    "type": "int32 -> int -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.(>>>)",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8306" },
+                    "info": "",
+                    "type": "int32 -> int -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" }, 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.join",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8342" },
+                    "info": "",
+                    "type": "string -> string list -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "string list" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.stop",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8385" },
+                    "info": "",
+                    "type": "'a * 'b -> 'a",
+                    "params": [ 
+                      { "tuple": 
+                          { "type": "'a * 'b",
+                            "contents": [ 
+                              { "name": "",
+                                "type": "'a" }, 
+                              { "name": "",
+                                "type": "'a" } ] } } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.domain_name",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8415" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "string list" } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.int16",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8446" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "int" } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.ipv4",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8463" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "int32" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.ipv4_to_string",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8476" },
+                    "info": "",
+                    "type": "int32 -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int32" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.byte",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8518" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "char" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.byte",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8530" },
+                    "info": "",
+                    "type": "int -> Dns.Dnspacket.byte",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_byte",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8553" },
+                    "info": "",
+                    "type": "char -> int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "char" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int32_of_byte",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8583" },
+                    "info": "",
+                    "type": "char -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "char" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int32_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8617" },
+                    "info": "",
+                    "type": "int -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.bytes",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8654" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "string" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.bytes_to_hex_string",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8669" },
+                    "info": "",
+                    "type": "char array -> string array",
+                    "params": [ 
+                      { "name": "",
+                        "type": "char array" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.bytes_of_bitstring",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8722" },
+                    "info": "",
+                    "type": "Bitstring.bitstring -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.ipv4_addr_of_bytes",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8777" },
+                    "info": "",
+                    "type": "string -> int32",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.label",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8823" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "variant",
+                        "private": "false",
+                        "constructors": [ 
+                          { "name": "L",
+                            "type": [ "string", "int" ] }, 
+                          { "name": "P",
+                            "type": [ "int", "int" ] }, 
+                          { "name": "Z",
+                            "type": [ "int" ] } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_charstr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8877" },
+                    "info": "",
+                    "type": "string * int * int -> string * (string * int * int)",
+                    "params": [ 
+                      { "tuple": 
+                          { "type": "string * int * int",
+                            "contents": [ 
+                              { "name": "",
+                                "type": "string" }, 
+                              { "name": "",
+                                "type": "int" }, 
+                              { "name": "",
+                                "type": "int" } ] } } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_label",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|8949" },
+                    "info": "",
+                    "type": "int -> Bitstring.bitstring -> Dns.Dnspacket.label * (string * int * int)",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_name",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|9026" },
+                    "info": "",
+                    "type": "(int, Dns.Dnspacket.label) Hashtbl.t ->\n  int -> Bitstring.bitstring -> string list * Bitstring.bitstring",
+                    "params": [ 
+                      { "name": "",
+                        "type": "(int, Dns.Dnspacket.label) Hashtbl.t" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.rr_type",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|9138" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `A\n  | `A6\n  | `AAAA\n  | `AFSDB\n  | `APL\n  | `ATMA\n  | `CERT\n  | `CNAME\n  | `DNAME\n  | `DNSKEY\n  | `DS\n  | `EID\n  | `GID\n  | `GPOS\n  | `HINFO\n  | `IPSECKEY\n  | `ISDN\n  | `KEY\n  | `KM\n  | `LOC\n  | `MB\n  | `MD\n  | `MF\n  | `MG\n  | `MINFO\n  | `MR\n  | `MX\n  | `NAPTR\n  | `NIMLOC\n  | `NS\n  | `NSAP\n  | `NSAP_PTR\n  | `NSEC\n  | `NULL\n  | `NXT\n  | `OPT\n  | `PTR\n  | `PX\n  | `RP\n  | `RRSIG\n  | `RT\n  | `SIG\n  | `SINK\n  | `SOA\n  | `SPF\n  | `SRV\n  | `SSHFP\n  | `TXT\n  | `UID\n  | `UINFO\n  | `UNSPEC\n  | `Unknown of int * Dns.Dnspacket.bytes\n  | `WKS\n  | `X25 ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_rr_type",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|9794" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.rr_type -> int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.rr_type" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.rr_type_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|9830" },
+                    "info": "",
+                    "type": "int -> Dns.Dnspacket.rr_type",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.string_of_rr_type",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|9866" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.rr_type -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.rr_type" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.rr_rdata",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|9913" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `A of int32\n  | `AAAA of Dns.Dnspacket.bytes\n  | `AFSDB of Dns.Dnspacket.int16 * Dns.Dnspacket.domain_name\n  | `CNAME of Dns.Dnspacket.domain_name\n  | `HINFO of string * string\n  | `ISDN of string\n  | `MB of Dns.Dnspacket.domain_name\n  | `MD of Dns.Dnspacket.domain_name\n  | `MF of Dns.Dnspacket.domain_name\n  | `MG of Dns.Dnspacket.domain_name\n  | `MINFO of Dns.Dnspacket.domain_name * Dns.Dnspacket.domain_name\n  | `MR of Dns.Dnspacket.domain_name\n  | `MX of Dns.Dnspacket.int16 * Dns.Dnspacket.domain_name\n  | `NS of Dns.Dnspacket.domain_name\n  | `PTR of Dns.Dnspacket.domain_name\n  | `RP of Dns.Dnspacket.domain_name * Dns.Dnspacket.domain_name\n  | `RT of Dns.Dnspacket.int16 * Dns.Dnspacket.domain_name\n  | `SOA of\n      Dns.Dnspacket.domain_name * Dns.Dnspacket.domain_name * int32 * int32 *\n      int32 * int32 * int32\n  | `SRV of\n      Dns.Dnspacket.int16 * Dns.Dnspacket.int16 * Dns.Dnspacket.int16 *\n      Dns.Dnspacket.domain_name\n  | `TXT of string list\n  | `UNKNOWN of int * Dns.Dnspacket.bytes\n  | `UNSPEC of Dns.Dnspacket.bytes\n  | `WKS of int32 * Dns.Dnspacket.byte * string\n  | `X25 of string ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.string_of_rdata",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|10680" },
+                    "info": "",
+                    "type": "[> `A of int32 | `NS of string list ] -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "[> `A of int32 | `NS of string list ]" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_rdata",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|10750" },
+                    "info": "",
+                    "type": "(int, Dns.Dnspacket.label) Hashtbl.t ->\n  int ->\n  Dns.Dnspacket.rr_type ->\n  Bitstring.bitstring ->\n  [> `A of int32\n   | `CNAME of string list\n   | `HINFO of string * string\n   | `MINFO of string list * string list\n   | `MX of int * string list\n   | `NS of string list\n   | `PTR of string list\n   | `SOA of string list * string list * int32 * int32 * int32 * int32 * int32\n   | `TXT of 'a\n   | `UNKNOWN of int * string\n   | `WKS of int32 * Dns.Dnspacket.byte * string ]",
+                    "params": [ 
+                      { "name": "",
+                        "type": "(int, Dns.Dnspacket.label) Hashtbl.t" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.rr_type" }, 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.rr_class",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11197" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `CH | `CS | `HS | `IN ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_rr_class",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11234" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.rr_class -> int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.rr_class" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.rr_class_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11272" },
+                    "info": "",
+                    "type": "int -> Dns.Dnspacket.rr_class",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.string_of_rr_class",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11310" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.rr_class -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.rr_class" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.rsrc_record",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11359" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "rr_name",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.domain_name" }, 
+                          { "name": "rr_class",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rr_class" }, 
+                          { "name": "rr_ttl",
+                            "mutable": false,
+                            "type": "int32" }, 
+                          { "name": "rr_rdata",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rr_rdata" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.rr_to_string",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11466" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.rsrc_record -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.rsrc_record" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_rr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11507" },
+                    "info": "",
+                    "type": "(int, Dns.Dnspacket.label) Hashtbl.t ->\n  int ->\n  Bitstring.bitstring -> Dns.Dnspacket.rsrc_record * (string * int * int)",
+                    "params": [ 
+                      { "name": "",
+                        "type": "(int, Dns.Dnspacket.label) Hashtbl.t" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.q_type",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|11618" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `A\n  | `A6\n  | `AAAA\n  | `AFSDB\n  | `ANY\n  | `APL\n  | `ATMA\n  | `AXFR\n  | `CERT\n  | `CNAME\n  | `DLV\n  | `DNAME\n  | `DNSKEY\n  | `DS\n  | `EID\n  | `GID\n  | `GPOS\n  | `HINFO\n  | `IPSECKEY\n  | `ISDN\n  | `KEY\n  | `KM\n  | `LOC\n  | `MAILA\n  | `MAILB\n  | `MB\n  | `MD\n  | `MF\n  | `MG\n  | `MINFO\n  | `MR\n  | `MX\n  | `NAPTR\n  | `NIMLOC\n  | `NS\n  | `NSAP\n  | `NSAP_PTR\n  | `NSEC\n  | `NULL\n  | `NXT\n  | `OPT\n  | `PTR\n  | `PX\n  | `RP\n  | `RRSIG\n  | `RT\n  | `SIG\n  | `SINK\n  | `SOA\n  | `SPF\n  | `SRV\n  | `SSHFP\n  | `TA\n  | `TXT\n  | `UID\n  | `UINFO\n  | `UNSPEC\n  | `Unknown of int * Dns.Dnspacket.bytes\n  | `WKS\n  | `X25 ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_q_type",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12343" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.q_type -> int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.q_type" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.q_type_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12377" },
+                    "info": "",
+                    "type": "int -> Dns.Dnspacket.q_type",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.string_of_q_type",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12411" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.q_type -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.q_type" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.q_class",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12456" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `ANY | `CH | `CS | `HS | `IN | `NONE ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_q_class",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12507" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.q_class -> int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.q_class" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.q_class_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12543" },
+                    "info": "",
+                    "type": "int -> Dns.Dnspacket.q_class",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.string_of_q_class",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12579" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.q_class -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.q_class" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.question",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12626" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "q_name",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.domain_name" }, 
+                          { "name": "q_type",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.q_type" }, 
+                          { "name": "q_class",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.q_class" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.question_to_string",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12699" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.question -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.question" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_question",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12743" },
+                    "info": "",
+                    "type": "(int, Dns.Dnspacket.label) Hashtbl.t ->\n  int -> Bitstring.bitstring -> Dns.Dnspacket.question * (string * int * int)",
+                    "params": [ 
+                      { "name": "",
+                        "type": "(int, Dns.Dnspacket.label) Hashtbl.t" }, 
+                      { "name": "",
+                        "type": "int" }, 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.qr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12857" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `Answer | `Query ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.qr_of_bool",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12883" },
+                    "info": "",
+                    "type": "bool -> [> `Answer | `Query ]",
+                    "params": [ 
+                      { "name": "",
+                        "type": "bool" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.bool_of_qr",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12930" },
+                    "info": "",
+                    "type": "[< `Answer | `Query ] -> bool",
+                    "params": [ 
+                      { "name": "",
+                        "type": "[< `Answer | `Query ]" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.opcode",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|12982" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `Answer | `Notify | `Query | `Reserved | `Status | `Update ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.opcode_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|13054" },
+                    "info": "",
+                    "type": "int -> [> `Answer | `Notify | `Query | `Reserved | `Status | `Update ]",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_opcode",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|13145" },
+                    "info": "",
+                    "type": "[> `Answer | `Notify | `Query | `Reserved | `Status | `Update ] -> int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "[> `Answer | `Notify | `Query | `Reserved | `Status | `Update ]" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.rcode",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|13241" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "abstract" },
+                    "manifest": "[ `BadAlg\n  | `BadKey\n  | `BadMode\n  | `BadName\n  | `BadTime\n  | `BadVers\n  | `FormErr\n  | `NXDomain\n  | `NXRRSet\n  | `NoError\n  | `NotAuth\n  | `NotImp\n  | `NotZone\n  | `Refused\n  | `ServFail\n  | `YXDomain\n  | `YXRRSet ]" } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.rcode_of_int",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|13506" },
+                    "info": "",
+                    "type": "int ->\n  [> `BadAlg\n   | `BadKey\n   | `BadMode\n   | `BadName\n   | `BadTime\n   | `BadVers\n   | `FormErr\n   | `NXDomain\n   | `NXRRSet\n   | `NoError\n   | `NotAuth\n   | `NotImp\n   | `NotZone\n   | `Refused\n   | `ServFail\n   | `YXDomain\n   | `YXRRSet ]",
+                    "params": [ 
+                      { "name": "",
+                        "type": "int" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.int_of_rcode",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|13774" },
+                    "info": "",
+                    "type": "[> `BadAlg\n   | `BadKey\n   | `BadMode\n   | `BadName\n   | `BadTime\n   | `BadVers\n   | `FormErr\n   | `NXDomain\n   | `NXRRSet\n   | `NoError\n   | `NotAuth\n   | `NotImp\n   | `NotZone\n   | `Refused\n   | `ServFail\n   | `YXDomain\n   | `YXRRSet ] ->\n  int",
+                    "params": [ 
+                      { "name": "",
+                        "type": "[> `BadAlg\n   | `BadKey\n   | `BadMode\n   | `BadName\n   | `BadTime\n   | `BadVers\n   | `FormErr\n   | `NXDomain\n   | `NXRRSet\n   | `NoError\n   | `NotAuth\n   | `NotImp\n   | `NotZone\n   | `Refused\n   | `ServFail\n   | `YXDomain\n   | `YXRRSet ]" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.detail",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14047" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "qr",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.qr" }, 
+                          { "name": "opcode",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.opcode" }, 
+                          { "name": "aa",
+                            "mutable": false,
+                            "type": "bool" }, 
+                          { "name": "tc",
+                            "mutable": false,
+                            "type": "bool" }, 
+                          { "name": "rd",
+                            "mutable": false,
+                            "type": "bool" }, 
+                          { "name": "ra",
+                            "mutable": false,
+                            "type": "bool" }, 
+                          { "name": "rcode",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rcode" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.detail_to_string",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14159" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.detail -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.detail" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_detail",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14199" },
+                    "info": "",
+                    "type": "string * int * int -> Dns.Dnspacket.detail",
+                    "params": [ 
+                      { "tuple": 
+                          { "type": "string * int * int",
+                            "contents": [ 
+                              { "name": "",
+                                "type": "string" }, 
+                              { "name": "",
+                                "type": "int" }, 
+                              { "name": "",
+                                "type": "int" } ] } } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.build_detail",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14247" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.detail -> Bitstring.bitstring",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.detail" } ] } }, 
+              { "type": 
+                  { "name": "Dns.Dnspacket.dns",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14301" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "id",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.int16" }, 
+                          { "name": "detail",
+                            "mutable": false,
+                            "type": "Bitstring.t" }, 
+                          { "name": "questions",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.question list" }, 
+                          { "name": "answers",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rsrc_record list" }, 
+                          { "name": "authorities",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rsrc_record list" }, 
+                          { "name": "additionals",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rsrc_record list" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.dns_to_string",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14476" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.dns -> string",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.dns" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.parse_dns",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14510" },
+                    "info": "",
+                    "type": "(int, Dns.Dnspacket.label) Hashtbl.t ->\n  Bitstring.bitstring -> Dns.Dnspacket.dns",
+                    "params": [ 
+                      { "name": "",
+                        "type": "(int, Dns.Dnspacket.label) Hashtbl.t" }, 
+                      { "name": "",
+                        "type": "Bitstring.bitstring" } ] } }, 
+              { "value": 
+                  { "name": "Dns.Dnspacket.marshal",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14579" },
+                    "info": "",
+                    "type": "Dns.Dnspacket.dns -> Bitstring.bitstring",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.dns" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnsquery",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14624" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Dns.Dnsquery.query_answer",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14653" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "record",
+                        "private": "false",
+                        "fields": [ 
+                          { "name": "rcode",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rcode" }, 
+                          { "name": "aa",
+                            "mutable": false,
+                            "type": "bool" }, 
+                          { "name": "answer",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rsrc_record list" }, 
+                          { "name": "authority",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rsrc_record list" }, 
+                          { "name": "additional",
+                            "mutable": false,
+                            "type": "Dns.Dnspacket.rsrc_record list" } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnsquery.answer_query",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14833" },
+                    "info": "",
+                    "type": "string list ->\n  Dns.Dnspacket.q_type -> Dns.Dnstrie.dnstrie -> Dns.Dnsquery.query_answer",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "Dns.Dnspacket.q_type" }, 
+                      { "name": "",
+                        "type": "Dns.Dnstrie.dnstrie" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnsparser",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14926" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "type": 
+                  { "name": "Dns.Dnsparser.token",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|14954" },
+                    "info": "",
+                    "params": [  ],
+                    "kind": 
+                      { "type": "variant",
+                        "private": "false",
+                        "constructors": [ 
+                          { "name": "EOF",
+                            "type": [  ] }, 
+                          { "name": "EOL",
+                            "type": [  ] }, 
+                          { "name": "SORIGIN",
+                            "type": [  ] }, 
+                          { "name": "STTL",
+                            "type": [  ] }, 
+                          { "name": "AT",
+                            "type": [  ] }, 
+                          { "name": "DOT",
+                            "type": [  ] }, 
+                          { "name": "SPACE",
+                            "type": [  ] }, 
+                          { "name": "GENERIC",
+                            "type": [  ] }, 
+                          { "name": "NUMBER",
+                            "type": [ "string" ] }, 
+                          { "name": "CHARSTRING",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_A",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NS",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MD",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MF",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_CNAME",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_SOA",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MB",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MG",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MR",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NULL",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_WKS",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_PTR",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_HINFO",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MINFO",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MX",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_TXT",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_RP",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_AFSDB",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_X25",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_ISDN",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_RT",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NSAP",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NSAP_PTR",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_SIG",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_KEY",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_PX",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_GPOS",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_AAAA",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_LOC",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NXT",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_EID",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NIMLOC",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_SRV",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_ATMA",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NAPTR",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_KX",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_CERT",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_A6",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_DNAME",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_SINK",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_OPT",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_APL",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_DS",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_SSHFP",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_IPSECKEY",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_RRSIG",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_NSEC",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_DNSKEY",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_SPF",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_UINFO",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_UID",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_GID",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_UNSPEC",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_TKEY",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_TSIG",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MAILB",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_MAILA",
+                            "type": [ "string" ] }, 
+                          { "name": "TYPE_GENERIC",
+                            "type": [ "string" ] }, 
+                          { "name": "CLASS_IN",
+                            "type": [ "string" ] }, 
+                          { "name": "CLASS_CS",
+                            "type": [ "string" ] }, 
+                          { "name": "CLASS_CH",
+                            "type": [ "string" ] }, 
+                          { "name": "CLASS_HS",
+                            "type": [ "string" ] } ] } } }, 
+              { "value": 
+                  { "name": "Dns.Dnsparser.zfile",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|16678" },
+                    "info": "",
+                    "type": "(Lexing.lexbuf -> Dns.Dnsparser.token) -> Lexing.lexbuf -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "Lexing.lexbuf -> Dns.Dnsparser.token" }, 
+                      { "name": "",
+                        "type": "Lexing.lexbuf" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Dnsserver",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|16747" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "value": 
+                  { "name": "Dns.Dnsserver.load_zone",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|16772" },
+                    "info": "",
+                    "type": "string list -> string -> unit",
+                    "params": [ 
+                      { "name": "",
+                        "type": "string list" }, 
+                      { "name": "",
+                        "type": "string" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } }, 
+      { "module": 
+          { "name": "Dns.Server",
+            "file": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli",
+            "location": 
+              { "implementation": "unknown",
+                "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|16822" },
+            "info": "",
+            "type": "sig  end",
+            "module_structure": [ 
+              { "value": 
+                  { "name": "Dns.Server.listen",
+                    "location": 
+                      { "implementation": "unknown",
+                        "interface": "/Users/avsm/src/git/avsm/mirage/lib/_build/unix-socket/std/dns.mli|16965" },
+                    "info": "",
+                    "type": "?mode:[< `leaky | `none > `none ] ->\n  zonebuf:string ->\n  Net.Datagram.UDPv4.mgr -> Net.Datagram.UDPv4.src -> unit Lwt.t",
+                    "params": [ 
+                      { "name": "mode",
+                        "type": "[< `leaky | `none > `none ] option" }, 
+                      { "name": "zonebuf",
+                        "type": "string" }, 
+                      { "name": "",
+                        "type": "Net.Datagram.UDPv4.mgr" }, 
+                      { "name": "",
+                        "type": "Net.Datagram.UDPv4.src" } ] } } ],
+            "dependencies": 
+              { "uses": [  ] } } } ],
+    "dependencies": 
+      { "uses": [ "Net", "Lwt", "Lexing", "Hashtbl", "Bitstring", "*predef*" ],
+        "used_by": [  ] } } }
