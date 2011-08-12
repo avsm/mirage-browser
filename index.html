@@ -7,6 +7,7 @@
     <link type="text/css" href="css/layout-default-latest.css" rel="stylesheet" />  
     <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.jstree.js"></script>
     <script type="text/javascript" src="js/jquery.layout-latest.js"></script>
     <style type="text/css">
       /*demo page css*/
@@ -20,9 +21,10 @@
     </style>  
     <script type="text/javascript">
       var layout;
+      var infoj;
 
   $(document).ready(function () {
-
+    window.modj =  new Object();
     layout = $('body').layout({
       closable: true, resizable: true, slidable: true,
        north__slidable:    false  // OVERRIDE the pane-default of 'slidable=true'
@@ -61,8 +63,8 @@
       f.append($("<div />").addClass('sig-fun-descr').html(v.info.description));
       return f;
     }
-    function generateSig(data,sigdata) {
-      var name=data.name;
+    function generateSig(sigdata) {
+      var name=sigdata.module.name;
       var modstruct = sigdata.module.module_structure;
       var d = $("<div />").attr('id', signame(name));
       d.append($("<div />").addClass('sig-header').text(sigdata.module.name));
@@ -79,36 +81,29 @@
     }
 
     $('#ocaml_sigs').hide();
+
+    function renderTree(data) {
+      $('#ocaml_modules').jstree({
+        core: { animation: 20 },
+        plugins: ['themes', 'json_data', 'ui'],
+        themes: { icons: true, dots: true },
+        UI: { select_limit:-1 },
+        json_data: { 'data' : data.tree }
+      });
+    }
+
     $.ajax({
-      url: 'data/index.json',
+      url: 'data/info.json',
       dataType: 'json',
       error: function(x) { console.log('ERR'+x); },
       success: function(data) {
-        $.each(data, function(i) {
-          var name=data[i].name;
-          $.ajax({
-           url: 'data/'+name+'.json',
-           dataType: 'json',
-           error: function(x) { console.log('ERR2'+x); },
-           success: function(sigdata) {
-             $('#ocaml_sigs').append(generateSig(data[i], sigdata)); 
-             $('#ocaml_modules').append(
-               $('<div />').attr('id',modname(name)).text(name));
-             $('#'+modname(name)).click(function () { 
-                $('#'+selectedMenu).removeClass('ui-selected');
-                selectedMenu=modname(name);
-                $('#'+selectedMenu).addClass('ui-selected');
-                $('#current_sig').html($('#'+signame(name)));
-              });
-           }});
+        renderTree(data);
+        $.each(data.info, function(m) {
+          $('#ocaml_sigs').append(generateSig(data.info[m]));
         });
       }
     });
-  
    });
-
-   
-
     </script>
    
   </head>
