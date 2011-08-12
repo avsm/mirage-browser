@@ -89,6 +89,12 @@
         themes: { icons: true, dots: true },
         UI: { select_limit:-1 },
         json_data: { 'data' : data.tree }
+      }).bind("select_node.jstree", function (e, id) { 
+        var a = $.jstree._focused().get_selected()[0].id.replace(/^tree/,"");
+        console.log(modname(a));
+        console.log($('#'+modname(a)));
+        $('#current_sig').html($('#'+signame(a)));
+
       });
     }
 
