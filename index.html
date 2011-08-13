@@ -35,6 +35,8 @@
          if (x.type) {
            var s = "type ";
            $.each(x.type.params, function (p) {
+             if (x.type.params[p].covariant && !x.type.params[p].contravariant) s += "+";
+             if (!x.type.params[p].covariant && x.type.params[p].contravariant) s += "-";
              s = s + x.type.params[p].type + " ";
            });
            s += stripModule(x.type.name);
