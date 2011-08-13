@@ -13,7 +13,6 @@
   $(document).ready(function () {
     function signame(x) { return ('sig'+x); }
     function modname(x) { return ('mod'+x); }
-    function stripModule(x) { return x.replace(/^\w+\./,''); }
 
     /* Convert an info description into HTML nodes */
     $.fn.addInfo = function(info) {  
@@ -24,23 +23,31 @@
 
     /* Convert a signature data structure into HTML nodes */
     $.fn.addSig = function(sigdata) {
+      function stripModule(x) { return x.replace(sigdata.module.name+".",''); }
       var name = sigdata.module.name;
       var modstruct = sigdata.module.module_structure;
       var d = $("<div />").attr('id', signame(name));
-      d.append($("<div />").addClass('sig-header').text(sigdata.module.name));
+      d.append($("<div />", { 'class':'sig-header', text:sigdata.module.name}));
       d.append($("<div />").addClass('sig-info').html(sigdata.module.info.description));
-      $.each(sigdata.module.module_structure, function(e) {
-         var x = sigdata.module.module_structure[e];
+      $.each(sigdata.module.module_structure, function(e,x) {
          d.append($("<div />").html($("<pre>"+JSON.stringify(x)+"</pre>")));
          if (x.type) {
            var s = "type ";
-           $.each(x.type.params, function (p) {
-             if (x.type.params[p].covariant && !x.type.params[p].contravariant) s += "+";
-             if (!x.type.params[p].covariant && x.type.params[p].contravariant) s += "-";
-             s = s + x.type.params[p].type + " ";
+           $.each(x.type.params, function (p,params) {
+             if (params.covariant && !params.contravariant) s += "+";
+             if (!params.covariant && params.contravariant) s += "-";
+             s = s + params.type + " ";
            });
            s += stripModule(x.type.name);
-           d.append($("<div />").addClass('sig-type').text(s).addInfo(x.type.info));
+           if (x.type.kind.type == "variant") {
+             s += " =";
+             $.each(x.type.kind.constructors, function(k,con) {
+               s += "<br />| " + con.name;
+               if (con.type.length > 0) s += " of " + $.map(con.type, stripModule).join(' * ');
+               if (con.description) s += "  (* " + con.description + " *)";
+             });
+           }
+           d.append($("<div />").addClass('sig-type').html(s).addInfo(x.type.info));
          } else if (x.comment) {
            d.append($("<div />").addClass('sig-comment').html($.trim(x.comment)));
          } else if (x.value) {
