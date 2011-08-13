@@ -13,20 +13,17 @@
   $(document).ready(function () {
     function signame(x) { return ('sig'+x); }
     function modname(x) { return ('mod'+x); }
+    function stripModule(x) { return x.replace(/^\w+\./,''); }
 
-    function generateSigFun(modname, v) {
-      var f = $("<div />").addClass('sig-fun');
-      var fnname = v.name.replace(modname+'.','');
-      f.append(
-        $("<div/>").addClass('sig-fun-type').html(
-          $("<span/>").addClass('sig-fun-type-start').text('val '+fnname+' : '),
-          $("<span/>").addClass('sig-fun-type-body').text(v.type)
-        )
-      );
-      f.append($("<div />").addClass('sig-fun-descr').html(v.info.description));
-      return f;
-    }
-    function generateSig(sigdata) {
+    /* Convert an info description into HTML nodes */
+    $.fn.addInfo = function(info) {  
+      var s = info.description; /* TODO: rewrite the anchor tags within the descr */
+      var d = $('<div />').addClass('sig-description').html(s);
+      return $(this).append(d);
+    }  
+
+    /* Convert a signature data structure into HTML nodes */
+    $.fn.addSig = function(sigdata) {
       var name = sigdata.module.name;
       var modstruct = sigdata.module.module_structure;
       var d = $("<div />").attr('id', signame(name));
@@ -34,13 +31,25 @@
       d.append($("<div />").addClass('sig-info').html(sigdata.module.info.description));
       $.each(sigdata.module.module_structure, function(e) {
          var x = sigdata.module.module_structure[e];
-         if (x.comment) {
-           d.append($("<div />").addClass('sig-comment').html(x.comment));
+         d.append($("<div />").html($("<pre>"+JSON.stringify(x)+"</pre>")));
+         if (x.type) {
+           var s = "type ";
+           $.each(x.type.params, function (p) {
+             s = s + x.type.params[p].type + " ";
+           });
+           s += stripModule(x.type.name);
+           d.append($("<div />").addClass('sig-type').text(s).addInfo(x.type.info));
+         } else if (x.comment) {
+           d.append($("<div />").addClass('sig-comment').html($.trim(x.comment)));
          } else if (x.value) {
-           d.append(generateSigFun(name, x.value));
+           var s = "val " + stripModule(x.value.name) + ": " + x.value.type;
+           d.append($("<div />").addClass('sig-value').text(s).addInfo(x.value.info));
+         } else if (x.exception) {
+           var s = "exception " + x.exception.name;
+           d.append($("<div />").addClass('sig-exception').text(s).addInfo(x.exception.info));
          }
        });
-      return d;
+      return $(this).append(d);
     }
 
     $('#sigs').hide();
@@ -75,7 +84,7 @@
       success: function(data) {
         renderTree(data);
         $.each(data.info, function(m) {
-          $('#sigs').append(generateSig(data.info[m]));
+          $('#sigs').addSig(data.info[m]);
         });
       }
     });
